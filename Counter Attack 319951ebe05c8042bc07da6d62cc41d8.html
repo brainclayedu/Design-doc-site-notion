@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Counter Attack</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8042-bc07-da6d62cc41d8" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Counter Attack</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-8007-a4d2-c18e57b34ddf" class=""><strong>Counter Attack</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80a7-8530-e39602350aa8" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d6-b70f-cc34e5ce8d28" class="">The counter attack system aims to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bc-a14e-c8411653bc1e" class="bulleted-list"><li style="list-style-type:disc">Reward Precision Timing: Enhance attacks that interrupt opponent actions for greater impact.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b3-87bd-c0ddcea944c7" class="bulleted-list"><li style="list-style-type:disc">Facilitate Reaction Windows: Provide hitstop and slowdown for strategic response opportunities.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8058-b1ab-e301db2d13a1" class="bulleted-list"><li style="list-style-type:disc">Amplify Visual Feedback: Deliver clear, dramatic cues for successful counters across types.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808c-8cff-e2ab7c04b422" class="bulleted-list"><li style="list-style-type:disc">Integrate with Combat Flow: Balance counter hit effects within existing attack mechanics.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8002-a603-cb427f39e9ca" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e3-884d-e05e262498ae" class="">Counter Attack in The Fighting Game designates a Counter Hit as an attack that strikes an opponent before their attack’s recovery phase ends or during specific vulnerable recovery states, boosting damage and applying type-specific hitstop and slowdown effects to enhance readability and follow-up potential. With four Counter Hit types—Very Small, Small, Mid, and Large—this system escalates from subtle boosts to cinematic pauses, affecting both players and a surrounding radius, while Mid and Large types clear the input register for a tactical reset. Excluding Grabs and Control Skills as Punishes and Supers as immune, Counter Hits refine combat precision in both 1v1 duels and group scenarios, integrating seamlessly with the game’s mechanics.</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8074-91ba-c573a57465a8" class="">Core Counter Attack System</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8026-861b-e2066bfdf282" class="">Counter Attacks operate as follows:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80db-a79b-cbe98cd2282f" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Triggered by hitting an opponent during their attack’s active frames before recovery begins or during vulnerable recovery states—such as whiffed Grabs, Projectiles, non-attacking Specials, or DPs (dragon punches)—a Counter Hit increases the attack’s damage and applies type-specific effects; hitstop pauses both players (and potentially a radius) for reaction time, followed by local slowdown doubling the receiver’s frame duration in a rapid ramp that slows then accelerates back to normal—Mid and Large Counter Hits clear the input register, resetting queued actions for combo or defensive shifts.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c0-b05c-d16447c5854f" class="bulleted-list"><li style="list-style-type:disc">Types: Every Strike and Projectile attack has a Counter Hit type—Very Small, Small, Mid, and Large—determining properties:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-809a-9f77-ff60d921b6f3" class="bulleted-list"><li style="list-style-type:circle">Very Small: Base hitstop (attack-specific), no slowdown, no additional advantage—common for Projectiles and follow-up Specials.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ed-b935-dd75d1ddd7e3" class="bulleted-list"><li style="list-style-type:circle">Small: Base hitstop, 11 frames of immediate local slowdown, +6 frame advantage—rarely used.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8029-8555-c4af003e1e2f" class="bulleted-list"><li style="list-style-type:circle">Mid: 21 frames of hitstop overriding base values, 25 frames of local slowdown post-hitstop, +13 frame advantage, clears input register—typical for Strikes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8030-a079-f0b4d8c7ecd6" class="bulleted-list"><li style="list-style-type:circle">Large: 31 frames of hitstop overriding base values, 35 frames of local slowdown post-hitstop, +18 frame advantage, clears input register, camera zoom-in—strong Strikes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8027-86a6-d82283fec6a2" class="bulleted-list"><li style="list-style-type:circle">Grabs (Base state) and Control Skills (Impact state) cannot Counter Hit, registering as Punishes instead; Supers are immune to Counter Hits, even in startup—visual and audio cues escalate with type, from subtle to dramatic.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8098-b6ef-f7ed62477df9" class="bulleted-list"><li style="list-style-type:disc">States: Available across all states (Base, Focus, Impact, Guard) on ground or in air via Jump-ins—only Strikes and Projectiles trigger Counter Hits, with defaults to weapon-aligned attacks (e.g., longsword Slash) in Base or state normals (e.g., Light attack) in Aimed states when unspecified; local slowdown affects the opponent and a surrounding radius, enhancing group combat readability.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807a-b091-e96f3a07b9ef" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-800c-a542-ef040791af73" class="">Counter Attacks integrate with other combat systems to enhance gameplay:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801f-978a-cb8e3f9987ef" class="bulleted-list"><li style="list-style-type:disc">Attack Types: Strikes (light/heavy) and Projectiles (e.g., Base Forward + Light) across states trigger Counter Hits with type-specific effects—Grabs (Base Grab button) and Control Skills (Impact Grab button) register as Punishes, not Counter Hits, while Supers remain immune, aligning with &quot;Attack Types&quot; definitions; command normals like a Focus Forward + Heavy Strike can Counter Hit based on their type.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a1-ad98-d7d7ba5abb3a" class="bulleted-list"><li style="list-style-type:disc">Controls: Counter Hits utilize state-specific inputs—Base thumbstick for directional Strikes, Focus/Impact/Guard via Held State inputs (e.g., Impact Light button for Heavy Strikes)—air Counter Hits extend to Jump-ins, leveraging timing across all states’ air movesets without Grab or Control Skill eligibility.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806d-9f12-ec055af0e0e9" class="bulleted-list"><li style="list-style-type:disc">Attack Properties: Counter Hits boost damage without altering base properties like Cold or Bleed—e.g., a Base Heavy Strike Counter Hit increases damage output, with skills enhancing effects like Poison independently, maintaining clarity across &quot;Attack Properties.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8020-97b9-d05865254606" class="bulleted-list"><li style="list-style-type:disc">Attack Levels: Counter Hits amplify damage atop hitstun (e.g., Lv.2 = 16f)—hitstop pauses both players (e.g., Mid 21f), followed by slowdown (25f) and additional frame advantage (+13f) for the attacker, balanced via prototyping against &quot;Attack Levels&quot; startup speeds; hitstun applies post-hitstop to the receiver only, distinct from the universal pause.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8089-9abf-dcff5e5d83ad" class="bulleted-list"><li style="list-style-type:disc">Attack and damage Priority: Strikes and Projectiles as Counter Hits compete with opponent Strikes—Grabs and Control Skills punish without Counter Hit status, while Supers resist interruption; local slowdown radius aids multi-opponent control, with friendly fire risks potentially slowing allies or assists, reinforcing spacing dynamics.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80dd-94e1-faef297564f0" class="bulleted-list"><li style="list-style-type:disc">Normal Attacks: Counter Hits extend across air and ground movesets—e.g., a Base Light Strike or Focus Forward + Light Projectile can Counter Hit, with Mid/Large clearing inputs for resets—vulnerable recovery states (e.g., whiffed Projectiles) align with state mechanics.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b2-a23e-f872ae360ead" class="bulleted-list"><li style="list-style-type:disc">Jump In: Counter Hits enhance Deep Jump-ins—e.g., a late-hit Base Strike Counter Hit on wakeup boosts damage and frame advantage, amplifying okizeme pressure across states without Grab or Control Skill involvement.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f4-8309-fba6fd527076" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Counter Hits probe Neutral by punishing active or whiffed attacks, secure Advantage with amplified damage and frame advantage for follow-ups, and shift Prediction by resetting inputs—group combat scales via slowdown radius, impacting multiple foes with potential ally effects.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c5-b784-ffafda86de85" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8077-9e88-d5b6e2f3e3b7" class="bulleted-list"><li style="list-style-type:disc">Counter Hit Eligibility: Excluding Control Skills as Punishes alongside Grabs requires clarity against &quot;Attack Types&quot; Control priority or &quot;Normal Attacks&quot; Impact mechanics, risking ambiguity.<div style="display:contents" dir="auto"><p id="319951eb-e05c-8064-b89f-f92b903cf815" class="">Solution: Confirm Control Skills (Impact Grab button) as Punishes, not Counter Hits—prototyping will test Strikes and Projectiles against Control Skill recovery (e.g., Impact Control Skill whiff), refining &quot;Normal Attacks&quot; and &quot;Attack Types&quot; if Control Skill Counter Hit exclusion needs adjustment for consistency.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805b-aa84-ddb633ce3fc7" class="bulleted-list"><li style="list-style-type:disc">Frame Integration: Separating hitstop (e.g., Mid 21f pause for both) from hitstun (e.g., 16f receiver-only) and slowdown (25f) with additional frame advantage (+13f) may disrupt pacing—hitstop length needs smoothing.<div style="display:contents" dir="auto"><p id="319951eb-e05c-8061-b20c-d026eb6793e1" class="">Solution: Define hitstop as a universal pause, followed by hitstun and slowdown for the receiver—prototyping will test hitstop duration (e.g., reducing Mid from 21f to 15f) to smooth gameplay feel, ensuring reaction windows remain effective without stalling flow.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803f-9498-f0db305e9c53" class="bulleted-list"><li style="list-style-type:disc">Slowdown Radius: Local slowdown as a rapid ramp (e.g., Mid 25f) affects opponent and radius—undefined range risks slowing allies or assists per &quot;Attack and damage Priority&quot; friendly fire, impacting group combat readability.<div style="display:contents" dir="auto"><p id="319951eb-e05c-808c-9f08-f30b286e7fd1" class="">Solution: Set radius to opponent vicinity (e.g., ~2m)—prototyping will test slowdown’s multi-opponent utility and ally impact, adjusting range or excluding allies if friendly fire disrupts assist synergy, balancing readability with group dynamics.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803f-b08e-d568a846d30e" class="bulleted-list"><li style="list-style-type:disc">Group Combat Condition: Counter Hits require the opponent’s attack to target the player in group scenarios—multi-opponent complexity may misassign counters otherwise.<div style="display:contents" dir="auto"><p id="319951eb-e05c-8030-a511-f9dcc90cca58" class="">Solution: Implement a check ensuring the countered attack would hit the player—prototyping will validate this in group combat, refining detection to prevent false Counter Hits from stray attacks, aligning with &quot;Attack and damage Priority&quot; intent.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80b1-92cc-e03fca1dc41a" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801e-99bd-d76e2141fa80" class="">Counter Attacks enhance combat precision by rewarding strikes and projectiles that interrupt opponent actions—before recovery or during vulnerable states like whiffed Grabs—with increased damage and escalating effects from Very Small to Large types, including hitstop pauses, rapid local slowdown ramps, and frame advantage across all states. Integrating seamlessly with &quot;Attack Types,&quot; &quot;Control Skills,&quot; &quot;Attack Properties,&quot; &quot;Attack Levels,&quot; &quot;Attack and damage Priority,&quot; &quot;Normal Attacks,&quot; and &quot;Jump In,&quot; they exclude Grabs and Control Skill as Punishes and Supers as immune, scaling effectively for group combat through slowdown radius while managing friendly fire risks. Prototyping will refine eligibility, frame balance, radius impact, and group combat conditions, ensuring Counter Hits amplify the core loop’s strategic flow with clear, rewarding precision.</p></div><div style="display:contents" dir="ltr"><table id="319951eb-e05c-80e5-8287-f3080bbb5c46" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-805c-b9ff-c2b3058db75f"><td id="@u;w" class=""></td><td id="mszq" class=""></td><td id="=Ouv" class=""></td><td id="pPrC" class="">Counter Hit Values</td></tr></div><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-80ad-ab69-fce5921d1566"><td id="@u;w" class=""><strong>Type</strong></td><td id="mszq" class=""><strong>Hitstop</strong></td><td id="=Ouv" class=""><strong>Slowdown</strong></td><td id="pPrC" class=""><strong>Additional Frame Advantage</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-8007-a83a-de33e94fbf2c"><td id="@u;w" class=""><strong>Very Small</strong></td><td id="mszq" class="">Base Value</td><td id="=Ouv" class="">None</td><td id="pPrC" class="">None</td></tr></div><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-8078-b20f-f268be29aad0"><td id="@u;w" class=""><strong>Small</strong></td><td id="mszq" class="">Base Value</td><td id="=Ouv" class="">11F</td><td id="pPrC" class="">+6</td></tr></div><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-805c-bff8-f786586a76f1"><td id="@u;w" class=""><strong>Mid</strong></td><td id="mszq" class="">21</td><td id="=Ouv" class="">25F</td><td id="pPrC" class="">+13</td></tr></div><div style="display:contents" dir="ltr"><tr id="319951eb-e05c-8079-907c-c7800ae9091e"><td id="@u;w" class=""><strong>Large</strong></td><td id="mszq" class="">31</td><td id="=Ouv" class="">35F</td><td id="pPrC" class="">+18</td></tr></div></tbody></table></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
