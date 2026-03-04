@@ -1,0 +1,719 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Design Pillars
+
+</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="317951eb-e05c-80d4-8796-ea3315f97dbd" class="page sans"><header><h1 class="page-title" dir="auto">Design Pillars<br/><br/></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="318951eb-e05c-80d5-aebd-f0b2c3333c43" class="">Design Pillars</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8011-a99c-fe06c866080f" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-805e-a591-d4a69401eea8" class="">The design of the entire project is guided by five core pillars that define its gameplay, narrative, and strategic depth. These pillars blend intense 1v1 arena combat with RPG elements and emergent systems, all set within a high-fantasy universe. They are interconnected through mechanics like the energy system and environmental interactivity, creating a dynamic, accessible, and immersive experience. Every decision flows from these pillars to create a cohesive ecosystem where mechanics evolve naturally across all three games.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8047-94bc-ec67dbb4d0e2" class="">Goals</p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807c-bd0e-c5732cbfea95" class="bulleted-list"><li style="list-style-type:disc">Give players a sense of agency and expression through movement and combat that feels responsive, deliberate, and cinematic.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-801d-adda-e8082d4b3d9e" class="bulleted-list"><li style="list-style-type:disc">Create meaningful combat states that allow access to a large amount of options without cluttering controls with individual commands.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80b5-979f-f36918bdbd11" class="bulleted-list"><li style="list-style-type:disc">Build resource tension that drives constant, interesting decision-making and rewards skillful play.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8083-88fc-d90d5f46b82a" class="bulleted-list"><li style="list-style-type:disc">Ensure the 3rd-person perspective feels immersive and readable, supporting both intimate duels and larger-scale chaos.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-805f-b7c5-e39ceb959d16" class="bulleted-list"><li style="list-style-type:disc">Enable deep character building and customization that lets players define the space they control and how they control it.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-808c-9f54-e096e3b77200" class="bulleted-list"><li style="list-style-type:disc">Establish a modular foundation that scales naturally into MOBA and MMORPG experiences without major rework.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-804e-824b-f51fd2aa2cb8" class="bulleted-list"><li style="list-style-type:disc">Foster emergent interactions that reward creativity and create memorable moments across all game layers.</li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8088-857b-e4a354cc4363" class="">1. Movement</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8048-8b96-c16bcf1da7b6" class="">Core Philosophy</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8005-ad78-e011535196fc" class="">Movement is the foundation of expression, positioning, and control. It must feel responsive, readable, and meaningful in 1v1 duels while scaling cleanly to group combat and open-world play. It balances responsiveness with strategic resource management.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8080-9945-d39675ecdcbb" class="">Key Elements </p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807e-a0d6-f5d5903cd2e1" class="bulleted-list"><li style="list-style-type:disc">Combat Movement:<br/>Players enjoy direct, responsive, and logical movement during combat, optimized for gamepad controls. Mechanics like directional states allow quick adaptation to opponent actions, enhancing close-quarters engagements. The energy system governs actions like dodging or sprinting, tying movement to resource management.<div style="display:contents" dir="auto"><ul id="318951eb-e05c-80b1-80c6-c5c694188826" class="bulleted-list"><li style="list-style-type:circle">State-based movement (Base, Impact, Focus) with distinct feel and trade-offs.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8098-b51a-ce47d2a58973" class="bulleted-list"><li style="list-style-type:circle">Omnidirectional combat step as the default, with traversal options (dash/evade, future sprint/jog, climbing, and environmental interaction).</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80b6-af6b-f9039e956b2a" class="bulleted-list"><li style="list-style-type:circle">Crouch, prone, and grappling as advanced movement states that tie into combat and positioning</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8068-b10b-f3d5a4f00a49" class="bulleted-list"><li style="list-style-type:circle">Strong emphasis on readability (clear animation telegraphing, environmental transparency, and camera support).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80da-b078-e6f82ac7b61b" class="bulleted-list"><li style="list-style-type:disc">Environment Traversal:<br/>Smooth and consistent traversal mechanics—such as climbing, jumping, and dodging—enable players to interact with the arena. These actions consume energy, encouraging tactical decisions about positioning and leveraging terrain (e.g., high ground or cover). This fosters interesting traversability and ties into emergent gameplay.</li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-801d-b1ff-cd7a6334637d" class="">Scaling Vision</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80a7-be15-d20b5c23cabe" class="">Within the fighting game, movement expands gradually from mirror matches to 2v2/3v3 arenas with more complex traversal and environmental interaction. In the MOBA and MMORPG layers, it evolves into team positioning, objective-based mobility, and large-scale traversal.<br/></p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8091-950e-f074fbf4d1ac" class="">2. Combat</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-803b-8f9b-f3f0b12862e1" class="">Core Philosophy</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8048-ac88-ef5f3f52da0f" class="">Combat is the heart of the experience — a precise, strategic Yomi loop (Attack &gt; Guard &gt; Throw &gt; Attack) with resource tension and meaningful crowd control. The 3rd-person perspective must deliver cinematic physical chaos while remaining readable and fair. Combat is designed to be accessible yet deep, offering diverse options and cinematic flair, all balanced by the energy system and player choices.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-800e-8ae9-c69ba220367e" class="">Key Elements in the Fighting Game</p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-800f-977e-d72cf6a1360e" class="bulleted-list"><li style="list-style-type:disc">Direct Responsive Combat:<br/>The combat system emphasizes immediate, intuitive controls for melee, ranged, and magical attacks. Forward-facing (aimed) states support precision, while directional states ensure adaptability. The energy system governs ability usage, serving as a protective layer that mitigates damage by absorbing hits before health is affected, making combat approachable yet tactically rich.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80e6-9b43-ec5fdcd65fba" class="bulleted-list"><li style="list-style-type:disc">Cinematic:<br/>Drawing inspiration from <em>Helldivers</em>, combat features cinematic, dynamic action driven by environmental interactions and destructibility. This unpredictability is tempered by accessible mechanics, ensuring players of all skill levels can engage with the intensity.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8060-ae84-e42c9f560bbe" class="bulleted-list"><li style="list-style-type:disc">Diverse Combat Styles:<br/>Players can adopt varied approaches—aggressive melee, precision ranged attacks, or magical strategies—enhanced by RPG elements like damage-over-time (DoTs), status effects (e.g., poison, stun), and elemental interactions (e.g., fire vs. ice). These options deepen strategic possibilities and tie into character building.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80c2-b827-ca09f9d04ded" class="bulleted-list"><li style="list-style-type:disc">Balance:<br/>The balance of shared combat mechanics and the inherent rock, paper, scissors, or “Yomi” layers should present a reasonably large number of options available to the player that are viable for each scenario they find themselves in.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8000-9874-e2795a8edce7" class="bulleted-list"><li style="list-style-type:disc">Strong Yomi loop (Attack &gt; Guard &gt; Throw &gt; Attack) supported by state-based mechanics.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8059-88a9-cd441ac9fb51" class="bulleted-list"><li style="list-style-type:disc">Refined mechanics: <br/>Meaty’s, Grabs, Grappling State Skills, Impact State, Knockdown to Prone, Control Skills, Knockup Attacks, Guard states, etc.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-802c-8c72-fbf9e6047c84" class="bulleted-list"><li style="list-style-type:disc">Resource system (Energy, Poise, Burst, CC Meter) that creates constant decision-making.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-804b-bf0e-e37905ac7bd5" class="bulleted-list"><li style="list-style-type:disc">Strong visual feedback, intent assist, and hit/hurtbox communication to maintain precision in 3rd-person.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80c8-89ff-d7fe506b1e62" class="bulleted-list"><li style="list-style-type:disc">Clear visual feedback and intent assist to maintain precision in 3rd-person.<br/></li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8007-97af-d5103b1264e2" class="">Scaling Vision</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80ed-94b9-cee56523730f" class="">Within the fighting game: Gradual addition of new characters and mechanics that expand the Within the fighting game, combat expands through new characters and mechanics that increase chaos and multi-opponent interactions. In the MOBA and MMORPG layers, it scales to team fights, minion interactions, and large-scale battles while preserving the core feel.<br/></p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80a4-ae1d-d3382315b131" class="">3. Character Building &amp; Customization </p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80a1-b69b-ff1337a7dcc8" class="">Core Philosophy</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8071-bf71-d720cdd01bf3" class="">Players should feel powerful and unique through deep, expressive customization. The system must let players define the space they control and how they control it — from personal duels to larger-scale influence. Character customization empowers players to define their playstyle through a robust RPG framework, integrated with core mechanics like energy and poise.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8004-98f3-d15717f00ae5" class="">Key Elements in the Fighting Game</p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80d3-ae3b-ec6ab6d31d5c" class="bulleted-list"><li style="list-style-type:disc"><strong>Stats, Gear, Skills/Class, and Custom Construction</strong>:<div style="display:contents" dir="auto"><p id="318951eb-e05c-8001-9db0-c16b8e9332aa" class="">Players customize fighters via stats (e.g., strength, agility), gear (e.g., weapons, armor), and skills/classes. Gear modifies combat capabilities, while skills and class choices shape unique playstyles. Crucially, players can custom-construct attacks, movesets, and classes, allowing for tailored combat options that reflect individual strategies and enhance replayability. The energy system, serving as a protective layer, and poise, a stability metric, influence ability effectiveness, resilience, and defensive strategies, linking customization to gameplay.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807e-8f1c-fcd93a8f7e1d" class="bulleted-list"><li style="list-style-type:disc"><strong>Character Diversity</strong>:<div style="display:contents" dir="auto"><p id="318951eb-e05c-80fc-a7f3-c7855ced88e2" class="">New characters are introduced as “class-like” additions that bring new mechanics and expand the customization space. A wide range of archetypes offers distinct strategies, including but not limited to:<div class="indented"><div style="display:contents" dir="auto"><ul id="318951eb-e05c-801a-a5cc-d7cfbce04845" class="bulleted-list"><li style="list-style-type:disc"><strong>Stealth</strong>: Evasion and surprise attacks.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807d-a0ae-ef279fc3e5f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Glass Cannon</strong>: High damage, low durability.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80e3-98e2-f652fda441e9" class="bulleted-list"><li style="list-style-type:disc"><strong>All-Rounder</strong>: Balanced versatility.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8071-83f6-e4e44fb12637" class="bulleted-list"><li style="list-style-type:disc"><strong>Zoner</strong>: Space control with ranged attacks.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8097-9a98-fcfc82dd6641" class="bulleted-list"><li style="list-style-type:disc"><strong>Puppet</strong>: Minion or pet support.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8002-970c-c9dd5023c809" class="bulleted-list"><li style="list-style-type:disc"><strong>Trapper</strong>: Traps and hazards for crowd control.</li></ul></div></div></p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807a-b60e-f70894ec72c4" class="bulleted-list"><li style="list-style-type:disc">RPG elements like DoTs, shapeshifting, pets, and ailments/status effects enrich these classes, each interacting uniquely with energy, poise, and environmental systems.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-801c-8442-f1fd185a21f8" class="bulleted-list"><li style="list-style-type:disc">Modular skill system: base skills + mods that directly affect damage, effects, states, resources, and area control.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-807b-8a1c-ccfc36b72c9c" class="bulleted-list"><li style="list-style-type:disc">Progression through skill crafting that rewards creativity and lets players carve out their own combat identity.</li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-807b-8aa7-f8eefc3dedde" class="">
+</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8079-b976-d7b0763ffe62" class="">Scaling Vision</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80a3-9561-de978d8328b7" class="">Within the fighting game, customization grows through new characters/archetypes that introduce or expand the base skill elements available for customization. Customization will likely not be immediate as an initial roster will need to be established to form the first set of custom options varied enough to be viable. In the MOBA and MMORPG layers, it evolves into hero kits, class trees, and player-driven economies where customization defines roles and world influence.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80c4-8a8d-d05e13d6ca01" class="">
+</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-800d-aacd-f653203664da" class="">4. Game World &amp; Universe Foundation</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8025-ba16-c1c7f14d04a0" class="">Core Philosophy</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80f5-8edc-ec43b25c9aa8" class="">A rich, consistent high-fantasy universe that provides context and motivation without forcing narrative into the fighting game core. The world must feel alive and expandable.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-801b-a790-e82b50b19417" class="">Key Elements in the Fighting Game</p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-80c8-a997-da9d91212563" class="bulleted-list"><li style="list-style-type:disc">Foundational lore, factions, and cosmology that justify, inspire or define the arenas and combat styles.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-802d-8906-fa90e8c6fd05" class="bulleted-list"><li style="list-style-type:disc">Environmental interaction that ties into combat (e.g., destructible arenas, hazards).</li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-800b-88d1-dd8639df7d1b" class="">Scaling Vision</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-809a-9ddb-d3f8d11a8503" class="">Within the fighting game, arenas hint at a larger world. In the MOBA and MMORPG layers, it expands into faction-based teams, objective-driven maps, persistent worlds, and guild systems.<br/></p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-807b-a096-f42232f5bc94" class="">5. Emergent Systems &amp; Interactivity</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8075-9f6a-f6dc39af96f2" class="">Core Philosophy</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8063-b95b-d3bd3097a2ec" class="">The game should reward creativity and create memorable moments through systems that interact in unexpected ways.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-809a-a911-dc188a285906" class="">Key Elements in the Fighting Game</p></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8093-926c-cbd31ad63d38" class="bulleted-list"><li style="list-style-type:disc">Skill mod synergies, environmental destruction, crowd control buildup and diminishing returns.</li></ul></div><div style="display:contents" dir="auto"><ul id="318951eb-e05c-8090-9017-cd247ce9261a" class="bulleted-list"><li style="list-style-type:disc">Friendly fire options and multi-opponent positioning (even if limited in 1v1).</li></ul></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8084-9801-e4a0d925a190" class="">
+</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8073-b45c-ca4b9f3b64d2" class="">Scaling Vision</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-804e-8330-f44aedbdd93d" class="">Within the fighting game, emergent interactions grow through new characters and arena features. In the MOBA and MMORPG layers, they become team synergies, objective interactions, and player-driven economies.</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-80e5-a109-c66eb3008b43" class="">
+</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-806b-b1db-fe7d5eb0531d" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="318951eb-e05c-8031-9dd7-d762ac53cc31" class="">These five pillars create a cohesive foundation that rewards skill, creativity, and adaptation. Every mechanic is designed to feel complete on its own while serving as the DNA for future MOBA and MMORPG layers.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

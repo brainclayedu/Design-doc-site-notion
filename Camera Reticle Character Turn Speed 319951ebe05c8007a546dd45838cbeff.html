@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Camera Reticle / Character Turn Speed</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8007-a546-dd45838cbeff" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Camera Reticle / Character Turn Speed</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-8066-b9f0-cdf19846c102" class=""><strong>Camera Reticle / Character Turn Speed</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80b5-9677-f09c5b843fd5" class="">The camera reticle and character turn speed in <em>The Fighting Game</em> form the backbone of its 3rd-person targeting and movement precision, bridging player intent with in-game action. This system uses a dual-reticle design to clarify aim and orientation, while turn speed governs how swiftly characters align with the camera—together ensuring combat feels responsive yet grounded. Designed to support fluid navigation and tactical engagement without a hard lock-on, it balances awareness, accuracy, and character responsiveness in a dynamic, high-fantasy battlefield.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-803c-ad84-caff588a77df"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8027-938d-ed575db17a75" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-802c-8c8f-c5fb5791327e" class="">The reticle and turn speed system is crafted to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802a-a934-d3e0dffcee4b" class="bulleted-list"><li style="list-style-type:disc"><strong>Clarify Targeting</strong>: Provide intuitive visual cues for aiming attacks or tracking foes, reducing guesswork in chaotic fights.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800a-b13b-ec0b477e8cfb" class="bulleted-list"><li style="list-style-type:disc"><strong>Balance Fluidity and Realism</strong>: Sync character movement with camera control naturally, avoiding instant pivots while keeping pace with combat demands.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f7-8c17-ed9bd57e0517" class="bulleted-list"><li style="list-style-type:disc"><strong>Enhance Tactical Depth</strong>: Support varied playstyles—melee precision, ranged accuracy, or stealthy evasion—through adjustable responsiveness.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80fe-a830-fe3a412cef92" class="bulleted-list"><li style="list-style-type:disc"><strong>Reduce Control Burden</strong>: Ease targeting and turning effort via soft-lock mechanics and smoothing, maintaining focus on strategy over micromanagement.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80f0-89a1-e5c27e46bc9f"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8023-9a9e-d6e6293ed8de" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-802d-957c-f6e149efc04c" class="">The camera reticle employs a dual design: one marking the screen center (camera aim), the other indicating character aim, which lags slightly due to turn speed limits. Inspired by <em>Helldivers 2</em>’s split-reticle approach, this system ensures attacks align with intent, not just raw camera position. Turn speed governs how quickly characters pivot to match the camera, influenced by agility and build traits—swift for nimble rogues, deliberate for armored tanks. Together, they create a seamless flow between aiming, moving, and striking, tailored to Energy-driven actions and arena dynamics.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80ad-a25b-c5e688b3fd12"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-800c-864e-d1568ea9a9b6" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ce-a46a-f819860a96bc" class="">Camera Reticle</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-806e-a328-d27020282bd9" class="">The dual-reticle system splits focus between camera and character:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8030-b8d5-f423770e7409" class="bulleted-list"><li style="list-style-type:disc"><strong>Screen Center Reticle</strong>: Marks where the camera points, driven by mouse or right thumbstick input—akin to <em>Overwatch</em>’s crosshair—guiding overall view.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c1-a9a3-d394bbb7fa2d" class="bulleted-list"><li style="list-style-type:disc"><strong>Character Aim Reticle</strong>: Indicates where the character faces and attacks, lagging slightly behind camera turns, reflecting turn speed limits. A soft-lock radius highlights nearby foes, snapping focus subtly like <em>God of War</em>’s gentle targeting assist.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8099-b50a-d40b80b40b2d" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat Role</strong>: Ensures attacks hit where aimed—e.g., a fireball tracks the character reticle, not just screen center—clarifying intent in melee or ranged exchanges.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8007-b6b5-f146ebc336ae" class="bulleted-list"><li style="list-style-type:disc"><strong>Tactical Use</strong>: The soft-lock radius tightens on closer threats, aiding precision—e.g., targeting a sprinting foe—while broader awareness tracks distant enemies.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-806c-89f3-c3d042936814" class="">Character Turn Speed</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8038-a768-d22eae800bd5" class="">Turn speed dictates how fast characters pivot to align with the camera, blending realism with responsiveness:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8053-926c-d551bd50b94f" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanics</strong>: Base speed is moderate—agility accelerates it (e.g., quick for light builds), while heavy gear or armor slows it (e.g., deliberate for tanks). Smoothing prevents jarring spins, with a snap threshold for close alignment.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8024-b750-ccff2ac921e4" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat Role</strong>: Attacks lock to the initial aim reticle direction, releasing with recovery frames that realign—similar to <em>Dark Souls</em>’s deliberate facing but faster-paced.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8099-8f4e-c4d38ca61fc1" class="bulleted-list"><li style="list-style-type:disc"><strong>Tactical Use</strong>: Balances rapid reaction—e.g., turning to parry a flank—with build weight, ensuring agile characters pivot swiftly and heavy ones hold ground.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e4-addc-ff0593e9aa03" class="">Integration with Movement</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-805e-8272-e776e6d345df" class="">The system syncs with movement states:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802e-9288-f6bf3c2e624f" class="bulleted-list"><li style="list-style-type:disc"><strong>Grounded</strong>: Walking or sprinting widens the reticle gap—agile builds close it faster—while crouching/proning narrows it for stealth precision.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e9-9faf-d78311b77067" class="bulleted-list"><li style="list-style-type:disc"><strong>Aerial</strong>: Jumping or air dashes adjust the character reticle dynamically—e.g., aiming mid-leap—supported by air aiming’s stabilized view.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f4-a984-de7b4245df93" class="bulleted-list"><li style="list-style-type:disc"><strong>Traversal</strong>: Vaulting or climbing shifts focus to terrain—e.g., a wall-run aligns the aim reticle ahead—easing navigation.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8083-9949-dcf59a30d70e" class="">Energy and Build Influence</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-800f-babb-cf1209a9665a" class="">Energy and builds shape responsiveness:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ca-bf81-f730d64926b1" class="bulleted-list"><li style="list-style-type:disc"><strong>Energy</strong>: No direct cost, but Energy-fueled moves (e.g., dashes) speed up turn alignment—light builds turn quicker mid-dash.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ec-8de7-e83ee001f6a6" class="bulleted-list"><li style="list-style-type:disc"><strong>Builds</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8069-ba99-e07f1e02a893" class="bulleted-list"><li style="list-style-type:circle"><strong>Agility</strong>: Tightens the reticle gap and boosts turn speed—e.g., a rogue pivots faster than a knight.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8009-b966-dee118712d7a" class="bulleted-list"><li style="list-style-type:circle"><strong>Strength</strong>: Stabilizes turns against knockback—e.g., a tank resists mid-sprint disruption.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803c-8892-c200a0ce437d" class="bulleted-list"><li style="list-style-type:circle"><strong>Gear</strong>: Light armor widens the soft-lock radius; heavy armor focuses it tighter—enhancing build feel.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8060-9eda-d0133a55f083"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-809b-baf9-dc803c8464ff" class="">Integration with Combat and Systems</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8084-8d1b-e246a4f111f1" class="">The reticle and turn speed weave into core mechanics:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8063-9e10-dbc908b368bb" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat States</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d1-90e9-e430edc3975a" class="bulleted-list"><li style="list-style-type:circle"><strong>Directional</strong>: Wider reticle supports strafing or group targeting—e.g., tracking multiple foes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804d-812e-c53ff4d643b3" class="bulleted-list"><li style="list-style-type:circle"><strong>Aimed</strong>: Tight reticle hones precision—e.g., lining up a skillshot—while turn speed adjusts for melee or ranged focus.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8074-8bf8-ea2960b104dd" class="bulleted-list"><li style="list-style-type:disc"><strong>Stealth</strong>: Reticle dims or shifts subtly—e.g., a smaller radius for prone stealth—enhancing ambush clarity without breaking cover.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80fd-af37-f974c2f862dd" class="bulleted-list"><li style="list-style-type:disc"><strong>Traversal</strong>: Reticle tracks movement—e.g., vaulting aims forward—while turn speed ensures smooth shifts mid-action.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-803a-8962-f36caca8cb16"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8046-a826-f5b9959ef70a" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8057-bc11-ec90877caa61" class="">Design hurdles include:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80be-a57b-d42823a43d27" class="bulleted-list"><li style="list-style-type:disc"><strong>Targeting Ambiguity</strong>: Reticle lag might confuse attack direction in fast fights.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e8-8604-e675b9d64aee" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Buffer attack inputs to align with the aim reticle, ensuring strikes hit where intended—e.g., a swing follows the reticle, not facing.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8013-aed0-cd1adc7b126e" class="bulleted-list"><li style="list-style-type:disc"><strong>Turn Speed Clunkiness</strong>: Slow turns could lag behind rapid combat needs.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8032-bc98-c3fdaecd1687" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Agility scales turn speed dynamically—e.g., quick pivots for light builds—and smoothing softens transitions for heavy ones.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cb-aa25-fe52197524b8" class="bulleted-list"><li style="list-style-type:disc"><strong>Group Combat Overload</strong>: Multiple foes might overwhelm targeting.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8020-bba1-c2e59cc47b05" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Soft-lock prioritizes nearest threats, with a wider radius for agile builds—e.g., tracking a charging foe over a distant caster.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8085-b2da-f3fcd4fff411"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-808e-93be-c842e1ca29a0" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8086-8899-dc3d89628b08" class="">The system thrives in arenas with verticality and hazards—wide views reveal ledges, tight reticles target foes across gaps. Class skills tweak it—stealth dims the reticle for subtlety, perception widens it for awareness—while Energy moves like sprints or dashes shift its pace, deepening immersion and strategy.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-806b-9b35-cece37098cad"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ab-b81e-f607d691bb31" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80b5-a497-c842b7d2fbe3" class="">The camera reticle and character turn speed in <em>The Fighting Game</em> fuse precision and fluidity, guiding every strike and pivot with clarity. Through dual reticles, soft targeting, and build-driven responsiveness, they bridge player intent with battlefield chaos—ensuring a rogue’s stealthy turn or a warrior’s steady aim feels natural and impactful. This system elevates combat’s tactical flow, framing each moment with purpose and poise.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

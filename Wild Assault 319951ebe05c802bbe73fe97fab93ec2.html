@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Wild Assault</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-802b-be73-fe97fab93ec2" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Wild Assault</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-80ea-94cf-ee0cabb73411" class=""><strong>Wild Assault</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8048-aeff-e2cb44b6cb2d" class="">Wild Assault in The Fighting Game is a Burst-charged offensive strike, a high-risk surge from the Impact state that disrupts foes and drains their Burst Gauge in its high-fantasy, 3rd-person combat arena. Consuming 50% of the Burst Gauge, it delivers a charging blow—effective against blockers or stunned foes—reducing the opponent’s Burst by a small amount that varies on on block or hit. This aggressive move blends power and strategy, rewarding bold timing with build-specific tweaks for tactical punch.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8021-8af8-fc9f43666bde"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807e-85bc-d9909a1ea4b4" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807d-8595-d16497a56885" class="">The Wild Assault system strives to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803f-b509-fe3f1ba6773d" class="bulleted-list"><li style="list-style-type:disc">Disrupt Foes: Break enemy guards or pressure with a forceful strike, shifting fight momentum.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801c-825b-fe47751d8e7d" class="bulleted-list"><li style="list-style-type:disc">Drain Burst: Sap the opponent’s Burst Gauge, curbing their clutch options like Psych Burst.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cb-afca-e1c3009d22de" class="bulleted-list"><li style="list-style-type:disc">Leverage Impact State: Tie to the Impact state for a situational, high-reward attack, pacing its use within 1-3 times per fight.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8038-a658-f0a82869a4d7" class="bulleted-list"><li style="list-style-type:disc">Enhance Build Play: Adjust speed, damage, and drain via stats, gear, and skills, reflecting diverse styles.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80be-ae67-d66039abe005"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-809b-b44a-d849d5f3e81d" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80bf-b77c-cbbcf8a9b857" class="">Activated from the Impact state—a post-stun or combo window—with Forward + B (Dash), Wild Assault consumes 50% of the Burst Gauge to unleash a charging strike that disrupts foes and drains 7a portion of their Burst Gauge on block or hit. Distinct from Psych Burst (RB + LB + LT) or Deflect Shield (LB + RT hold), it’s a special move from Impact, not a Burst chord, offering aggression over escape or defense. It can be charged to be used to launch the opponent into the air (and can be followed by canceling into a jump afterwards which will automatically follow the opponent). Agile builds speed its charge, tanks boost its force—each use a bold bid to seize control and deny foe reprisals.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80df-90ab-cb8691c6f409"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8078-8c79-e82f46066ce9" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-809f-a47b-d3c98ac51f23" class="">Activation and Cost</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80be-bda5-d44d69466c9b" class="">Wild Assault triggers a swift charge:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803b-88a3-d16c6d5cd143" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8078-9202-f91f9e9ec4c9" class="bulleted-list"><li style="list-style-type:circle">Input: Forward + B (Dash) (long-press maybe)—from Impact state—e.g., post-combo stun—agility speeds startup, strength boosts damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8062-8ca0-f747a8275ffa" class="bulleted-list"><li style="list-style-type:circle">Charge: fully to add a launch</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8053-9d32-e09cdbd8d5a7" class="bulleted-list"><li style="list-style-type:circle">Follow up: With a Jump immediately after (as a cancel) to leap to match the knocked-up opponent in the air.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d3-b3e8-c4243f2d4b56" class="bulleted-list"><li style="list-style-type:circle">Cost: Drains 50% Burst Gauge—e.g., half a bar—limiting use to 2-4 times per fight with regen (Burst Gauge).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808c-a2fb-c4c6087dc323" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Disrupts foes ability to Psych Burst temporarily and provides a potent option to initiate aggression.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8008-a751-ff803a5d907c" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Shifts momentum—e.g., charging through a guard—balanced by cost and foe counterplay (e.g., dodge).</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8008-b8d0-d3bf9e841a29" class="">Strike and Burst Drain</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8069-8b16-dfde1d6e0a0e" class="">The strike lands with draining force:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8052-8f38-da9c8cd004b3" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c4-82fc-c8dc59fe7128" class="bulleted-list"><li style="list-style-type:circle">Strike: A charging blow—e.g., a lunging smash—deals moderate damage with knockback—stronger on hit than block.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d5-9368-c0328a51da2a" class="bulleted-list"><li style="list-style-type:circle">Burst Drain: Reduces foe’s Burst by a small amount on block/hit e.g., shaving their Psych Burst chance.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805d-aaad-c06e17e974b2" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Punishes foes—e.g., draining Burst mid-block—or pressures—e.g., forcing a reaction—offering a tactical edge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8078-8a85-c942c8c25f54" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Denies foe counters—e.g., sapping Psych Burst—or overwhelms—e.g., knocking back a blocker—offset by Burst cost and foe evasion.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ae-a5fd-c13fdce9efb9" class="">Build and Combat Dynamics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8060-a91a-c582c992b51e" class="">Builds shape Wild Assault’s impact:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8061-aa44-c2abd22835d2" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8074-b935-cf577472c66f" class="bulleted-list"><li style="list-style-type:circle">Stats: modify charge speeds—e.g., rogues strike faster—favoring evasion play post-hit (Mobility Skills). While Tanks could carry more momentum into the hit perhaps disrupting more of the opponents gauge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b1-823b-c8be8427c3b3" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor speeds startup; heavy boosts knockback—e.g., pushing foes farther.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cd-8901-ea0c214951f4" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Disrupts with force—e.g., breaking a Guard (Guard &amp; Guard State)—or punishes—e.g., hitting a Special end (Combat sections)—Energy costs tie to its use (Energy Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804b-ac6a-cb2d16e66d34" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Agile builds blitz—e.g., Wild Assault into Dash—tanks dominate—e.g., draining more Burst from the opponent—balanced by limits.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8022-811e-e48cdc34cb69"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8012-a520-dde212eae964" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c6-8439-fd9db76f6596" class="">Wild Assault syncs with mechanics:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8059-8395-da917ea67a6a" class="bulleted-list"><li style="list-style-type:disc">Burst Gauge: Drains 50%—e.g., half a bar post-buildup—tying to adversity—e.g., low Health speeds fill—enhancing clutch play (Burst Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808c-bf44-e655e064c5f2" class="bulleted-list"><li style="list-style-type:disc">Energy: Fuels the special—e.g., Forward + B sips Energy—while Burst cost adds heft—e.g., a charged strike (Energy Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807a-907d-fc29e980b10a" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8022-b362-c652bf147afd" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds timing—e.g., rogues charge mid-Dash (Mobility Skills)—boosting evasion.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8064-964c-d26c928557c2" class="bulleted-list"><li style="list-style-type:circle">Fortitude: Ties to Health—e.g., tanks strike at low pips (Health Pip)—rewarding resilience.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8049-b080-c3b49f352fd5" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor aids speed; heavy boosts drain—e.g., cutting more Burst (Controls).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8064-9d87-c5ff800a7b61" class="bulleted-list"><li style="list-style-type:disc">Combat: Disrupts guards—e.g., breaking a Block—or punishes—e.g., hitting a combo end—deepening aggression (Combat sections).</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8019-bc3c-d2589b3055d5"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801b-8bd3-c73547c11adf" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803f-80f2-f16e724d970c" class="">Wild Assault poses hurdles:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a9-9af5-f76f446e8204" class="bulleted-list"><li style="list-style-type:disc">Overuse Risk: Early 50% use might spam—e.g., Impact state opener—yet starts full for depth.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a9-88e7-f965eda13261" class="bulleted-list"><li style="list-style-type:circle">Solution: Retain full start—foe dodges mitigate—e.g., wasted Assault aids foe Burst regen—balancing risk/reward.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8075-83cd-dfa02492dd68" class="bulleted-list"><li style="list-style-type:disc">Drain Clarity: 7.14% drain might feel vague—e.g., how much Burst lost?<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f0-8f71-eadca9934df9" class="bulleted-list"><li style="list-style-type:circle">Solution: Cue visually—e.g., foe bar flashes on hit—or scale by hit—e.g., block drains less—enhancing readability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ec-8f76-d0eaedcb327b" class="bulleted-list"><li style="list-style-type:disc">Impact State Entry: Vague Impact trigger might confuse—e.g., when’s it active?<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8001-9584-d8e9fb939b12" class="bulleted-list"><li style="list-style-type:circle">Solution: Define entry—e.g., post-stun or combo drop—or widen window—e.g., brief buffer—clarifying use.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80b9-bfd7-fba545b67fbe"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d8-b941-f546648ba3b7" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8019-9547-ffbfc8ba7ca9" class="">Arenas shape Wild Assault—open spaces favor its charge, tight corners limit it—while skills tweak it—rogues speed it, tanks boost drain—reflecting build variety. Energy costs and Health states tie it to pacing, amplifying its role as a Burst-draining disruptor in prolonged fights or clutch moments.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-802f-931a-c73513654920"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8057-bca5-fda6af4f86f2" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fd-8657-f9dbf2d9fba0" class="">Wild Assault in The Fighting Game charges as a Burst-fueled strike, consuming 50% of the gauge to surge from Impact state—disrupting foes and draining their Burst with every hit or block. Agile builds wield it with swift precision, tanks turn it into a draining rebuke—each assault a tactical hammer that shifts the fight’s tide or denies foe reprisals. This mechanic deepens combat’s rhythm, rewarding aggression with a blow that cuts both flesh and foe resolve.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

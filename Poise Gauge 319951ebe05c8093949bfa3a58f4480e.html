@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Poise Gauge</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8093-949b-fa3a58f4480e" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Poise Gauge</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-8056-80d7-f07bf259af81" class=""><strong>Poise Gauge</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807e-9b45-c06e441acf74" class="">Introduction</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8012-9814-c0d62ffaf217" class="">The Poise Gauge in The Fighting Game represents a fighter’s Combat Resolve, displayed as a bar broken into five segmented blocks much like tension in Guilty Gear Xrd. It acts as a resource for powerful abilities—like Roman Cancels, Supers, and Faultless Defense—while also providing passive benefits such as reduced damage and shorter control effect durations. Starting at its midpoint (2.5 blocks), the gauge regenerates toward this point over time and shifts based on combat actions, promoting dynamic and strategic play.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80a5-be7e-fcb1a808b9e5"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8051-9a89-c09c415d7425" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803e-aa81-d9a978e1d007" class="">The Poise Gauge aims to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8061-ab5c-c8abb7b7826e" class="bulleted-list"><li style="list-style-type:disc">Enable Tactical Flexibility: Fuel Supers, Roman Cancels, and Faultless Defense with a limited, renewable resource.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805f-b85c-ede25294c3ad" class="bulleted-list"><li style="list-style-type:disc">Provide Passive Resilience: Reduce incoming damage and control effect durations based on gauge levels.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806f-bb18-cd0a6ce64ee8" class="bulleted-list"><li style="list-style-type:disc">Encourage Active Play: Grow through offensive and defensive actions, while penalizing passivity or poor management.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bd-b367-d82f19f8cb14" class="bulleted-list"><li style="list-style-type:disc">Offer Customization: Allow gear and skills to tweak regeneration, capacity, and ability costs.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8011-b036-de7a53e278d3"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8088-80b8-de5360d65e56" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8084-84a9-d4ae5a630256" class="">The Poise Gauge begins at 2.5 blocks (midpoint of Block 3), its natural equilibrium. It increases with actions like landing hits or blocking and decreases when using abilities or passively when above the midpoint. Passive benefits scale with its level:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a5-a5d9-dcf1a427f1e2" class="bulleted-list"><li style="list-style-type:disc">Damage Reduction: Grows as Poise drops, enhancing durability.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8038-a820-e4296ca47b80" class="bulleted-list"><li style="list-style-type:disc">Control Duration Reduction: Shortens stun or knockdown times, strongest at full gauge.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80a2-822e-e11cfdaa7d28" class="">The Poise Guage acts as a spendable resource for:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a1-b499-d5dcd2c943f1" class="bulleted-list"><li style="list-style-type:disc">Supers (3-5)</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8038-8a75-c27cd2ad1939" class="bulleted-list"><li style="list-style-type:disc">Faultless Guard (steady drain)</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80aa-96da-dc4809beec5d" class="bulleted-list"><li style="list-style-type:disc">Guarded attacks (2-4)</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803b-b071-dd176fd96b1c" class="bulleted-list"><li style="list-style-type:disc">Roman Cancels (1-3)</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e7-98cd-c638a9c58d99" class="">A Poise Break occurs when the gauge empties, halting regeneration and stripping passive benefits, making fighters more susceptible to damage and control effects.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-809c-9fd0-ca75f150a052"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ed-92aa-c8e6dbd1e7c2" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807c-a2e3-dbd9a8478931" class="">Poise Fluctuation</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8010-8a09-e3e73c929f88" class="bulleted-list"><li style="list-style-type:disc">Building Poise:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-807e-ab53-f8937c39a1e1" class="bulleted-list"><li style="list-style-type:circle">Landing attacks (e.g., Light Attack adds a small amount).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800d-aad0-e30fee619f32" class="bulleted-list"><li style="list-style-type:circle">Blocking hits (e.g., blocking a Heavy Attack adds a moderate amount).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800a-9604-c4e5df18527d" class="bulleted-list"><li style="list-style-type:circle">Parrying (e.g., a perfect parry adds a full block).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bb-9fd1-fcc5f86a66fc" class="bulleted-list"><li style="list-style-type:circle">being hit while below 2.5 blocks (unless at 0 poise)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802b-b338-c7c6e33f067b" class="bulleted-list"><li style="list-style-type:disc">Depleting Poise:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-800d-96b7-d9913de0f198" class="bulleted-list"><li style="list-style-type:circle">Using Supers (3-5 blocks).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cb-9b19-fbd028bcf428" class="bulleted-list"><li style="list-style-type:circle">Activating Roman Cancels (1-3 blocks).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8056-b1f9-d36cae0cc1e2" class="bulleted-list"><li style="list-style-type:circle">Engaging Faultless Defense (continuous drain).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f9-9f70-dfcabb5cd2de" class="bulleted-list"><li style="list-style-type:circle">Guarded attacks (2-4 blocks)</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804c-afd8-eb129d3a45a6" class="bulleted-list"><li style="list-style-type:circle">Being countered or parried.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d4-b19b-c0c6d2e40c67" class="bulleted-list"><li style="list-style-type:circle">Being hit while above 2.5 blocks</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808a-903a-e05c88c582ef" class="bulleted-list"><li style="list-style-type:disc">Passive Regeneration: Moves toward 2.5 blocks—rising if below, falling if above—unless at zero (delayed by Poise Break).</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80dd-896d-f4b14ae2eea0" class="">Supers</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c6-8e20-df8d88845cbd" class="bulleted-list"><li style="list-style-type:disc">Costs 3-5 blocks</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8087-a955-cd893218195e" class="bulleted-list"><li style="list-style-type:disc">Effect: Use of the strongest attacks available to the player.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8067-a507-e0eba8ef273d" class="">Faultless Defense</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f6-b1da-f698179ffb43" class="bulleted-list"><li style="list-style-type:disc">Cost: Initial drain plus ongoing drain while active.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8051-ac9b-e3db5d67109a" class="bulleted-list"><li style="list-style-type:disc">Effect: Improves guarding but risks Poise Break if overextended.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8024-8bf6-e0dfabced80d" class="">Guarded Attacks</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e9-bf37-e88802f38416" class="bulleted-list"><li style="list-style-type:disc">Costs 2-4 blocks</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8056-b111-e9c9262218e2" class="bulleted-list"><li style="list-style-type:disc">Effect: Interrupt an opponent from blockstun</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-808d-b775-f9f6f5c76f70" class="">Roman Cancels</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ad-8f9e-fe293eb6b608" class="bulleted-list"><li style="list-style-type:disc">Cost: 1-3 blocks (e.g., Red Roman Cancel: 1 block, Blue: 2 blocks).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800d-89b7-cfbb9cf0fcca" class="bulleted-list"><li style="list-style-type:disc">Effect: Cancels animations for tactical resets or combo extensions, with variants (Blue, Red, Purple, Yellow) offering unique effects like slowdown or defense boosts.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-808a-8e53-fa22f8c6ca9c" class="">Passive Benefits</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f0-9927-c1a7d2df0fd6" class="bulleted-list"><li style="list-style-type:disc">Damage Reduction: Increases as Poise decreases—low Poise offers more protection.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8024-9625-daa1cca10290" class="bulleted-list"><li style="list-style-type:disc">Control Duration Reduction: Scales with Poise—full gauge greatly reduces stun or knockdown times. At max, a hit might skip hitstun, draining Poise instead.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80a4-aa49-fa96d64c0960" class="">Poise Break</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801f-bdfe-d253db90eb72" class="bulleted-list"><li style="list-style-type:disc">Trigger: Gauge reaches zero, pausing regeneration and removing passive benefits.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8006-b9ab-c9ce559353ad" class="bulleted-list"><li style="list-style-type:disc">Risk: Full/extended control effect durations and no damage reduction until recovery begins.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803e-a799-e5e1cefe7348" class="">Control attacks (possibly)</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c6-8187-e5f4ab3e49cc" class="bulleted-list"><li style="list-style-type:disc">Control attacks could also cost poise, perhaps not in blocks but as a drained value like the energy bar, limiting access to other options the same way faultless defense does.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8006-b84d-e36f10c70c41" class="bulleted-list"><li style="list-style-type:disc">Costs could scale with specials being significantly more expensive on poise.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807c-8fed-fb867924afcc" class="bulleted-list"><li style="list-style-type:disc">This could serve as an alternative or in addition to energy drain and open up control-focused builds</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8037-9c8a-df01ec7946a4"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801d-a057-e549c97aa1e7" class="">Customization and Combat Dynamics</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8091-a0de-ebda1905e5f8" class="bulleted-list"><li style="list-style-type:disc">Gear and Skills:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80eb-a4cd-d28762b7ee75" class="bulleted-list"><li style="list-style-type:circle">Increase regeneration speed.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f4-a259-dc3fca50ee3d" class="bulleted-list"><li style="list-style-type:circle">Reduce ability costs or expand the functionality of ability at additional cost..</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8069-86d1-ef8dd3f13e59" class="bulleted-list"><li style="list-style-type:disc">Playstyle Impact:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ef-8b46-d0bfbfc96789" class="bulleted-list"><li style="list-style-type:circle">Aggressive players build Poise quickly for cancels and Supers.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8008-8481-dcbad6bddddc" class="bulleted-list"><li style="list-style-type:circle">Defensive players leverage Faultless Defense and regeneration control.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80bc-8c8e-d5533cf57eb3"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80be-be81-c93c49cfe74d" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8015-98fe-c67ee18ac42d" class="bulleted-list"><li style="list-style-type:disc">Energy: Drives actions that build Poise.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cc-84f4-d29392537552" class="bulleted-list"><li style="list-style-type:disc">Health: Low health slows regeneration, heightening tension.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800a-8178-c98d0d72c721" class="bulleted-list"><li style="list-style-type:disc">Combat Flow: Balances offense (cancels, Supers) with defense (Faultless Defense, passive benefits).</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8076-af5d-e36b83287108"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8024-bb49-f3b4b3153c7c" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c5-b8eb-d5c3feb5f5c5" class="bulleted-list"><li style="list-style-type:disc">Challenge: The midpoint regeneration (draining above 2.5 blocks) might confuse players.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-807d-929b-c12e5989df07" class="bulleted-list"><li style="list-style-type:circle">Solution: Add tutorial hints or UI indicators (e.g., a glowing midpoint) to highlight its neutral state.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a0-9e75-cfe95905ec3b" class="bulleted-list"><li style="list-style-type:disc">Challenge: Poise Break could feel too punishing, leaving players overly vulnerable at zero Poise.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8033-8327-d5850992578f" class="bulleted-list"><li style="list-style-type:circle">Solution: Shorten the break delay or tie it to health—e.g., higher health reduces the penalty duration.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8015-86f2-f80e046f7ccf" class="bulleted-list"><li style="list-style-type:disc">Challenge: Faultless Defense’s steady drain might deplete Poise too fast.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-803e-9302-d504dc9708b5" class="bulleted-list"><li style="list-style-type:circle">Solution: Offer gear to lower the drain rate or grant Poise boosts for successful blocks.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80b7-93b7-ea31aadd499d"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80da-bc80-e24888d2dafa" class="">Additional Context</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8072-96e9-e8982b175bae" class="bulleted-list"><li style="list-style-type:disc">Environment: Areas with pressure zones boost Poise gain through increased combat.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805e-8a48-c1b3371bf092" class="bulleted-list"><li style="list-style-type:disc">Build Flexibility: Gear and skills tailor the gauge to offensive or defensive preferences.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80d2-87ef-d0cf84dc54e9"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d6-bcd3-f0326fdce660" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8078-9757-e852ae74d5d3" class="">The Poise Gauge links resilience to action, powering key abilities while offering passive protection. Its midpoint regeneration and Poise Break mechanics reward active engagement and tactical depth, making it a cornerstone of The Fighting Game’s combat system.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

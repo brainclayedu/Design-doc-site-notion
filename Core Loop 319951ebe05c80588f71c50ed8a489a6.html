@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Core Loop</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8058-8f71-c50ed8a489a6" class="page sans"><header><h1 class="page-title" dir="auto">Core Loop</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-80fd-95fa-d0955ddbcc3f" class="">Core Loop</h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d1-888e-cf7ad9f105ac" class="">Introduction</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8045-bd1c-c4ddf0db0821" class="">The heart of The Fighting Game lies in its core loop—a fluid, cyclical system that fuses the split-second intensity of fighting games with the calculated depth of action RPGs. This loop guides players through a series of interconnected phases: Neutral, Prediction, Advantage, Disadvantage, and back to Neutral. At its core is a rock-paper-scissors dynamic where attacks overpower grabs, grabs bypass guards, and guards neutralize attacks. This creates a balanced counter-system where every action has a weakness, and every player has the potential to prevail by reading their opponent’s intentions correctly. Picture a high-fantasy gladiator duel: two warriors circle each other, blades flashing, each move a gamble, each clash a test of wits and reflexes.</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8069-a047-d50b318fe097" class="">The loop thrives on this interplay, ensuring that no single strategy reigns supreme. From the tense standoff of Neutral to the high-stakes commitment of Prediction, and the shifting tides of Advantage or Disadvantage, players are constantly adapting, countering, and seizing opportunities. RPG elements—gear, class abilities, and environmental interactions—layer additional depth, while the 3rd-person over-the-shoulder perspective (with intent assist and camera reticle) enhances spatial tactics. Below, each phase is broken down, spotlighting how the rock-paper-scissors mechanic shapes decisions and drives the flow of combat.</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8036-854d-c4ad3c110b6a" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80da-ac0a-e509478c9457" class="">The core loop is designed with clear ambitions:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d4-aec5-f339442bb90a" class="bulleted-list"><li style="list-style-type:disc">Genre Harmony: Merge the precision and pace of fighting games with the progression and strategy of RPGs into a seamless experience.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f9-b236-fffad8b41e21" class="bulleted-list"><li style="list-style-type:disc">Dynamic Choices: Offer players meaningful decisions in every phase, reflecting their skill, character build, and tactical foresight.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8067-8dcf-cf336d12edac" class="bulleted-list"><li style="list-style-type:disc">Counterplay Core: Embed the rock-paper-scissors system (attacks &gt; grabs &gt; guards &gt; attacks) to reward observation and punish predictability.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f3-8d16-fd4e3ab29799" class="bulleted-list"><li style="list-style-type:disc">Resource Tension: Weave energy and poise management into the loop, making every action a trade-off between risk and reward.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801b-a471-cbf27abefdd7" class="bulleted-list"><li style="list-style-type:disc">Flexible Framework: Build a system that shines in 1v1 duels but scales effortlessly to group combat or future modes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e4-93cf-ddc36b520f17" class="bulleted-list"><li style="list-style-type:disc">Arena Drama: Capture the spectacle of gladiatorial combat, where each phase evokes the thrill of outsmarting, overwhelming, or outlasting a foe.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804a-8cc5-dca39e2c6756" class="bulleted-list"><li style="list-style-type:disc">Training &amp; Onboarding: Provide clear visual tutorials, frame data in practice mode, and replay breakdowns so new players quickly grasp the RPS triangle and phase flow.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8003-94d0-d8f4a92ceaaa" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-804c-b58c-ef8c4595e740" class="">The core loop unfolds as a cycle of five phases, each feeding into the next:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8023-8b16-cc00c0df7d4f" class="bulleted-list"><li style="list-style-type:disc">Neutral: A standoff where players position, probe, and prepare.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8068-8478-c368e1c1c816" class="bulleted-list"><li style="list-style-type:disc">Prediction: A decisive moment where players commit to an action—attack, grab, or guard—anticipating their opponent’s choice.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b8-bb01-fd503400d433" class="bulleted-list"><li style="list-style-type:disc">Advantage: The payoff for a correct Prediction, where the player seizes control.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8036-b0ea-c2c8fb692a84" class="bulleted-list"><li style="list-style-type:disc">Disadvantage: The cost of a misstep, where the player must endure and recover.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ad-9303-c50ecf588d44" class="bulleted-list"><li style="list-style-type:disc">Return to Neutral: A reset to reassess and adapt for the next exchange.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803b-8e57-fb6be64045df" class="">The rock-paper-scissors mechanic is the engine of this cycle: attacks beat grabs by striking before the opponent can close in, grabs beat guards by exploiting a defender’s immobility, and guards beat attacks by absorbing or deflecting the blow. This triangle ensures constant tension—players must predict and counter, knowing that every move has both a strength and a vulnerability. RPG flair (like class-specific moves or gear bonuses) and the 3rd-person view (highlighting animations and arena layout) enrich this foundation, creating a loop that’s as strategic as it is visceral.</p></div><div style="display:contents" dir="ltr"><figure id="319951eb-e05c-80c1-b92e-c6c1559b36db" class="image"><a href="image.png"><img style="width:709.984375px" src="image.png"/></a></figure></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-801d-91a3-c16a64a23bf1"/></div><div style="display:contents" dir="auto"><ol type="1" id="319951eb-e05c-8093-992a-dd0b52a3b03d" class="numbered-list" start="1"><li>Neutral</li></ol></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-805f-a3ff-fb6b1e84c097" class=""><strong>Description</strong>: Neutral is the calm before the storm—a phase where neither player holds the upper hand. It’s a tense dance of positioning and probing, like two gladiators pacing the arena sand, eyes locked, waiting for the first telltale move. Here, the rock-paper-scissors dynamic simmers beneath the surface, as players gather clues to inform their next Prediction.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807a-9ea1-c57ad52ce8d3" class="bulleted-list"><li style="list-style-type:disc"><strong>Player Actions</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-807e-81a8-c23c0e30e940" class="bulleted-list"><li style="list-style-type:circle"><strong>Movement</strong>: Dodge, strafe, or sprint to claim space or bait a reaction. A quick rogue might circle wide, while a stoic paladin stands firm.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803a-8a53-f23f420dd350" class="bulleted-list"><li style="list-style-type:circle"><strong>Attacks</strong>: Fast jabs, heavy slashes, or projectiles test the opponent’s reflexes, costing energy and hinting at their tendencies—do they guard, dodge, or counter?</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8092-b86b-c354d4e62fb3" class="bulleted-list"><li style="list-style-type:circle"><strong>Cancels (Roman)</strong>: cancel an attack or grab to provoke a premature guard, setting up a future counter.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cf-bd1b-ceafcc258b84" class="bulleted-list"><li style="list-style-type:circle"><strong>Resource Prep</strong>: Energy regenerates steadily, while poise builds balances to a mid point, priming players for the Prediction phase.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d8-a1c7-ccd67160a46d" class="bulleted-list"><li style="list-style-type:disc"><strong>Rock-Paper-Scissors Role</strong>: Neutral is the reconnaissance stage. A player might throw a light attack to see if the opponent guards (hinting at a defensive mindset) or steps forward (suggesting a grab). These subtle cues shape the next move—will you attack to catch a grab, guard to foil an attack, or grab to punish a guard?</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80db-963a-f18ad007e78a" class="bulleted-list"><li style="list-style-type:disc"><strong>RPG Integration</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f5-b4d0-ec9793586373" class="bulleted-list"><li style="list-style-type:circle"><strong>Class and Gear</strong>: A mage’s glowing orb might probe from afar, while a warrior’s shield bash disrupts positioning. Gear like swift boots or a telescopic spear alters reach and speed.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bf-9cc0-d3531e39d2ea" class="bulleted-list"><li style="list-style-type:circle"><strong>Environment</strong>: Lure an opponent near a crumbling pillar or a slick oil patch, tilting Neutral in your favor.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8083-aece-ea593848a7c4" class="bulleted-list"><li style="list-style-type:disc"><strong>3rd-Person Impact</strong>: The camera focuses forward over the shoulder but wide enough to create an awareness of the players surroundings behind and to the side, revealing the opponent’s stance and the arena’s layout. Spot a shoulder twitch (an attack wind-up?) or a forward lean (a grab setup?), and you’ve got an edge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ca-b0c3-fe19da384323" class="bulleted-list"><li style="list-style-type:disc"><strong>Mindset</strong>: Neutral is about control and patience. Aggression tempts, but overcommitting risks a counter—guard against an attack you provoked, and you’ve already lost the exchange.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8094-8c28-c372a73d7749"/></div><div style="display:contents" dir="auto"><ol type="1" id="319951eb-e05c-804e-b256-dd018801dd54" class="numbered-list" start="1"><li>Prediction</li></ol></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80f9-a057-d4364e007fc0" class=""><strong>Description</strong>: Prediction is the heartbeat of the loop—a split-second gamble where players commit to an action based on their read of the opponent. It’s the moment a gladiator lunges, betting steel against steel, and the rock-paper-scissors mechanic takes center stage. Guess right, and you claim Advantage; guess wrong, and Disadvantage awaits.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8084-a823-efcaf093d121" class="bulleted-list"><li style="list-style-type:disc"><strong>Player Actions</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-803c-aa7b-d2e6b02fd4f8" class="bulleted-list"><li style="list-style-type:circle"><strong>Attack</strong>: Unleash a heavy strike, combo starter, or charged spell—perfect for overpowering a grab attempt.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b3-97a7-ef79ade6ce8f" class="bulleted-list"><li style="list-style-type:circle"><strong>Grab</strong>: Execute a grapple, throw, or control move to seize a guarding opponent and break their stance.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8058-8338-f4acb63e4ee1" class="bulleted-list"><li style="list-style-type:circle"><strong>Guard</strong>: Raise a shield, parry, or brace to deflect an attack, turning the tables with a counter if timed right.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8031-adf1-ee9c57f765a9" class="bulleted-list"><li style="list-style-type:circle"><strong>Specials</strong>: Deploy class tricks—like a trapper’s snare or a monk’s stunning palm—to tilt the odds.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b5-a683-ff3848a6beef" class="bulleted-list"><li style="list-style-type:disc"><strong>Rock-Paper-Scissors Dynamic</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8017-a7de-de02405f10f9" class="bulleted-list"><li style="list-style-type:circle"><strong>Attacks &gt; Grabs</strong>: A swift blade cuts down a reaching hand before it can close.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a9-9b92-f419801af3bc" class="bulleted-list"><li style="list-style-type:circle"><strong>Grabs &gt; Guards</strong>: A wrestler’s grip slips past a shield, hurling the defender to the ground.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804a-bde8-e298ac9e059d" class="bulleted-list"><li style="list-style-type:circle"><strong>Guards &gt; Attacks</strong>: A parried sword leaves the attacker exposed, ripe for retaliation.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8039-aaa0-e4e9ca3be068" class="bulleted-list"><li style="list-style-type:circle">This interplay ensures every choice carries weight—there’s always a counter, but only if you predict it.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80da-afdd-e82a875a801a" class="bulleted-list"><li style="list-style-type:disc"><strong>RPG Integration</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8083-91ec-e8fb7bdaecba" class="bulleted-list"><li style="list-style-type:circle"><strong>Resource Cost</strong>: Big attacks or grabs burn energy and poise, amplifying reward and risk. A berserker’s cleave might hit harder but leave them sluggish if it misses.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b2-9ed1-dbf875bdf22a" class="bulleted-list"><li style="list-style-type:circle"><strong>Class Variants</strong>: A rogue’s backstab (attack) slices through grabs, while a knight’s shield slam (grab) crushes guards. Gear—like a sticky glove or reinforced shield—tunes these options.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8021-8373-ef57e96c7d68" class="bulleted-list"><li style="list-style-type:disc"><strong>3rd-Person Impact</strong>: Some states push the camera in closer, sharpening focus on animations. A slow wind-up screams attack, a crouch hints at guard—miss the cue, and you’re sunk.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806b-9d98-f2c357cff105" class="bulleted-list"><li style="list-style-type:disc"><strong>Mindset</strong>: Prediction is pure adrenaline—trust your instincts, weigh the odds, and strike. It’s less about randomness and more about outthinking your foe, using every scrap of intel from Neutral.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8046-91d0-e8f71200773e"/></div><div style="display:contents" dir="auto"><ol type="1" id="319951eb-e05c-80a8-9857-ca5d999b980e" class="numbered-list" start="1"><li>Advantage</li></ol></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8087-9e2e-db84331acc03" class=""><strong>Description</strong>: Advantage is the victor’s prize—earned when Prediction pays off, and the rock-paper-scissors gamble lands in your favor. It’s the roar of the crowd as you press the assault, chaining moves to widen your lead. Here, the counter-system keeps the opponent guessing, preventing easy escapes.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d6-99c1-c034b22a2a38" class="bulleted-list"><li style="list-style-type:disc"><strong>Player Actions</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-807f-bea0-fdcf29059965" class="bulleted-list"><li style="list-style-type:circle"><strong>Combos</strong>: String attacks into grabs or specials—like a flurry of punches into a toss—for maximum damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8002-81a4-da3538bf1e29" class="bulleted-list"><li style="list-style-type:circle"><strong>Pressure</strong>: Use zoning (e.g., a magical caster’s fireball barrage) or knockbacks to dictate the fight’s tempo.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a2-9b82-dcee3e11fd62" class="bulleted-list"><li style="list-style-type:circle"><strong>Finishers</strong>: Spend poise on a super—like a dragon-summoning slash—to seal the exchange.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e1-bfc2-feaf60a0bed6" class="bulleted-list"><li style="list-style-type:disc"><strong>Rock-Paper-Scissors Role</strong>: In Advantage, mix up your actions to stay dominant. Chain an attack into a grab if they guard, or feint a grab into an attack if they dodge. The mechanic ensures they can counter—but only if they break your rhythm.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8005-8c40-c012f7b1746a" class="bulleted-list"><li style="list-style-type:disc"><strong>RPG Integration</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e5-bc43-c80e205fd83a" class="bulleted-list"><li style="list-style-type:circle"><strong>Gear Boosts</strong>: A flaming axe adds burn to attacks, while a grappling hook extends grab range. dynamic Class perks based on your moveset—like a bleed or a energy or life steal-on-hit—prolong your edge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f7-b7a4-f629859ebf73" class="bulleted-list"><li style="list-style-type:circle"><strong>Arena Play</strong>: Slam the foe into a spiked wall or collapse a balcony overhead for bonus damage.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c2-8d26-f0d87ef90437" class="bulleted-list"><li style="list-style-type:disc"><strong>Limits</strong>: Energy dwindles with each move while making your health more vulnerable, while Psych Burst or the poise-charged Combo Break can flip the script if you overreach or become too predictable. Or if you simply have the opponent on their toes in a more guarded state they have additional options such as Guards, parries, guard attacks and shove to help them turn the tides. Push hard, but not recklessly.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806f-8456-f4105b0138eb" class="bulleted-list"><li style="list-style-type:disc"><strong>Endgame</strong>: Drain their energy to expose health pips, then push to finish them off—every hit can builds toward victory, but greed invites reversal.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8048-be4b-dc75ccc496d1"/></div><div style="display:contents" dir="auto"><ol type="1" id="319951eb-e05c-80f4-8f2d-f60bdf74bc3b" class="numbered-list" start="1"><li>Disadvantage</li></ol></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fe-b362-db8bc718b07d" class=""><strong>Description</strong>: Disadvantage is the cost of a failed Prediction—when your rock meets their paper, and suddenly you’re scrambling. It’s the gladiator on their heels, shield raised, seeking a gap to breathe, or possibly taking a beating draining you of your energy to defend yourself. The rock-paper-scissors dynamic persists, offering a lifeline if you can outlast the storm.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8000-b0ed-ce65941c4308" class="bulleted-list"><li style="list-style-type:disc"><strong>Player Actions</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8065-8863-f4601237a891" class="bulleted-list"><li style="list-style-type:circle"><strong>Defense</strong>: Block to soak hits (draining energy), dodge to slip away, or parry for a risky reversal.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8090-84f4-f71d1189f4ed" class="bulleted-list"><li style="list-style-type:circle"><strong>Escape</strong>: Dash, teleport, or shove to break free and reset the fight.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803a-a68f-c6dd348e18e2" class="bulleted-list"><li style="list-style-type:circle"><strong>Counter</strong>: Time a guarded attack, then punish with a quick strike.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8073-bb37-e8a6b4afca72" class="bulleted-list"><li style="list-style-type:disc"><strong>Rock-Paper-Scissors Role</strong>: Guards beat attacks—so block that flurry—but grabs beat guards, so watch for a switch-up. A smart read (dodging a grab, parrying an attack) can claw you back to Neutral.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8032-a0e4-cc1cb551dbb4" class="bulleted-list"><li style="list-style-type:disc"><strong>RPG Integration</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a2-a1a7-d800f5c7534a" class="bulleted-list"><li style="list-style-type:circle"><strong>Class Tools</strong>: A tank archetype&#x27;s iron skin shrugs off blows, while a rogue’s smoke bomb cloud blinds the foe momentarily. Gear like a regen amulet or dodge-boosting boots buys time or creates space.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b5-a24f-fd53e1bd4641" class="bulleted-list"><li style="list-style-type:circle"><strong>Resource Grit</strong>: Poise builds under pressure, fueling a super to turn the tide.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8055-aa4f-e42ade237839" class="bulleted-list"><li style="list-style-type:disc"><strong>3rd-Person Impact</strong>: The camera leaves you in control to track opponent’s moves—spot the end of a combo or a grab’s reach, and you’ve got your opening.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8055-863f-e3e19a965d7a" class="bulleted-list"><li style="list-style-type:disc"><strong>Mindset</strong>: Disadvantage demands resilience. Endure, adapt, and strike when they falter—survival is the first step to recovery.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8060-8ece-da6b376c4cd2"/></div><div style="display:contents" dir="auto"><ol type="1" id="319951eb-e05c-80d9-b661-e622e2d58e80" class="numbered-list" start="1"><li>Return to Neutral</li></ol></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-806d-b394-fa5aac991cef" class=""><strong>Description</strong>: After Advantage or Disadvantage, the loop circles back to Neutral—a fleeting pause to regroup. It’s the gladiator dusting off their armor, blade raised anew, wiser for the last clash. The rock-paper-scissors lesson lingers, sharpening the next Prediction.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8006-92bb-effe10ada6cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Player Actions</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80dc-839c-f4e6c0fe27be" class="bulleted-list"><li style="list-style-type:circle"><strong>Recovery</strong>: Energy ticks up, poise stabilizes—pace yourself, and you’re stronger for it.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a5-aa06-e39647e92508" class="bulleted-list"><li style="list-style-type:circle"><strong>Reposition</strong>: Claim high ground or dodge lingering traps to reset on your terms.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80dc-b1db-fe3f271e2135" class="bulleted-list"><li style="list-style-type:circle"><strong>Adapt</strong>: Did they spam attacks? Prep a guard. Favor grabs? Ready an attack.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8033-995c-f99c81c44096" class="bulleted-list"><li style="list-style-type:disc"><strong>RPG Integration</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-807d-8259-ebc12f7a3df6" class="bulleted-list"><li style="list-style-type:circle"><strong>Gear Perks</strong>: A stamina ring hastens regen, while a summoner’s minion distracts during the lull.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8052-b932-fd8e88e03185" class="bulleted-list"><li style="list-style-type:circle"><strong>Setup</strong>: Plant a trap or buff yourself—RPG depth turns downtime into strategy.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ad-b2e7-d03335543a21" class="bulleted-list"><li style="list-style-type:disc"><strong>Rock-Paper-Scissors Role</strong>: Reflect on the last exchange—every counter they landed is a clue for what’s next. The mechanic’s balance keeps the fight alive.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b1-9c26-cddcdbf1b227" class="bulleted-list"><li style="list-style-type:disc"><strong>Mindset</strong>: Neutral isn’t a full restart—it’s evolution. Carry your scars and smarts into the next round.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8086-8cbc-c07a7c1f2a03"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8026-aa31-dca5ea576f10" class="">Beyond 1v1</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8015-842d-f8d93adb9c59" class="">The loop scales naturally to group chaos:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8025-8bbd-fcdca08beb34" class="bulleted-list"><li style="list-style-type:disc"><strong>Friendly Fire</strong>: All players can be hit by any attack, friend or foe, positioning, spacing, timing and knowledge of your options all play a role.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803b-a68e-dee0df6be562" class="bulleted-list"><li style="list-style-type:disc"><strong>Multi-Target Moves</strong>: Sweeping attacks or explosive grabs hit clusters, guided by the 3rd-person view.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d5-b8fa-c9a3d3bc4e47" class="bulleted-list"><li style="list-style-type:disc"><strong>Focus Fire</strong>: Target a key foe (e.g., a mage) while dodging others, leaning on the counter-system.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8041-a986-eadc9d8357dc" class="bulleted-list"><li style="list-style-type:disc"><strong>Resource Stretch</strong>: More enemies tighten energy use, but the loop holds firm.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8098-be74-d941670323c5" class="">This adaptability future-proofs the design for PvE or team battles, keeping the rock-paper-scissors core intact.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-808b-ae80-d8dcd4241a84"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-805f-a03c-c311dcc792a4" class="">The Arena’s Pulse</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-800e-aa65-eb1243abeb3b" class="">The loop isn’t just mechanics—it’s a story:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8071-aa1c-c67cc2a68d72" class="bulleted-list"><li style="list-style-type:disc"><strong>Neutral</strong>: The standoff, breath held, crowd hushed.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803d-b5b0-dcec4b8e6d3a" class="bulleted-list"><li style="list-style-type:disc"><strong>Prediction</strong>: The clash, steel sparking as bets are made.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802d-9aa7-ef19d3d4ce55" class="bulleted-list"><li style="list-style-type:disc"><strong>Advantage</strong>: The triumph, a roar as you dominate.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805c-bedb-fc77142c0c9f" class="bulleted-list"><li style="list-style-type:disc"><strong>Disadvantage</strong>: The struggle, grit against the odds.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808e-834f-db836de30019" class="bulleted-list"><li style="list-style-type:disc"><strong>Return</strong>: The reset, a new chapter in the duel.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-804a-a07b-eb0ad0c2febd" class="">The rock-paper-scissors heartbeat—attacks toppling grabs, grabs piercing guards, guards halting attacks—drives every phase, ensuring players always have a path to victory if they can read the moment. It’s gladiatorial combat distilled: raw, tactical, and alive with possibility.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

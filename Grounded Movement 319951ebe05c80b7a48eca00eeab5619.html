@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Grounded Movement</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-80b7-a48e-ca00eeab5619" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Grounded Movement</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-80d6-ac63-c57a3516607b" class=""><strong>Grounded Movement</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80dc-8600-e03a93ef0ff0" class="">Grounded movement governs how characters navigate the arena floor in <em>The Fighting Game</em>, anchoring their combat presence and tactical options within its high-fantasy, 3rd-person battles. Designed to balance precision with versatility, this system encompasses walking, crouching, and proning—each offering unique ways to outmaneuver foes, evade threats, or seize battlefield advantages. Integrated with Energy costs, build customization, and combat states, grounded movement ensures every action is deliberate, rewarding skill and intent with tangible impact.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8030-adaa-fe84a9411cb8"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803a-ae7c-ec4a3dc3bd85" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fd-87b6-c1c0e760f3e2" class="">The system is built to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c6-9a7f-d83d333599ef" class="bulleted-list"><li style="list-style-type:disc"><strong>Enable Precision</strong>: Deliver controlled movement for exact spacing, dodging threats, or preparing attacks with finesse.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802b-884d-c03b3023e69e" class="bulleted-list"><li style="list-style-type:disc"><strong>Support Playstyle Variety</strong>: Cater to agile skirmishers, stealth operatives, grappling brawlers, or resilient tanks, avoiding sluggishness unless by design.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80fb-8134-fc042f469e17" class="bulleted-list"><li style="list-style-type:disc"><strong>Enhance Combat</strong>: Allow effective evasion of close-range attacks, reserving faster maneuvers for broader challenges like projectiles or area effects.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8023-869d-e33218bddb7c" class="bulleted-list"><li style="list-style-type:disc"><strong>Reflect Customization</strong>: Adjust speed, resilience, and utility through stats, gear weight, and class skills, creating meaningful trade-offs.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8060-b991-ee0d63d2a8e6"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8030-b8b5-ce915e46ff58" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e8-98fb-fb369c5fe2f7" class="">Grounded movement forms the core of a character’s arena presence, blending tactical flexibility with intentional pacing. Walking offers quiet, precise control, scaling with agility and gear weight to suit each build. Crouching trades speed for stealth and a reduced profile, enabling low strikes or sneaky approaches. Proning transforms the ground into a combat zone—ideal for grappling, ranged ambushes, or recovery—but remains vulnerable up close unless tailored for ground fighting.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-801b-9314-c06e591d5f56"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-802f-8c00-f29dd127b00e" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801e-afb4-f3caaff9e391" class="">Walking</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803c-a313-cfa0ed82c98c" class="">Walking is the default grounded movement, an 8-way directional stance that prioritizes precision over haste—faster than a leisurely stroll but slower than a jog. It thrives in the Directional State, where the camera widens for awareness, letting players strafe or backpedal with subtle slowdowns.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8036-8b57-ed8105bf8118" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanics</strong>: Speed scales with agility (faster for nimble builds as an example) and gear weight (slower for heavier setups), costing no Energy and producing minimal noise—similar to quiet stalking in stealth games. Strafing and backpedaling incur a slight penalty, maintaining responsiveness without disrupting combat flow.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8030-9846-cc0386b7430c" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat Role</strong>: Players dodge melee swings through spacing—e.g., maintaining just beyond a sword’s reach—or circle foes for flanking, akin to circling in wrestling games but omnidirectional. It flows into attacks seamlessly, supporting both offense and defense.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808b-b96e-d30094a841f8" class="bulleted-list"><li style="list-style-type:disc"><strong>Tactical Use</strong>: Its steady controlled steps drive clear positioning. It is the foundational movement in combat and It’s ideal for baiting—e.g., holding ground to provoke a miss—or managing multiple foes with broad awareness.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d5-9327-e4d51bafd5e4" class="bulleted-list"><li style="list-style-type:disc"><strong>Comparison</strong>: Unlike the rapid jogs of action RPGs, walking mirrors the deliberate pace of fighting games, ensuring gamepad players can react to melee threats without feeling rushed. It avoids the speed of battle royale titles, focusing on controlled engagement.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80cf-90f7-ffd30cce9734" class="">Crouching</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80dc-ae5a-d9ed90772522" class="">Crouching acts as a sub state that modifies attacks for the low attack space (e.g., Leg sweeps) and initially indicates a less drastic crouch before transitioning to a more full crouch, slowing movement significantly, shrinking the hitbox to evade high attacks and enabling stealth. It’s activated by a hold or press, staying Energy-neutral but reducing speed.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8067-b137-c820bc419b6e" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanics</strong>: Speed drops noticeably—lighter build styles can lessen this penalty (e.g., slightly faster for light builds), while heavy gear exacerbates it (e.g., even slower)—reflecting a stealth crawl. It reduces noise further than walking and shifts vulnerability to low zones.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bd-beee-fcfa1d7179ab" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat Role</strong>: A crouch ducks overhead attacks, and enables specific low attacks. In the Aimed State, it adjusts aim for low skill-shots—e.g., a crouched arrow at a foe’s legs—while the Directional State supports stealthy strafing.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8034-9961-ed47556a2376" class="bulleted-list"><li style="list-style-type:disc"><strong>Tactical Use</strong>: It’s perfect for evasion—e.g., slipping under a heavy swing—or sneaking into cover, akin to stealth titles. It sets up ambushes, letting a rogue drop low and strike from hiding, balanced by its reduced pace against fast foes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806e-b560-e18f960b6f07" class="bulleted-list"><li style="list-style-type:disc"><strong>Comparison</strong>: Like stealth games’ crouch mechanics, it trades speed for subtlety and hitbox control, distinct from fast-paced shooters’ rapid crouching. It prioritizes evasion and patience over mobility, fitting the game’s deliberate tone.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8094-a40e-e4ccddea1192" class="">Proning</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d8-a76e-e0885729f27b" class="">Proning drops the character to the ground putting them in the Prone State—voluntarily or via knockdown—turning it into a tactical space for ground combat, stealth, or recovery, inspired by UFC and wrestling dynamics. It’s slow but versatile, with belly (facing forward) or back (facing up) orientations shifting via knockdowns or camera turns.</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803b-abe6-e414937b9a48" class="bulleted-list"><li style="list-style-type:disc"><strong>Mechanics</strong>: Speed reduces to a crawl—agility slightly improves this (e.g., faster for agile builds)—costing no Energy base, akin to a wrestler’s grounded shuffle. Belly proning moves forward/back via crawling, back proning shimmies forward/back or rolls side-to-side (short distances, Energy-free). Knockdowns dictate stance—front hits land on back, back hits on belly—each with unique movesets.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8048-97fa-ca4569045078" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat Role</strong>:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8080-a40a-f951f5fbf2f4" class="bulleted-list"><li style="list-style-type:circle"><strong>Ground Fighting</strong>: Belly proning offers ranged attacks (e.g., a dagger throw, moderate Energy cost) or light grapples (e.g., a leg grab), while back proning enables blocks or submissions (e.g., a chokehold, or armbar). Grappling is single-target, lacking area damage unless manipulating the opponent —e.g., a choke pins one foe for a brief duration, applying slow—but exposes both grappler and target to friendly fire (e.g., an ally’s stray strike hits full force). Note grappling is not exclusive to the Prone state and is a part of the Grab mechanics.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e4-880a-f3a4dae399cc" class="bulleted-list"><li style="list-style-type:circle"><strong>Stealth and Ranged</strong>: Proning reduces visibility in cover (e.g., grass), letting a sniper hurl a low projectile (e.g., moderate Energy cost) with less exposure—similar to a hidden archer’s shot.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806f-b676-c59289b6495d" class="bulleted-list"><li style="list-style-type:circle"><strong>Vulnerability</strong>: Prone characters can end up in a more vulnerable or stronger position depending on how they are focused. A grappling setup may be dangerous up close but vulnerable to even mid-range if their attacks simply have less reach than their standing opponent. Inversely, a prone player with more range focus could find themselves vulnerable to a standing opponent on top of them in melee. Friendly fire risks escalate in grapples and prone, impacting both parties.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e1-9429-cea6681aed4d" class="bulleted-list"><li style="list-style-type:disc"><strong>Tactical Use</strong>: Proning baits foes into ground exchanges—e.g., a wrestler pins for a choke—or hides for ambushes. Post-knockdown, it turns falls into counter opportunities, balanced by melee risk unless built with some grappling focus.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801b-b481-d3c66e07c8de" class="bulleted-list"><li style="list-style-type:disc"><strong>Comparison</strong>: Like UFC’s ground-and-pound and submission hold, proning offers grappling and strikes but stays vulnerable to standing foes, unlike rapid recovery in action RPGs. It’s slower than shooters’ slides but richer in combat options, echoing wrestling’s positional tension.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8056-a726-e0b3ba92a3d3"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e3-ac9f-eb90f5f1185d" class="">Integration with Combat and Movement</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8037-a500-edc7a2ffca81" class="">Grounded movement blends with the game’s systems:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807d-a356-c7faf07f5d0f" class="bulleted-list"><li style="list-style-type:disc"><strong>Combat States</strong>: Walking strafes in the Directional State for melee evasion, while crouching and proning adjust aim in the Aimed State—e.g., a prone sniper shot or crouched low thrust.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8033-a538-e3214de6338b" class="bulleted-list"><li style="list-style-type:disc"><strong>Energy Dynamics</strong>: Walking and crouching cost no Energy, preserving it for dashes or grapples; prone actions (e.g., submissions) use Energy (e.g., light to moderate costs) or Poise (e.g., 1 block), scaled by build efficiency.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803c-909b-c3115713d152" class="bulleted-list"><li style="list-style-type:disc"><strong>Traversal Link</strong>: Walking flows into sprinting, crouching sets up stealth, and proning rolls into dashes—connecting grounded to broader mobility.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8076-a317-e8d2ef92ab7e"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8033-97ff-d5e9672f2a40" class="">Build Customization</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80af-b740-f48ad6c25832" class="">Character builds tailor grounded movement:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b3-9088-e0f1307d228a" class="bulleted-list"><li style="list-style-type:disc"><strong>Stats</strong>: Could affect speeds (e.g., faster walking, quicker prone crawl); Others could boost prone resilience and grapple power (e.g., stronger submissions).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8061-8a61-eb6426b2a4f0" class="bulleted-list"><li style="list-style-type:disc"><strong>Gear Weight</strong>: Lighter armor enhances speed (e.g., faster walking); heavy or more restrictive armor slows (e.g., reduced pace) but fortifies—e.g., less damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801b-8866-fbc25a39f1dc" class="bulleted-list"><li style="list-style-type:disc"><strong>Class Skills</strong>: Stealth builds quieten crouching/proning (e.g., less noise); grapplers add prone submissions (e.g., an armbar that debuffs the opponent&#x27;s attacks for a duration)—crafting unique profiles.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-807f-9ffb-d6fd6399b52c"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c6-afeb-e0d606ceb593" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8001-836a-cd4a62ce42e1" class="">Grounded movement faces design hurdles:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801b-91ab-d78b61942be1" class="bulleted-list"><li style="list-style-type:disc"><strong>Walking Pace Balance</strong>: Too slow dulls agility, too fast disrupts pacing.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-806c-b115-fab4f167ad98" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Adjust speed with agility (e.g., light builds slightly faster)—offset by resilience perks for heavy builds, ensuring fairness.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8040-9dc8-e622d4dbd176" class="bulleted-list"><li style="list-style-type:disc"><strong>Crouching Overuse</strong>: Excessive crouching could dodge too easily.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8039-b4f1-dc71fea6ef25" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Cap speed (e.g., notably slow) and tie low attacks to Energy (e.g., small cost per strike), keeping it situational.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8039-b0ae-c88721924d21" class="bulleted-list"><li style="list-style-type:disc"><strong>Proning Disconnect</strong>: Slow prone combat might feel passive or safe.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8022-8b8c-c2b0da20fab7" class="bulleted-list"><li style="list-style-type:circle"><strong>Solution</strong>: Add melee vulnerability (e.g., extra damage unless grappling-built) and enrich prone moves (e.g., grapples, ranged shots), ensuring active risk-reward.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8017-b3eb-f3e3931e613d"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-808c-bef9-c9e35ba65824" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8080-b87e-e18a4611ad67" class="">Grounded movement crafts a precise, versatile framework for arena combat, blending walking’s control, crouching’s subtlety, and proning’s ground-game depth. Tied to Energy, stats, and combat flow, it empowers players to dodge, strike, or grapple from the floor—whether weaving through melee, ambushing from stealth, or wrestling back control. This system ensures every grounded action enriches the game’s tactical tapestry, offering a personalized battlefield experience.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

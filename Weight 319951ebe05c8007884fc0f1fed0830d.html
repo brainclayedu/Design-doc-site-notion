@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Weight</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8007-884f-c0f1fed0830d" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Weight</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-8045-8b50-ea54d602daf8" class=""><strong>Weight</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fe-aa02-db745d32eefb" class="">Introduction</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8096-a1d9-e6f60f0def31" class="">Weight in The Fighting Game quantifies the physical burden of a fighter’s equipped armor, shaping their mobility, aerial combat capabilities, and resource dynamics within the high-fantasy, 3rd-person arena. As a passive attribute tied to the Armor system’s slots—Head, Body, and Legs—and material types like Cloth, Leather, and Metal, Weight introduces a trade-off mechanic: heavier gear enhances protection but hampers agility and increases Energy costs, while lighter gear preserves speed and efficiency. This system balances defensive resilience with tactical flexibility, rewarding strategic gear choices.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-807f-821d-fe17790f566b"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8001-95f5-ebf7315bc406" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8067-b2ab-e30299d186e2" class="">The Weight mechanic aims to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8089-85ad-e53715ff8ba3" class="bulleted-list"><li style="list-style-type:disc">Regulate Mobility: Adjust movement speed and Energy costs based on armor’s heft.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e2-b0ab-e879c1dca1aa" class="bulleted-list"><li style="list-style-type:disc">Impact Aerial Combat: Influence airborne actions like jumps and air dashes with Weight-driven penalties or benefits.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802d-965f-d91bc9c663ea" class="bulleted-list"><li style="list-style-type:disc">Balance Protection: Offset armor’s defensive gains with tangible drawbacks, ensuring no single build dominates.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a3-87b8-e58d25eccca6" class="bulleted-list"><li style="list-style-type:disc">Enhance Customization: Tie Weight to Armor Types and slots, enabling diverse playstyle impacts.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80d8-be52-e3dcbd3cf954"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ec-9df0-d5149566ebc7" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80a4-bfaa-c222d132e738" class="">Weight reflects the cumulative load of armor equipped across Head, Body, and Legs slots, determined by materials—Cloth being the lightest, Leather mid-tier, and Metal the heaviest—and their layering. It affects:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8010-bb7f-cb83a2d03904" class="bulleted-list"><li style="list-style-type:disc">Mobility: Heavier Weight slows walking, running, and dashing speeds, while lighter Weight maintains or enhances them.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f1-904b-f896bf79ad15" class="bulleted-list"><li style="list-style-type:disc">Aerial Combat: Weight impacts jump height, air dash distance, and airborne Energy costs—e.g., Metal armor reduces aerial maneuverability.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8058-8ec6-e9b4fb30ad54" class="bulleted-list"><li style="list-style-type:disc">Energy Costs: Heavier armor increases Energy expenditure for all movement—grounded and aerial—while lighter armor reduces it.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80be-9266-fa93cd70dd04" class="">Weight scales with each slot, influencing combat dynamics like mobility, knockup/knockdown attacks, and Air juggling, and is customizable through gear to balance protection with agility.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8075-ab09-c39e86d4833b"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801a-a339-d1e036686d66" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fc-8d46-d5c4863ca8ba" class="">Weight and Mobility</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f8-a03d-e1affc1d9d6f" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d8-b529-e3584b16ee45" class="bulleted-list"><li style="list-style-type:circle">Grounded Movement: Heavier Weight slows base movement—e.g., walking, running, strafing—while lighter Weight preserves or boosts speed.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8095-ae8f-cfe2b5d1f16c" class="bulleted-list"><li style="list-style-type:square">Example: Full Metal Plate might reduce sprint speed, Cloth Hose/Pants keep it near base.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8056-a995-ed48209c8752" class="bulleted-list"><li style="list-style-type:circle">Scaling: Each slot contributes—e.g., a Heavy Helmet weighs more than a Leather Coif—cumulative across Head, Body, and Legs.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80da-a6ff-dcb18c359a59" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Light Weight enables rapid positioning—e.g., dodging combos—Heavy Weight prioritizes stability—e.g., resisting knockback.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8048-8a28-f72f5831b475" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Light builds flank or evade—e.g., Cloth for quick strafing—Heavy builds anchor—e.g., Metal for holding ground.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d2-a4a7-e0a6021ad841" class="">Weight and Aerial Combat</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a7-8eb8-f2786fe239cb" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8033-a09d-e19a7500384f" class="bulleted-list"><li style="list-style-type:circle">Airborne Actions: Heavier Weight reduces jump height and air dash distance—e.g., Plate armor shortens jumps—while lighter Weight enhances them—e.g., Leather boosts air dash range.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8014-90b5-eb319d8847a6" class="bulleted-list"><li style="list-style-type:circle">Control Impact: Heavy Weight may slow aerial recovery—e.g., longer landing lag—Light Weight speeds it—e.g., Cloth aids mid-air pivots.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a8-a3c4-e9af164f4cfd" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Light Weight excels in aerial skirmishes—e.g., chaining air dashes—Heavy Weight limits air mobility—e.g., grounded focus with Metal.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8091-ac79-d826b22e9f71" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Light builds dominate air—e.g., Cloth for aerial combos—Heavy builds stay grounded—e.g., Plate for terrestrial trades.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8058-96d7-e84063336a8c" class="">Energy Cost Impact</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cb-b429-cf7cd4290d0b" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8054-b85e-d57fcdf329e3" class="bulleted-list"><li style="list-style-type:circle">Weight adjusts Energy costs for all movement:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-806f-9647-fd80f7360525" class="bulleted-list"><li style="list-style-type:square">Grounded: Heavy armor increases dash/sprint costs—e.g., Metal doubles sprint drain—Light reduces them—e.g., Cloth cuts dash cost.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80da-9091-cc3b99c2391b" class="bulleted-list"><li style="list-style-type:square">Aerial: Heavy Weight raises air dash/jump costs—e.g., Plate jump costs more—Light lowers them—e.g., Leather aids air efficiency.</li></ul></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8062-beae-e846e054aff2" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Light Weight preserves Energy for sustained mobility—e.g., chaining dashes—Heavy Weight taxes it—e.g., fewer sprints in Plate.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8020-9c48-c201296b9926" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Light builds maintain tempo—e.g., Cloth for evasion—Heavy builds endure—e.g., Metal for Poise gain under hits.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-804c-8bfc-d11240b459b3" class="">Customization and Trade-offs</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8032-aef7-fa37b35c554e" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d4-a122-e6332de2bc11" class="bulleted-list"><li style="list-style-type:circle">Weight scales with material and slots—e.g., Cloth Coif is light, Metal Body Plate is heavy; layering adds burden—e.g., Gambeson + Chainmail.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8012-8e58-d45c05f31981" class="bulleted-list"><li style="list-style-type:circle">Gear customization adjusts Weight—e.g., enchanted Leather reduces dash cost penalties.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8080-b238-dc7a1d0bb905" class="bulleted-list"><li style="list-style-type:circle">Body Type could also play a role or be tied to stats. A player could build a strong heavy character that would imply an increased weight without armor influence.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f1-aebf-ed7e86232a1d" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Light Weight favors mobility—e.g., Leather Armor for dashes—Heavy Weight may provide for a more immovable tank playstyle.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f2-89ad-e9065633b8cc" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Players balance speed (e.g., Cloth) vs. protection (e.g., Metal)—e.g., mixing Leather Gloves with Metal Chest.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8027-ba1e-c5aa0b44fb0f"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ec-9582-cba2860226ce" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80fa-95e0-cfa7a873e9b7" class="bulleted-list"><li style="list-style-type:disc">Energy Gauge: Weight adjusts Energy costs—e.g., Heavy Metal increases sprint drain, Light Cloth reduces dash cost.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d6-bc03-f4c8200fea4a" class="bulleted-list"><li style="list-style-type:disc">Mobility Skills: Weight impacts dashes, jumps, and air dashes—e.g., Cloth aids aerial agility, Metal restricts it.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-809b-b407-fad232486fa7" class="bulleted-list"><li style="list-style-type:disc">Combat: Air juggling would be harder to maintain on heavy opponents and easier with light opponents</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8056-976c-d78ea7f0505e"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80e5-9992-ec880e1edf6a" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801e-a6cf-c4e75e980ede" class="bulleted-list"><li style="list-style-type:disc">Challenge: Heavy Weight might cripple mobility—e.g., slow Metal users struggle in fast arenas.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8029-a952-fdf174c0fb10" class="bulleted-list"><li style="list-style-type:circle">Solution: Cap penalties—e.g., max 50% speed/Energy cost increase—or offer gear offsets—e.g., enchanted Boots.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80eb-bc71-dbf1e3acdc03" class="bulleted-list"><li style="list-style-type:disc">Challenge: Light Weight could lack staying power—e.g., Cloth too frail vs. heavy hits.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8007-9cd6-df09df5eecaf" class="bulleted-list"><li style="list-style-type:circle">Solution: Enhance layering—e.g., Cloth + Leather synergy—or boost Poise regen—e.g., faster recovery.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b4-9a0a-c55d566d9772" class="bulleted-list"><li style="list-style-type:disc">Challenge: Weight’s aerial impact might skew balance—e.g., Heavy builds grounded.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80da-8168-f9411116ac6c" class="bulleted-list"><li style="list-style-type:circle">Solution: Adjust air penalties—e.g., moderate Metal jump costs—or add Light bonuses—e.g., Cloth air dash range.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8059-a6c2-d0c64ebadb48"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801b-90e2-d7c0c9014a8b" class="">Additional Context</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d7-b631-feaf91ff7b83" class="bulleted-list"><li style="list-style-type:disc">Crafting: Weight varies by material—e.g., dragon-scale Plate is heavy, spider-silk Cloth is light—tying to crafting depth.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80bd-a2f1-ca044851b28c" class="bulleted-list"><li style="list-style-type:disc">Environment: Light Weight excels in open spaces—e.g., aerial dashes across fields—Heavy Weight suits tight zones—e.g., resisting knockback in caves.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8012-9f36-fdb76491193e" class="bulleted-list"><li style="list-style-type:disc">Build Variety: Slot-material combos—e.g., Light Cloth Coif + Heavy Metal Body—offer nuanced Weight balances.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8016-a3f2-c68695f77f6e"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8007-85c4-cd87d94adf36" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-806d-9592-c76ca1222632" class="">Weight in The Fighting Game transforms armor into a tactical balancing act, where Cloth’s agility, Leather’s versatility, and Metal’s heft dictate a fighter’s mobility and aerial combat prowess. Integrated with Energy costs, Poise regeneration, and Burst potential, Weight ensures every gear choice shapes the battlefield—light builds soaring with speed, heavy builds standing resolute. This mechanic rewards strategic customization with a tangible balance of protection and performance in every duel.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

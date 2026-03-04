@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Burst Gauge</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-801b-9cab-cf455a12d5b1" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Burst Gauge</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="319951eb-e05c-80b7-8dfd-d0c6ffc2cdec" class=""><strong>Burst Gauge</strong></h1></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80f2-bf92-ce73fcb14cd4" class="">The Burst Gauge in The Fighting Game glows as a spark of defiance, a resource that fuels clutch escapes and disruptions in its high-fantasy, 3rd-person combat arena. Starting full and pulsing with potential, it builds through damage taken and time endured, offering players a way to break enemy pressure or defy the odds—targeting 1-2 uses per fight. Inspired by Guilty Gear’s Burst system, it rewards resilience and timing, weaving into Energy and Health dynamics to amplify the game’s tactical depth with build-specific flair.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8082-a0de-ddcfcc3d8982"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801a-9c4e-f2a55d39e474" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8062-be0a-c87ac2d734cd" class="">The Burst Gauge system strives to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8083-8806-d32cb2b67673" class="bulleted-list"><li style="list-style-type:disc">Enable Clutch Plays: Offer tools to escape or disrupt dire moments, enriching combat’s dramatic swings.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f6-83e7-c732a05887b1" class="bulleted-list"><li style="list-style-type:disc">Reward Adversity: Fill through damage and persistence, ensuring availability aligns with fight intensity—1-2 impactful uses.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8029-a0cb-cfab7b0fa976" class="bulleted-list"><li style="list-style-type:disc">Support Build Diversity: Tailor gain rates and usability to stats, gear, and skills, reflecting player styles.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804f-a326-fc39107aaee1" class="bulleted-list"><li style="list-style-type:disc">Balance Power: Provide potent options without dominating, tempered by cost and paced build-up.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8067-999c-e4d98ec1f161"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8021-b4d1-c654ab10df9c" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c8-8f37-c0218959e501" class="">The Burst Gauge begins full at match start—with the remaining carried over between rounds—and fills passively over time (faster at low Health percentages) or from damage taken to Energy or Health (less for energy), visualized as a glowing bar that pulses with urgency. It powers three moves: Wild Assault (50% cost, aggressive disruption), Deflect Shield (50% cost, projectile counter), and Psych Burst (100% cost, combo breaker or reset), each draining the bar to shift momentum. Its immediate availability deepens early tactics while preserving late-game desperation.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-800e-b3eb-dd21470008e1"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80a0-8100-f753dc396630" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8087-954e-fe4320995341" class="">Burst Generation</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80bd-8b13-ed7c89f49479" class="">The Burst Gauge builds through resilience and punishment:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8095-b5b0-ec79915961dc" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8099-aa5a-f80aa30bde86" class="bulleted-list"><li style="list-style-type:circle">Passive Fill: Replenishes over time—slower at high Health (100%-51%), average at mid-range (50%-26%), faster at low (~25% or less)—e.g., a low-Health tank fills quicker than a full-Health rogue.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8065-9201-d5707d15309a" class="bulleted-list"><li style="list-style-type:circle">Damage Taken: Increases with damage to Energy or Health—e.g., a Light Attack adds a sliver, a Super more while damage taken to energy replenishes less than damage taken to health.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802e-a1d2-f143901b9856" class="bulleted-list"><li style="list-style-type:circle">Build Influence: Builds could influence bursts gain rate—e.g., a mage build might fill faster from Energy instead of health damage taken.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8050-baa9-e88076cf598f" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Fuels a comeback—e.g., enduring a combo—or rewards pacing—e.g., stalling at low Health—starting full for immediate depth.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805c-9dd2-cd6aa1dc0665" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Offers early options—e.g., Wild Assault on opener—or late resets—e.g., Psych Burst when stuck in a devastating combo—balanced by limited use.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8066-89cb-ddeddea887ae" class="">Burst Usage</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8027-91b2-eee56c94c204" class="">The Burst Gauge powers three tactical moves, echoing Guilty Gear’s clutch utility:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805d-9b9e-f0787f2e651a" class="bulleted-list"><li style="list-style-type:disc">Wild Assault (50%): An aggressive strike—e.g., a charging blow—disrupts foes, dealing damage and reducing their burst gauge by a small amount keeping it from being used to psych burst.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-809c-8313-e210d43549b2" class="bulleted-list"><li style="list-style-type:circle">Role: Shifts momentum—e.g., breaking pressure—risking a parry or dodge wasting it.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-806e-80ff-cb39a6b7869e" class="bulleted-list"><li style="list-style-type:disc">Deflect Shield (50%): A defensive burst—e.g., countering a projectile—blocks ranged and melee threats.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8085-ac6f-f62d51a7e806" class="bulleted-list"><li style="list-style-type:circle">Role: Protects—e.g., negating a spell—offset by situational use.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808a-b6c6-d5c755d01caf" class="bulleted-list"><li style="list-style-type:disc">Psych Burst (100%): A full-bar reset—e.g., escaping a combo—disrupts or repositions, offering a second wind (Psych Burst).<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ce-81e7-f7cdb1e6d4d1" class="bulleted-list"><li style="list-style-type:circle">Role: Saves from combos—e.g., breaking a kill chain—limited by full-bar cost and later availability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8011-9f92-f8dc3bba6be8" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Fuels early aggression—e.g., Wild Assault at 50%—or late desperation—e.g., Psych Burst post-recharge—balanced by cost and foe response.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-807a-84d7-e16e1ba22fd5"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801c-ad5b-ee034de1ac88" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8062-93d4-cf4f69e93361" class="">The Burst Gauge syncs with mechanics:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8088-9f65-d6b447285e1b" class="bulleted-list"><li style="list-style-type:disc">Energy: Fills from Energy damage—e.g., a blocked Dash adds Burst (Mobility Skills)—and powers moves—e.g., Wild Assault costs Energy too (Controls).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80da-a9ba-c9601f998cf1" class="bulleted-list"><li style="list-style-type:disc">Health: Accelerates fill at low percentages—e.g., below 25% speeds gain (Health Pip)—tying to survival stakes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8056-aff1-f6bbd6cb35ed" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d9-98e1-dfc0c28d4993" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds gain—e.g., rogues fill from dodged hits—enhancing mobility (Mobility Skills).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8025-bf0d-ce3d1314032a" class="bulleted-list"><li style="list-style-type:circle">Fortitude: Ties to Health pool—e.g., tanks gain as percentages drop—boosting endurance (Health Pip).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800a-8f6e-d258e93fabb3" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor aids gain; heavy bolsters resilience—balancing style (Controls).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a6-90cf-f0811551578c" class="bulleted-list"><li style="list-style-type:disc">Combat: Fuels escapes/disruptions—e.g., Psych Burst breaks a combo (Psych Burst)—or counters—e.g., Deflect Shield parries a Special (Combat sections)—enhancing clutch moments.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8061-9761-c25e3a585c42"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8068-894c-e01e02f3ebb3" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8098-ba3b-d37e5548e372" class="">Burst presents hurdles:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ac-a004-fd14c9f3376d" class="bulleted-list"><li style="list-style-type:disc">Build Disparity: some builds might fill too fast—e.g., outpacing others early.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8096-bcce-c71318b1372b" class="bulleted-list"><li style="list-style-type:circle">Solution: Normalize via Health percentage—e.g., tanks gain as pips drop—ensuring 1-2 uses across styles with prototyping to tune.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-809c-afdf-e0b936b53fad" class="bulleted-list"><li style="list-style-type:disc">Clarity: Fill vs. use might confuse—e.g., when’s Psych Burst ready?<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8043-8e37-d32fb98f1324" class="bulleted-list"><li style="list-style-type:circle">Solution: Glow scales with fill—e.g., full bar pulses brightly—enhancing UI readability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80fb-a288-ff42d5ceac56"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801f-9146-d056d8ab9a9f" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8095-8d19-dd254adfee1b" class="">Arenas shape Burst—hazards speed fill via damage (e.g., lava hits), cover slows it by reducing hits—while skills tweak it—rogues gain from evasion, warriors from enduring blows—per class diversity concepts. Energy costs (Energy Gauge) and Health thresholds (Health Pip) tie Burst to pacing, amplifying its clutch role.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8042-9bb9-e3b2a5b0f399"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8026-a3d4-c0d1ffad6346" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8085-80fd-e2591d8430b9" class="">The Burst Gauge in The Fighting Game shines as a spark of defiance, filling through damage and time to power escapes and disruptions with a bar ready from the start. With agile builds accelerating its glow and tanks enduring to unleash it, it offers 1-2 pivotal Burst per fight—early aggression or late resets—rewarding resilience and skill. This system deepens combat’s pulse, turning every hit taken into a chance to strike back with strategic flair.</p></div><div style="display:contents" dir="ltr"><figure id="319951eb-e05c-806c-bda6-d4eede8529e2" class="link-to-page"><a href="Burst%20319951ebe05c806cbda6d4eede8529e2.html">Burst</a></figure></div><div style="display:contents" dir="ltr"><figure id="319951eb-e05c-802b-be73-fe97fab93ec2" class="link-to-page"><a href="Wild%20Assault%20319951ebe05c802bbe73fe97fab93ec2.html">Wild Assault</a></figure></div><div style="display:contents" dir="ltr"><figure id="319951eb-e05c-8017-981a-fcd5701b2a9d" class="link-to-page"><a href="Deflect%20Shield%20319951ebe05c8017981afcd5701b2a9d.html">Deflect Shield</a></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
