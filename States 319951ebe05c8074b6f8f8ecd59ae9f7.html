@@ -1,0 +1,734 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>States</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-8074-b6f8-f8ecd59ae9f7" class="page sans"><header><h1 class="page-title" dir="auto">States</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><p id="31c951eb-e05c-803c-88e2-c1c93318cd21" class="">States are a complicated subject. There are many states that work, either in contrast, or overlap, to determine what skill results from an action. Each State cetegory (Targeting states, Combat states, motion states, traversal states and Camera tilt states) are internally exclusive in that only one can be active at a time within each category, but overlap each other to determine which skill or attack is applied.</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8010-9c4c-fe6a234e7bd3" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="31f951eb-e05c-8046-acf9-f249fc6eb60b" class="image"><a href="states_diagram_rev02.png"><img style="width:709.96875px" src="states_diagram_rev02.png"/></a></figure></div><div style="display:contents" dir="auto"><h2 id="31e951eb-e05c-80a1-aaa2-c7caf67d0d8c" class="">Targeting states</h2></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80f4-a08c-ed266c0500a6" class="">Targeting states drive how targeting and attack/skills are directed. They also affect the camera position to best support the state. Additionally targeting states drive character orientation, either keeping the character oriented to the camera (strafing and backpedal movement) or turning the character to face the direction they are moving. The targeting states break down into:</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-80bb-8d73-de8c84b2da2b" class="">Aimed: </h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80fa-8125-d71514d14926" class="">The aimed state pushes the camera over the shoulder for, more precise, aimed, control similar to other action games with aim down sight features, shooting a bow and arrow in Assassins Creed valhalla as an example. The aimed state drives the targeting state while in the “held” combat states (Guard state, Focus state, and Impact state) Attacks in the aimed state are directed down the aimed direction in some way, (line, arc, cone, raycast etc.) and often are supported by some form of telegraph. The aimed state also affects standing and aerieal character movement by slowing the movement down somewhat.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-80fa-adf6-d85a4ff36ccb" class="">Directional: </h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8096-8741-f43e2e011742" class="">The Directional state pulls the camera out, giving a wider view of the space around the players character. This is meant to support faster-moving traversal states (Sprinting and Jogging). While in the directional state, the player character orients towards the direction of movement. Attacks from the directional state are directed/oriented along the characters facing direction which is oriented along the movement vector. The camera should reorient over time to match the movement vector for best visibility</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-80e9-9f4a-ced398baee51" class="">Hybrid:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8039-ada8-ed4e3cf635c2" class="">The Hybrid state combines elements of the aimed and Directional state. It applies primarily to the Base state under combat states but could be applied in a way that overrides other targeting states while in certain other states (grappling could be a possible example where it would make sense to use the hybrid instead of the aimed states for impact or maybe even focus combat states but this will need testing.). The Hybrid state places the camera further back that the aimed state to provide situational awareness but not to the extent that the directional state does. The character still strafes and backpedals, moving relative to the camera’s orientation however attacks may benefit from explorations of how to best determine the intent or best expected result. The camera itself should reorient to face an engaged target but only to some extent and when supported by player input on the camera control.  Part of the goal is to maintain situational awareness here so it would make sense that the players attacks should be able to be directed at threats/opponents within the visible space around the player with some magnetism that defines the engagement range but ideally this is also weighted against camera orientation and movement to find the correct or intended target.  This pulls a lot from God of war 2018 and ragnarok controls/combat mechanics and mixed with Oni (bungie 2001). This state is likely to require significant fleshing out and testing.</p></div><div style="display:contents" dir="auto"><h2 id="31c951eb-e05c-80b8-ac82-f62bd84d1386" class="">Combat states</h2></div><div style="display:contents" dir="auto"><p id="31c951eb-e05c-80fc-a7a2-d23c4a1460c1" class="">These could be thought of as input states or at least states that make up most of the input states (with Sprint/traversal being a unique outlier). With the exception of the guard state Combat states are broken down by the class of attack that is applied while in that state. All combat states can be overridden by the Sprinting traversal state. While sprinting is a traversal state and not a combat state, sprinting combat actions are not directly part of the sprinting state, or put another way, entering a combat state takes the player out of their sprinting state (or sprinting sub-state like vaulting) and puts them into a combat state. </p></div><div style="display:contents" dir="auto"><h3 id="31c951eb-e05c-80ff-bc9b-e0ccea9f6137" class="">Base State:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8063-abbe-cdd5c0d3eccc" class="">The base state is the default state in this context. No combat state has been activated, which means the player/character is in the base state. This state can overlap many of the other state categories, but is overridden by other combat states and, as mentioned previously, uses the Hybrid targeting state for character orientation, camera position, and targeting/attack control.</p></div><div style="display:contents" dir="auto"><h3 id="31c951eb-e05c-806e-8f64-d299e3bcb098" class="">Impact State:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80ab-8155-fafad37f88fe" class="">Impact State is activated by holding the Heavy Attack button, shifting the player into the aimed targeting state. This state modifies two inputs: Light Attack becomes a knockup (from the crouching traversal state) or knockdown (default standing), and Grab becomes the Control Skill input, applying crowd control effects (e.g., Stun, Root) inspired by RPG mechanics. A third option, Wild Assault (Impact state + Dash), consumes Burst for a forward-rushing assault, broadening Impact’s disruptive potential. Releasing RT without using these options triggers a charged, directional Heavy Attack from Base State, while Dodge/Evade and Jump remain camera-relative for mobility. </p></div><div style="display:contents" dir="auto"><h3 id="31c951eb-e05c-8070-a9cd-e030e28ca3af" class="">Focus State:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8033-ac50-d59efb2364bc" class="">This refers to an attack done from the focus state that is active while holding the grab button. This is the main aimed attack state and can apply an additional set of aimed light and heavy attacks. Similar to the Impact state the focus state will apply a Grab variant (charged grab or a special grab (appropriate motion input) if released without additional input applied)</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8002-b4e1-eb4ac1a79755" class="">This is currently considered the primary category for proximity normals where an attack can have a close and far variant but this may not make sense to be limited to this state.</p></div><div style="display:contents" dir="auto"><h3 id="31c951eb-e05c-80ff-b8e8-cec97cf924ef" class="">Guard State:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80ef-8e94-d9f4d88140f7" class="">The Guard state is the blocking state and also applies the aimed state It’s activated by holding the guard input. It takes priority over most other inputs (overriding other combat states) and cancels active startup or recovery animations in most cases to provide a responsive feel.</p></div><div style="display:contents" dir="auto"><h2 id="31c951eb-e05c-80c0-9d91-f22841b0645b" class="">Motion States</h2></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-804c-98a0-fdf9bff57580" class="">Motion states allow us to divide an input with another layer of states based on the movement direction input for command normals or based on the final input direction of a motion input for specials, adding another layer of division, expanding potential skill slots.</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-802d-aa66-f756200592b9" class="">In the base combat state, we do not apply motion inputs only input direction defines movement and command normals are derived as pre-assigned variants from the base slotted skill, with further modification offered at the skill tree level</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80a9-8d68-fd3908174ba4" class="">Additionally, any skills coming out of the Sprinting state (which is always in the directional targeting state) is always considered to be applied in the aggressive motion state</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-8064-ab12-d7d346cc201c" class="">Aggressive:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-8061-8cfa-eaadd62b9316" class="">The aggressive state is defined by forward (up) movement used alongside a skill or attack or a motion input that ends with a forward (up) directional input.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-80bb-9459-fa3ef35740e4" class="">Evasive:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-80bf-980d-d69e1424ecc3" class="">The Evasive state is defined by side-to-side/strafing (Left or right) movement used alongside a skill or attack or a motion input that ends with a side-to-side/strafing (Left or right) directional input.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-8087-a0d0-ca9cf1ecc833" class="">Defensive:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-805b-b37e-f1f8f9c49f8a" class="">The Defensive state is defined by backpedal (downward) movement used alongside a skill or attack or a motion input that ends with the back (down) directional input.</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80a4-9b48-e78f8c590fe0" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="31c951eb-e05c-800c-b97a-df400287abf7" class="">Traversal states</h2></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-80c8-a619-e3fd960b45f5" class="">Traversal states determine the type of movement being used to move about the environment or arena. Traversal states interconnect in ways that the other state categories discussed here do not, because there are more specifics behind how they transition into each other, for example, transitioning from sprinting to walking first forces the character into a skidding state before entering the walking state. Other states must be entered in sequence, for example, from many states, a character can go into charging jump &gt; jumping &gt; double jumping &gt; falling, then back into another appropriate traversal state. These states should feel logical in how they flow into each other.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-802e-b348-fa37c141bf3a" class="">Sprinting state:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-808b-b537-dea7b95b3671" class="">The sprinting state is sort of unique here in that it is the gateway to some specific actions meant for environment traversal. This is tied to the influence of Brink’s S.M.A.R.T movement system. In this case, the Sprint input drives the state and while active the character should attempt to traverse whatever is in front of it, Vaulting, or hurdling over lower obstacles, Clambering up taller obstacles, other parkour-style movements like hopping across posts are all performed automatically while holding the sprint input and the direction of movement the player intends. Additionally, states like skidding or sliding act as transitions to other states, sliding into a crouch or skidding to a halt or walk.</p></div><div style="display:contents" dir="auto"><h3 id="31f951eb-e05c-8065-8c57-c1539bfe866f" class="">Not Sprinting states:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-809a-9d69-c030cddf810e" class="">Not sprinting states are states that aren’t sprinting and also aren’t transitioned to  directly from sprinting or while the sprint input is active. This includes walking, crouching, going prone or crawling, or states that lock players to opponents like grappling or is grapples states. Many of these states have explicit inputs (crouch, grab, dodge/dash/evade) while others may be more situational. Walking is the default traversal state </p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-8030-8370-d2c129a0d188" class="">Jumping state/Clambering state:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-80ad-a707-ea0666b7722e" class="">Jumping can be entered from both sprinting and not sprinting states through the jump input. As with sprinting, jumping provides access to clambering as well. Jumping stands out in this way as the only state directly accessible both from sprinting or not sprinting via the jump input.</p></div><div style="display:contents" dir="auto"><h3 id="31f951eb-e05c-804e-8948-c1993b02748d" class="">The Jump input:</h3></div><div style="display:contents" dir="auto"><p id="31f951eb-e05c-8012-b1f2-f3853970f13f" class="">The jump input is an input that activates the jump state on release and uses the duration held to apply properties to the jump state. The charging process does not disrupt other states and therefore overlaps with the traversal states. Jump is charged by holding the jump input, while held, traversal state inputs remain active, if your character was sprinting, they keep sprinting but are now also charging their jump, if they were walking, they keep walking, if they were climbing, they keep climbing, etc. Only once the input is released does the character transition to a jumping state. Charging the jump input can also affect attacks but that is a conversation for a different page. </p></div><div style="display:contents" dir="auto"><h2 id="31c951eb-e05c-801e-b452-c37499152aa8" class="">Camera tilt states</h2></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-802b-a5bf-e670152d9129" class="">Camera tilt states help add a layer of intent or context for traversal. This breakdown/categorization is an attempt to breakdown a component of Brink’s “Smooth Movement Across Random Terrain” feature but this may benefit from better definition.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-803a-a02d-e4976a64a5ec" class="">Upward:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8019-9df4-fd50a58e4f06" class="">An upward tilted camera would indicate the intent to reach a location above the players current position if there is a way to reach it (clambering). </p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-80f2-b29f-f78784c4d44b" class="">Level:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-805f-b6dc-fdd5a815263e" class="">Al level camera tilt is the assumed default camera tilt state and implies a more standard forward traversal intent. It’s worth noting that while this is called level, depending on the targeting state, for example, an elevated camera position may be supported with a default tilt downwards but would still be considered level in this context.</p></div><div style="display:contents" dir="auto"><h3 id="31e951eb-e05c-800f-ba31-fd59d494cbf3" class="">Downward:</h3></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8093-a061-cdd3814eaa79" class="">The downward camera tilt state allows the player to indicate intent for movement to either be downwardly applied (automactically sliding under an obstacle like with Brink’s S.M.A.R.T. Movement system). </p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-80d7-8296-de44d7c52ace" class="">The downward camera tilt state also has a unique combat context as an assist for determining target intent towards prone opponents from a standing position</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8061-a19a-de216c38b5e4" class="">
+</p></div><div style="display:contents" dir="auto"><p id="31e951eb-e05c-8097-9139-f08957928d78" class="">This does not negate giving the player other context for these actions, having a level camera and jumping may also allow a player to reach a clambering or vaulting position to reach a high place while using the crouch action while sprinting may also enter the slide traversal state which would be the same action as if they had tilted the camera down while sprinting towards an obstacle with a low opening allowing them to slide under.</p></div><div style="display:contents" dir="auto"><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="31f951eb-e05c-8004-923c-e6e5d97e0b0f" class="code code-wrap"><code class="language-Mermaid" style="white-space:pre-wrap;word-break:break-all">graph TD
+    A[Player Input&lt;br&gt;Left Stick + Right Stick + Buttons + Camera Tilt] --&gt; B[Motion State&lt;br&gt;Aggressive / Evasive / Defensive&lt;br&gt;+ Input Control Mode: Aggressive/Stalwart/Evasive/Charged]
+    A --&gt; C[Traversal State&lt;br&gt;Sprinting / Not Sprinting&lt;br&gt;Charging Jump / Vaulting / Hopping / Climbing / Grapple Hook / Flying]
+    A --&gt; D[Targeting State&lt;br&gt;Aimed / Hybrid / Directional]
+    A --&gt; E[Combat State&lt;br&gt;Base / Guard / Focus / Impact / Grapple / Traversal]
+    A --&gt; F[Camera Tilt State&lt;br&gt;Upward / Level / Downward]
+
+    B &amp; C &amp; D &amp; E &amp; F --&gt; G[State Overlap Calculation&lt;br&gt;Only 1 state per category active]
+
+    G --&gt; H[Final Skill / Attack Result]
+
+    style G fill:#f9f,stroke:#333,stroke-width:2px
+    style H fill:#bbf,stroke:#333,stroke-width:4px
+
+    %% Example transitions
+    C --&gt;|Sprinting + Guard Combat State + Forward Heavy| I[Shield Bash]
+    B --&gt;|Aggressive Motion + Base Combat State| J[Heavy Combo String]
+    D --&gt;|Aimed Targeting + Impact Combat State| K[Precision Knock-up]
+    F --&gt;|Camera Upward + Aerial Posture| L[Aerial Special]</code></pre></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
