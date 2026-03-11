@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Impact Attacks</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="320951eb-e05c-80cb-ae5d-d9a3ceffbd2f" class="page sans"><header><h1 class="page-title" dir="auto">Impact Attacks</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Knockdown to Prone</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8015-8e2f-cfa2ddb0fbb7" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e0-b55f-e096fe522f80" class="">The Knockdown to Prone system is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e8-b087-daa055ba0c01" class="bulleted-list"><li style="list-style-type:disc">Differentiate Knockdown Types: Distinguish soft and hard knockdowns for varied combat outcomes, enhancing tactical depth.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8074-95a0-e09e376432ff" class="bulleted-list"><li style="list-style-type:disc">Enable Prone Dynamics: Offer a vulnerable yet viable prone state with unique combat and recovery options, enriching player choice.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806b-bfed-d450d8632a02" class="bulleted-list"><li style="list-style-type:disc">Integrate with Core Mechanics: Tie knockdowns and prone recovery to &quot;Core Loop&quot;’s Disadvantage phase, rewarding opponent pressure (e.g., okizeme) and defensive resilience.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80cd-9dae-ca1bba9df7c6" class="bulleted-list"><li style="list-style-type:disc">Reflect High-Fantasy Theme: Frame prone as a gladiatorial struggle—down but not out—mirroring The Fighting Game’s cinematic chaos.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8006-b75a-f069d03da2a7" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80aa-832a-fbe059a7bdbb" class="">Knockdown to Prone governs how characters fall and recover in The Fighting Game’s 3rd-person, high-fantasy battles. Most attacks trigger a soft knockdown, where the character instantly rolls backward (5f) and auto-recovers to standing—akin to a fighting game throw—unless the player holds crouch to stay prone. Specific moves (e.g., Impact State overheads) cause a hard knockdown, dropping the character to the ground with hitstun (15-20f, move-dependent), landing on their back or stomach based on attack direction (front = stomach, back = back). In prone, players wield a unique moveset: back position enables melee attacks and blocks (high/mid), stomach allows ranged attacks, with blocking flipping to back via a startup animation (5f). Prone Recovery offers multiple exits—crouch to roll into crouch, jump (tap to stand, hold to leap), or dodge to roll upright—each with hitbox-protected startup (10f invuln on key hitboxes), though hits while prone reset to soft knockdown, encouraging okizeme over combo extension. Voluntary prone entry (D-pad Down/X) has a startup (~5-10f), balancing tactical drops. This system integrates with &quot;Impact State&quot; (e.g., hard knockdown setups) and &quot;Grappling State Skills&quot; (e.g., prone grab vulnerability), amplifying &quot;Core Loop&quot;’s Advantage-to-Disadvantage tension with a grounded, strategic twist.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8093-a168-d11a945940d9" class="">Key Features</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a6-b7d2-c6dc6ac494b3" class="bulleted-list"><li style="list-style-type:disc">Soft Knockdown: Instant backward roll (~5f invuln), auto-stands unless crouch held by frame 3 to stay prone—mimics throw recovery (e.g., Guilty Gear’s quick pop-up).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d1-b675-cde4dbca49ac" class="bulleted-list"><li style="list-style-type:disc">Hard Knockdown: Hitstun (~15-20f, varies by move) drops player prone—stomach (front attack) or back (back attack)—with HUD tag (&quot;HARD&quot;) for clarity.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8065-aa83-cb27398f30e7" class="bulleted-list"><li style="list-style-type:disc">Prone States:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8026-957d-c9940d8627c7" class="bulleted-list"><li style="list-style-type:circle">Back: Melee attacks/blocks (high/mid focus, e.g., kicks upward), reduced speed (~+5f startup), vulnerable at feet.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e9-9c61-d2b72cafe408" class="bulleted-list"><li style="list-style-type:circle">Stomach: Ranged attacks (e.g., projectiles), blocking flips to back (~5f startup, head invuln during flip), weak to rear/above.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800b-82c8-d5afa92b8e50" class="bulleted-list"><li style="list-style-type:disc">Prone Recovery:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-803e-b479-fdf051ad1974" class="bulleted-list"><li style="list-style-type:circle">Crouch: Back rolls forward to crouch, stomach pushes up/back to crouch (~10f, hitbox-protected startup).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b0-80e9-cacd0b00116a" class="bulleted-list"><li style="list-style-type:circle">Jump: Tap stands (10f), hold leaps (15f, hitbox-protected startup).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80db-987a-d42dcea0fe4e" class="bulleted-list"><li style="list-style-type:circle">Dodge: Rolls to stand (~15f, hitbox-protected startup).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807d-bdf1-dd37a0081596" class="bulleted-list"><li style="list-style-type:circle">Hits in first ~5f of idle prone reset to soft knockdown.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-808e-afef-c8256a3e3870" class="bulleted-list"><li style="list-style-type:disc">Voluntary Prone: D-pad Down/X drops to stomach (~5-10f startup), same recovery options.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8094-9967-fed49adebdad" class="bulleted-list"><li style="list-style-type:disc">Okizeme Subsystem: Prone state primes wakeup pressure—opponents exploit recovery timing (~10-15f windows) to maintain Advantage:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8058-8e22-fceb4e8e1993" class="bulleted-list"><li style="list-style-type:circle">Definition: Okizeme (&quot;wakeup game&quot;) is the attacker’s strategy to pressure a prone foe as they recover, leveraging the 10f hitbox-protected startup and subsequent vulnerability. Hard knockdowns (15-20f hitstun) offer longer setup windows than soft (~5f roll), encouraging meaty attacks—hits timed to strike late in their active frames (e.g., frame 3-5 of a 5f move) for frame advantage (+5-10f on block).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fc-8dc9-e6626d27110e" class="bulleted-list"><li style="list-style-type:circle">Options:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-804a-a6b2-ff5689ec40bc" class="bulleted-list"><li style="list-style-type:square">Meaty Strikes: Slow-startup attacks (e.g., ~15f Heavy Attack) hit late, gaining advantage—e.g., a ~5f active window hitting on frame 4 leaves the attacker +7f if blocked, safe vs. reversals.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b9-be63-cdd8bd424b48" class="bulleted-list"><li style="list-style-type:square">Grabs/Control Skills: Post-recovery grabs (LT/ALT) or Impact State Control Skills (e.g., Root) catch standing foes, unblockable but risky vs. jumps (~10f startup).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8095-8536-cc040490a141" class="bulleted-list"><li style="list-style-type:square">Spacing Traps: Ranged attacks (e.g., stomach-prone projectiles) or environmental hazards (e.g., collapsing debris) force recovery choices—e.g., dodge into a trap (~15f recovery).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e6-a4ae-ddb57a6acd0b" class="bulleted-list"><li style="list-style-type:circle">Prone Counterplay: Back blocks (high/mid) or stomach ranged (+5f startup) resist pressure, but slow mobility (0.5x speed) and hitbox exposure (e.g., feet on back) limit uptime—re-knockdown risk favors attacker momentum.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ea-97e8-fb7ea1c0286a" class="bulleted-list"><li style="list-style-type:circle">Visual Cues: HUD tags (&quot;MEATY,&quot; &quot;WAKEUP&quot;) and animations (e.g., prone stagger, attack glow) signal timing—e.g., meaty hits flash &quot;MEATY +7&quot; on success.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8037-97c4-f4e37d2e9f3c" class="bulleted-list"><li style="list-style-type:circle">Scalability: Okizeme shines in 1v1 but scales to group combat—e.g., multiple foes layering meaty attacks—balanced by friendly fire risks.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809e-a55f-e4a689e02011" class="bulleted-list"><li style="list-style-type:disc">State Integration: Prone modifies movesets across states (e.g., Impact lacks overheads), retaining Energy/Poise costs as standing/crouching.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8054-a756-ffe2ffa67082" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8057-b46f-cf262b04b1c7" class="bulleted-list"><li style="list-style-type:disc">Soft Knockdown Ambiguity: Auto-stand vs. prone option risks unclear intent—e.g., does holding crouch negate the roll?<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fd-a286-c2994bdb0103" class="bulleted-list"><li style="list-style-type:circle">Solution: Define soft knockdown as ~5f roll (full invuln) with auto-stand unless crouch held by frame 3, locking prone choice—prototypable for feel (e.g., Guilty Gear throw recovery).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8010-8046-ddd2544c1eb6" class="bulleted-list"><li style="list-style-type:disc">Prone Combat Strength: Full-power back blocks or stomach ranged attacks could make prone too safe—e.g., negating pressure at no cost.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8027-9ba5-e4f970dc518a" class="bulleted-list"><li style="list-style-type:circle">Solution: Limit prone moves—~50% damage, ~+5f startup—offset by mobility loss (no strafing, ~0.5x speed), balancing viability vs. vulnerability; test back blocks vs. low attacks.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f3-81c2-f6cafb9c4041" class="bulleted-list"><li style="list-style-type:disc">Recovery Timing: Hitbox-protected startup (10f) vs. re-knockdown (5f window) might overprotect or undervalue recovery—e.g., too easy to escape hard knockdown.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-803d-947f-f2040ccd265d" class="bulleted-list"><li style="list-style-type:circle">Solution: Mimic Guilty Gear Strive—~10f invuln on recovery startup (e.g., frames 1-10 of dodge), vulnerable post-startup; re-knockdown only in first ~5f of idle prone—balancing risk/reward.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809f-b5e5-d30133d2ad81" class="bulleted-list"><li style="list-style-type:disc">Directional Landing Logic: Front/back attack direction determining stomach/back landing lacks edge-case clarity—e.g., side attacks or multi-hit moves.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b9-9e66-d3f46522570c" class="bulleted-list"><li style="list-style-type:circle">Solution: Default side/multi-hits to stomach (ranged-ready), prioritize final hit direction—e.g., back-to-front combo lands on stomach—refining via animation testing.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8022-acc6-e108786501f1" class="">Suggestions for Prototyping</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fb-ae04-e15b458d1e49" class="bulleted-list"><li style="list-style-type:disc">Knockdown Timing: Test soft knockdown roll (5f invuln, auto-stand) vs. hard knockdown hitstun (15f back, ~20f stomach)—adjust for move variety (e.g., overheads = longer).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8082-851b-cfb348283e01" class="bulleted-list"><li style="list-style-type:disc">Prone Movesets: Trial back melee (50% damage, ~10f startup, high/mid hitbox) and stomach ranged (50% damage, ~15f startup, forward arc)—tweak vs. standing/grappling foes (e.g., &quot;Grappling State Skills&quot; grabs).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8087-aebc-e96400eac005" class="bulleted-list"><li style="list-style-type:disc">Recovery Windows: Prototype recovery invuln (10f on crouch/jump/dodge startup) and re-knockdown window (5f idle prone)—e.g., dodge roll (~15f total, invuln 1-10)—tracking okizeme success rate.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-808a-ae9d-ec4a0cfff9ce" class="bulleted-list"><li style="list-style-type:disc">Okizeme Dynamics: Test meaty setups—e.g., 15f Heavy Attack hitting frame 11 (+7f on block) vs. ~10f Control Skill grab (unblockable, whiffs jumps)—and prone counters (e.g., back block vs. low meaty); measure frame advantage (+5-10f) and reset frequency.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8044-ba3d-e643c3cc6613" class="bulleted-list"><li style="list-style-type:disc">Voluntary Prone: Experiment with startup (5f vs. ~10f) and drop animation—e.g., quick kneel (5f) vs. dramatic fall (~10f)—balancing tactical use vs. exposure.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80bf-bcbc-c44cdafb34a2" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8070-a326-f5a680b9b551" class="">Knockdown to Prone crafts a dynamic fall-and-rise system for The Fighting Game, blending soft knockdown’s quick recovery (5f roll, optional prone) with hard knockdown’s punishing drop (15-20f hitstun, directional landing). Prone offers a gritty, limited moveset—back melee/blocks, stomach ranged—offset by slow mobility and recovery options (hitbox-protected ~10f startup), encouraging okizeme over combos. The expanded okizeme subsystem layers meaty attacks, grabs, and traps atop prone’s vulnerability, amplifying &quot;Core Loop&quot;’s Advantage-to-Disadvantage shift with high-fantasy flair—downed warriors facing relentless pressure. Prototyping will refine timing, prone balance, and okizeme potency, ensuring this mechanic fuels strategic depth and cinematic tension.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Knockup Attacks</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-807c-9fa2-f288c58164d2" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8058-bfac-dc54fca23c4c" class="">The Knockup Attacks mechanic is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8085-87fc-f030b277cb70" class="bulleted-list"><li style="list-style-type:disc">Enable Aerial Momentum: Launch foes upward from Pre-Jump and Impact States, fueling air combos in The Fighting Game’s high-fantasy skirmishes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806b-b37c-da9d193b7641" class="bulleted-list"><li style="list-style-type:disc">Differentiate State Roles: Contrast Pre-Jump’s jump-driven knockups with Impact’s aimed precision, enhancing tactical variety.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d6-8f50-fc0d41312df5" class="bulleted-list"><li style="list-style-type:disc">Support Mixup Play: Pair with crouch lows and Impact highs for &quot;Core Loop&quot;’s Prediction phase, rewarding positioning and timing.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802c-bb90-fc301bad839c" class="bulleted-list"><li style="list-style-type:disc">Scale Customization: Allow knockup properties (e.g., height, cost) to flex with skill crafting, deepening RPG combat depth.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808a-bdce-d1583963a02c" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808e-895d-c2f0f0479132" class="">Knockup Attacks propel opponents into the air, exclusive to Pre-Jump and Impact States in The Fighting Game’s 3rd-person chaos. From Pre-Jump—triggered by Jump (A/Space) and Heavy Attack (RT/RMB)—the player leaps into an attack, knocking standing foes upward (20-30f airtime) and auto-jumping to pursue with aerial combos; it whiffs entirely vs. crouching foes, emphasizing high-risk, high-reward momentum. In Impact State (RT/RMB hold), Light Attack (RB/LMB) shifts to an aimed knockup, launching foes (15-20f airtime) with a distinct animation (e.g., sweeping lift)—blockable by crouching foes, no auto-jump, but an optional follow-jump (A/Space) tracks the airborne target. Both cost Energy (~5-10%, customizable), tying to &quot;Combat Mechanics&quot; gauges, and integrate with &quot;Core Loop&quot;’s Advantage phase—Pre-Jump for combo starters, Impact for controlled setups. Animations (e.g., Pre-Jump’s uppercut, Impact’s launcher) ensure readability, while crouch blocks and lows counterbalance their threat.Key Features</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b3-9dd8-ebae28f29ad0" class="bulleted-list"><li style="list-style-type:disc">Pre-Jump Knockup: Jump + Heavy Attack launches standing foes (20-30f airtime), auto-jumps player for air combos—whiffs vs. crouching, costs Energy (5-10%, customizable), HUD &quot;KNOCKUP.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a1-8788-e6b7cb6d01f3" class="bulleted-list"><li style="list-style-type:disc">Impact Knockup: Light Attack in Impact State launches standing foes (15-20f airtime), optional follow-jump (A/Space) auto-tracks foe—blockable by crouching, costs Energy (5-10%, customizable), HUD &quot;AIRBORNE.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809c-85db-e00033f7df99" class="bulleted-list"><li style="list-style-type:disc">Animation Distinction: Pre-Jump uses jump-driven momentum (e.g., uppercut, high arc), Impact uses aimed precision (e.g., sweeping lift, tighter arc)—visual clarity via style and height.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800f-9ae0-ebe0581b697a" class="bulleted-list"><li style="list-style-type:disc">Counterplay: Pre-Jump whiffs crouching (high property), Impact blockable by crouching—pairs with crouch lows (Base) and Impact overheads (highs).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a7-b70a-feb4461d8192" class="bulleted-list"><li style="list-style-type:disc">State Integration: Pre-Jump ties to &quot;Knockdown to Prone&quot;’s soft resets, Impact aligns with knockup (low/mid) vs. knockdown (low/high)—Energy scales with customization.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800a-b08c-f02b498057f4" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8086-bd84-f8abbadeb1c6" class="bulleted-list"><li style="list-style-type:disc">Impact Knockup Orientation: Aimed knockup hitting crouching but being blocked feels odd vs. Pre-Jump’s whiff—e.g., why aim succeeds yet fails?<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c8-bb4e-d26a3eeceb09" class="bulleted-list"><li style="list-style-type:circle">Solution: Test Impact as blockable (~+2f on crouch block) with tighter hitbox (mid-only), Pre-Jump as pure high (whiffs crouch)—refine via animation/hitbox alignment (e.g., Impact lifts mid, not low).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c1-aee2-df376f189f15" class="bulleted-list"><li style="list-style-type:disc">Follow-Jump Clarity: Impact’s optional follow-jump risks input overlap (e.g., A/Space vs. Base jump) or tracking confusion—e.g., does it lock perfectly?<div style="display:contents" dir="auto"><ul id="320951eb-e05c-806d-a600-f6e99c956a53" class="bulleted-list"><li style="list-style-type:circle">Solution: Limit follow-jump to 5f startup, ~50% Energy of full jump (5%), auto-tracking within ~5m—HUD &quot;FOLLOW&quot; signals activation; test vs. manual jumps.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800e-aca9-f3482d7ae503" class="bulleted-list"><li style="list-style-type:disc">Airtime Balance: Pre-Jump (20-30f) vs. Impact (15-20f) airtime might blur combo potential—e.g., Impact too short for follow-ups.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-802f-a961-e032237b7f9d" class="bulleted-list"><li style="list-style-type:circle">Solution: Cap Pre-Jump at ~25f (combo-friendly), Impact at ~20f (setup-focused)—exceptions via customization (e.g., +5f height for 5% Energy); prototype combo length.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807f-a7fc-f9d04993276b" class="bulleted-list"><li style="list-style-type:disc">Crouch Dominance: Pre-Jump whiffing and Impact blockable by crouching could overvalue crouch defense—e.g., no low knockup threat.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e3-acb2-d4cc74bf9692" class="bulleted-list"><li style="list-style-type:circle">Solution: Rely on Base crouch lows (5f, ~5% Energy) and Impact overheads (15f, hard knockdown)—test mixup frequency vs. knockup usage.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8006-b085-e61d5a9a4a31" class="">Suggestions for Prototyping</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8045-b1f7-c6da968d86f3" class="bulleted-list"><li style="list-style-type:disc">Knockup Timing: Test Pre-Jump (5f startup, ~25f airtime) vs. Impact (10f startup, ~20f airtime)—adjust for combo viability (e.g., ~3-5 air hits post-Pre-Jump).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8069-b5cd-c9062c6e52f9" class="bulleted-list"><li style="list-style-type:disc">Crouch Interaction: Trial Pre-Jump whiff (high hitbox, 0f on crouch) vs. Impact block (+2f on crouch block, mid hitbox)—track crouch counter rate vs. low/Impact high mixups.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c2-bcad-d233e7339372" class="bulleted-list"><li style="list-style-type:disc">Follow-Jump Feel: Prototype Impact follow-jump (5f startup, ~5% Energy, ~5m track range)—e.g., auto-locks within ~45° cone—vs. manual jump (10f, ~10% Energy); measure pursuit success.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-803b-bdb4-ffc186b0173e" class="bulleted-list"><li style="list-style-type:disc">Energy Scaling: Start at ~5% (Pre-Jump) and ~7% (Impact), tweak via customization—e.g., +5f airtime for +2% Energy—balancing spam vs. reward.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f7-a941-c1f2f88ee62b" class="bulleted-list"><li style="list-style-type:disc">Animation Readability: Test Pre-Jump uppercut (5f windup, high arc) vs. Impact lift (10f windup, mid arc)—ensure HUD tags (&quot;KNOCKUP,&quot; &quot;AIRBORNE&quot;) sync with foe height.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808e-946e-fe1718a1a223" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a5-8fa8-de018571c8ec" class="">Knockup Attacks elevate The Fighting Game’s combat with Pre-Jump’s momentum-driven launches (25f airtime, auto-jump) and Impact’s precise lifts (20f airtime, follow-jump option), fueling aerial chaos in its high-fantasy arena. Exclusive to Pre-Jump (Jump + Heavy) and Impact (Light), they contrast whiffing vs. crouching (Pre-Jump) with blockable precision (Impact), balanced by crouch lows and Impact highs in &quot;Core Loop&quot;’s Prediction flow. Energy costs (~5-10%, customizable) and distinct animations (uppercut vs. lift) tie them to &quot;Combat Mechanics&quot; and readability, while a potential &quot;Knockback&quot; section looms to round out directional control. Prototyping will hone airtime, crouch interplay, and follow-jump tracking, ensuring knockups shine as combo starters and setup tools.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Control Skills</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-800b-9c8b-f7b6120827de" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8044-a675-f1417645b5c7" class="">The Control Skills mechanic is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8045-ac1e-cf615ef98a10" class="bulleted-list"><li style="list-style-type:disc">Deliver Potent Crowd Control: Enable unblockable, RPG-inspired CC via Impact State’s Grab, amplifying opponent disruption in The Fighting Game’s high-fantasy battles.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8089-8219-d06e97116bca" class="bulleted-list"><li style="list-style-type:disc">Balance Risk and Reward: Pair high-impact hard CC (e.g., Stun) with steep Energy/Poise costs and diminishing returns, ensuring PVP fairness.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-803a-b9ca-e0fb7971e5d8" class="bulleted-list"><li style="list-style-type:disc">Enhance Tactical Depth: Support soft CC buildup (e.g., Slows) across attacks, chaining into hard CC for strategic combos in “Core Loop”’s Advantage phase.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8076-99db-f4b086989d80" class="bulleted-list"><li style="list-style-type:disc">Embrace Customization: Allow players to craft CC effects (physical or magical), mirroring Path of Exile 2’s skill diversity and fighting game versatility.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80da-ac90-d03d830309db" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8086-9080-dbe92556c519" class="">Control Skills are unblockable, high-cost crowd control attacks triggered by the Grab button (LT/ALT) in Impact State (RT/RMB hold), extending the Grab Category with RPG-style effects in The Fighting Game’s 3rd-person arena. As the pinnacle of Impact State’s “control” focus, they deliver hard CC—e.g., Stun (1-2s disable), Freeze (2s immobile)—while Impact’s Light Attack (RB/LMB) handles knockup/knockdown. Soft CC (e.g., Slows 30% speed, Knockbacks ~2-3m) builds via normals (no direction), command normals (e.g., forward + RB), or other attacks (e.g., cold-based Slow), contributing to a visible CC meter tied to Poise. Repeated Control Skills trigger diminishing returns (e.g., ~50% effect duration after 2 uses in ~10s) to prevent stunlocks, with repositioning CC (Knockback, Pull) exempt. Costs scale with effect strength (15-30% Energy, ~1-2 Poise), customizable per skill crafting. Control Skills shine in setups—e.g., Stun into Pre-Jump knockup (“Knockup Attacks”) or Pull into okizeme (“Knockdown to Prone”)—with animations (e.g., lightning Stun, wrestling Disarm) reflecting player-chosen physical or magical flair. HUD tags (e.g., “CONTROL: STUN”) and a Poise/CC meter ensure readability, balancing The Fighting Game’s chaotic PVP.Key Features</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80bb-a14d-f3654d8081a2" class="bulleted-list"><li style="list-style-type:disc">Impact State Control Skills: Grab (LT/ALT) in Impact State delivers hard CC—e.g., Stun (1-2s, +10f advantage), Freeze (2s), Confusion (2s input scramble), Polymorph (2s model swap), Blind (~2s vision blur)—unblockable, costs ~20-30% Energy + ~1-2 Poise, HUD “CONTROL: [EFFECT].”</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8007-83d3-e3352fe392fd" class="bulleted-list"><li style="list-style-type:disc">Soft CC Buildup: Normals (e.g., RB) and command normals (e.g., forward + RB) apply soft CC—e.g., Slow (30%, ~3s), Tether (3m leash, 3s), Knockback (2-3m), Pull (2-3m), Disarm (3s no attacks), Root (2s, tentative)—costs ~10-15% Energy, builds CC meter (10-20 points per hit).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ba-9780-ceee8bd8b4f0" class="bulleted-list"><li style="list-style-type:disc">CC Meter: Visible Poise/CC bar (100 points) tracks buildup—hard CC triggers at ~80-100 (e.g., Slow buildup to Freeze), decays ~10 points/s after ~5s inaction. Diminishing returns (50% duration after 2 uses in ~10s, resets ~15s) limit hard CC; repositioning CC exempt.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8040-a6df-de6848f82038" class="bulleted-list"><li style="list-style-type:disc">Non-Control CC: Other attacks (e.g., Impact Light knockup ~20f, Grab Pull ~2m) apply soft CC, ~50% buildup contribution (e.g., ~5-10 points), weaker than Control Skills (e.g., Root ~3s vs. ~2s).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b4-b2e2-c3a0ae5dbfcc" class="bulleted-list"><li style="list-style-type:disc">Input Logic: Impact Control Skills use Grab (LT/ALT), normals/command normals use Light/Heavy (RB/RT) across states—e.g., Base forward + RB = Slow, Impact back + LT = Stun.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ec-80c7-da88a076617b" class="bulleted-list"><li style="list-style-type:disc">Visual Distinction: Physical (e.g., wrestling Disarm) or magical (e.g., arcane Polymorph) animations, customizable—e.g., Fire Stun adds flames. HUD tags and Poise/CC bar glow signal buildup.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-808f-a70d-ec4384b13daf" class="bulleted-list"><li style="list-style-type:disc">Setup Potential: Hard CC enables combos—e.g., Stun (+10f) to Pre-Jump knockup, Pull to okizeme. Soft CC sets up—e.g., Slow to Impact knockup.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d5-a626-e8405db8a3df" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f8-9911-dae1248eab05" class="bulleted-list"><li style="list-style-type:disc">Input Overlap with Grabs: Grab (LT/ALT) for Control Skills and standard grabs risks confusion—e.g., expecting grapple in Impact State.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-806b-9ed5-f7188da92dd3" class="bulleted-list"><li style="list-style-type:circle">Solution: Lock Control Skills to Impact State’s Grab, standard grabs to Base State—HUD tag (“CONTROL” vs. “GRAB”) and distinct visuals (e.g., magical aura vs. physical slam) clarify intent; test input recognition.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809b-a7ad-cbffed649dc5" class="bulleted-list"><li style="list-style-type:disc">CC Balance: Hard CC (e.g., ~2s Stun) could stunlock without tight diminishing returns, while soft CC spam (e.g., Slows) might overwhelm.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-804f-a5b7-d206ac0da1df" class="bulleted-list"><li style="list-style-type:circle">Solution: Cap hard CC at 2s, diminishing returns at ~50% duration after 2 uses in ~10s—e.g., Stun ~2s, then ~1s, then ~0.5s. Soft CC limited by Energy (10-15%) and Poise/CC meter (~100 points); test PVP comeback potential.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800e-928f-ea2b6ae8cbaf" class="bulleted-list"><li style="list-style-type:disc">Buildup Ambiguity: Visible Poise/CC meter needs clear thresholds—e.g., when does Slow trigger Freeze?—and non-Control CC’s role is vague.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-801a-8703-e4ad4aef5240" class="bulleted-list"><li style="list-style-type:circle">Solution: Set 80-100 points for hard CC, ~10-20 per soft CC, ~5-10 for non-Control CC—e.g., ~5 Slows (15 points each) trigger Freeze. Meter glows at 75% threshold; prototype buildup speed vs. decay (10 points/s).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800c-ac85-cc4dfd00958d" class="bulleted-list"><li style="list-style-type:disc">Effect Redundancy: Knockup, Knockdown, Knockback in Control Skills overlap with “Knockup Attacks,” “Knockdown to Prone,” and Impact Light—risking dilution.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c3-bf1f-df8e720eefba" class="bulleted-list"><li style="list-style-type:circle">Solution: Control Skill CC is stronger—e.g., Knockup 30f vs. ~20f Impact Light, Pull ~3m vs. ~2m Grab. Non-Control CC weaker (50% duration/effect); test visual/functional distinction (e.g., magical Knockback vs. physical).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c2-82e8-c80afc54cc78" class="">Suggestions for Prototyping</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-b726-e22b53f580b6" class="bulleted-list"><li style="list-style-type:disc">CC Timing: Test hard CC durations—e.g., Stun 1-2s (+10f), Freeze ~2s—vs. soft CC—e.g., Slow ~30% for ~3s, Root ~2-3s. Adjust diminishing returns (50% after 2 uses in ~10s) for PVP fun (e.g., ~2-3s max disable).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a2-86e8-ed518c7a19ad" class="bulleted-list"><li style="list-style-type:disc">Poise/CC Meter: Prototype visible meter (100 points)—e.g., Slow ~15 points, Impact Knockup ~10 points, hard CC at ~80-100. Test decay (10 points/s after 5s) and glow (75% threshold) for readability.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a6-8bc9-d23bd0f5cee1" class="bulleted-list"><li style="list-style-type:disc">Resource Costs: Start at ~10-15% Energy + ~1 Poise (soft CC), ~20-30% Energy + ~1-2 Poise (hard CC)—tweak via customization (e.g., +1s Stun for +5% Energy). Measure spam vs. comeback potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8062-9794-d062f93bb978" class="bulleted-list"><li style="list-style-type:disc">Setup Chains: Test combos—e.g., Stun to Pre-Jump knockup (3-5 air hits), Pull to okizeme (15f meaty). Ensure soft CC (e.g., Slow) boosts hard CC triggers (~80 points).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c1-99c0-ccbfa09e5345" class="bulleted-list"><li style="list-style-type:disc">Visuals: Trial physical (e.g., wrestling Disarm) vs. magical (e.g., lightning Stun) animations—e.g., Fire Stun adds ~5% DoT for +5% Energy. Sync HUD tags (“CONTROL: STUN”) with Poise/CC glow.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8049-adcf-ee586bbb2874" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e9-8d43-e3fc06053164" class="">Control Skills anchor The Fighting Game’s crowd control, delivering unblockable, RPG-inspired hard CC (e.g., Stun, Freeze) via Impact State’s Grab (LT/ALT), complemented by soft CC buildup (e.g., Slows, Pulls) across normals and other attacks. High Energy (20-30%) and Poise (1-2) costs, paired with diminishing returns (50% duration after 2 uses), ensure PVP balance, while a Poise/CC meter (100 points) tracks buildup for strategic depth. Stronger than non-Control CC (e.g., ~30f Knockup vs. ~20f Impact Light), they fuel “Core Loop”’s Advantage phase—e.g., Stun to knockup, Pull to okizeme—with customizable physical or magical flair. Prototyping will refine durations, buildup, and visuals, cementing Control Skills as a dynamic, high-fantasy disruptor alongside grabs and knockups.</p></div></div></details></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

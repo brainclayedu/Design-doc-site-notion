@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Burst </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-801b-9cab-cf455a12d5b1" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Burst </strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Burst</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a3-96d1-d198d66c4229" class="">The Burst in The Fighting Game is a full-throttle surge of defiance, a Burst Gauge move that unleashes a shockwave to break free from combos or reset the battlefield in its high-fantasy, 3rd-person combat arena. Consuming the entire Burst Gauge, it offers players a dramatic escape or repositioning tool—accessible 1-2 times per fight when timed right—turning desperate moments into opportunities for comeback or control. With distinct Blue and Gold variants, Burst blends tactical depth with visceral impact, amplifying the game’s dynamic rhythm.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-80b9-9992-fd4ecb5e2464"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8079-a93d-dff27e10e1dd" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f1-8347-dd164f847ee9" class="">The Burst system is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ef-87c2-ca2b24d52070" class="bulleted-list"><li style="list-style-type:disc">Enable Clutch Reversals: Break combo chains or escape perilous states, shifting momentum with a single, decisive action.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ba-97e5-dab7bcdeac49" class="bulleted-list"><li style="list-style-type:disc">Offer Tactical Flexibility: Provide Blue (reactive) and Gold (proactive) variants, supporting varied combat responses.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8059-b08c-da41bff84500" class="bulleted-list"><li style="list-style-type:disc">Reward Precision: Require full Burst Gauge use, balancing its power with strategic timing and resource management.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8012-be56-f432cf590514" class="bulleted-list"><li style="list-style-type:disc">Integrate with Builds: Adjust execution and effects via stats and gear, enhancing build-specific playstyles.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-806d-8101-e2583278faa3"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b1-9364-d73f2c1697d8" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80bb-8dea-d6c725e198c4" class="">Burst triggers a shockwave when the Burst Gauge is full (100%), costing the entire bar to execute one of two variants: Blue Burst (during blockstun or hitstun) or Gold Burst (in neutral or air). Starting full at match onset and carried over between rounds (Burst Gauge), it builds through damage taken and time—accelerated at low Health—offering 1-2 uses per fight. Some builds execute it faster, others leverage its durability—its glow signals readiness, a last-ditch lifeline or bold reset in the fray.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8023-998b-e261cf08cec1"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-804c-a1ad-d80af42f0423" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8023-94c9-e3c4a7626ac4" class="">Blue Burst</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d2-a6c1-d7658bee63f6" class="">Blue Burst activates during blockstun or hitstun, a reactive escape:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-805a-ae82-e6220ec3c288" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Costs 100% Burst Gauge—executed from ground or air—possibly becoming airborne and hitting surrounding opponents causing strong hitstop. Shockwave partially refills the energy gauge. Fully vulnerable after recovery, with landing lag if airborne.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8063-b6c2-ea6978777a18" class="bulleted-list"><li style="list-style-type:circle">Disabled: The use of Blue Burst should be disabled when being hit by a super (other combat states like wall stick, that could disable burst may need to be considered)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fa-a8db-ddd2282ba0cd" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Breaks combos, or disrupts pressure e.g., pushing back a foe mid-blockstring.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8076-ba0f-d75740eb34e3" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Saves from combos—e.g., a corner trap—but risks baiting—e.g., a dodged Burst leaves you open—balanced by full-bar cost and vulnerability.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8012-b4e7-fde2c23a8918" class="">Gold Burst</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8040-802a-d6c906906a08" class="">Gold Burst activates in neutral or air, a proactive reset:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8050-8c7b-c614cd244332" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Costs 100% Burst Gauge—usable grounded or airborne—with a slightly stronger hitstop than blue and (maybe) a form of invincibility until landing (if air). Only -2 on block, hittable during recovery. Shockwave spans a radius, granting a Bonus on hit and partially refills the energy Gauge.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802b-8ff8-f2c44057791a" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Resets neutral—e.g., pushing foes back—or punishes wakeup—e.g., countering a rush—without combo potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8046-966d-e34ce893347b" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Opens space—e.g., breaking a standoff—or sets up aggression—e.g., Positive Bonus buffs next move—balanced by its cost and blockable nature.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809c-b98d-d40a8fad3f8c" class="">Burst Gauge Consumption &amp; Build Dynamics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c4-beac-d8c9383d744f" class="">Burst ties to the Burst Gauge’s full capacity:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806b-ac92-f163f30d6760" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d4-8bc5-d5608bc72c5e" class="bulleted-list"><li style="list-style-type:circle">Cost: Drains 100%—e.g., a full bar from Burst Gauge—resetting Energy levels on use (per document), requiring rebuild via damage or time.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c1-88fb-e32a0190dce9" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Resets or disrupts—e.g., Blue breaks a combo, Gold repositions—costing all Burst for a single, high-stakes play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d5-8c6a-c6ee5a112dc3" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Offers clutch escapes—e.g., Blue at low Health—or bold resets—e.g., Gold mid-fight—balanced by Energy reset and next-use delay.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8006-9c3a-dd6ae33f8fd2" class="">Shockwave Effects</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-806c-b033-f409bcc37b0d" class="">The shockwave defines Burst’s impact:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807f-b174-c245aa2e802d" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Blue spans a wide raduis, hitting foes via collision. Gold spans a smaller radius around, less reach but safer. Both refill some amount of Energy, Blue vulnerable post-use, Gold grants a form on invincibility until landing.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e1-a7ab-cf8c9bc3f696" class="bulleted-list"><li style="list-style-type:circle">Modified effects based on build</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8066-9ff1-dc92edfe955f" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Blue clears combos—e.g., hitting a Super’s invuln frames—Gold repositions—e.g., spacing a foe—each with distinct recovery risks.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e3-97ae-e8dfc8699c09" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Blue escapes—e.g., breaking a kill chain—Gold controls—e.g., forcing distance—balanced by situational triggers and cost.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-809e-a2b6-dad50405b591"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ad-844e-d024025b2904" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8055-a731-d7bc8beec820" class="">Burst weaves into core mechanics:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f0-8236-d11b997cfc77" class="bulleted-list"><li style="list-style-type:disc">Energy: Resets Energy on use—e.g., a full Burst refills Energy (Energy Gauge)—tying it to resource pacing, aiding recovery post-escape.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8038-ac0d-d8d321a58946" class="bulleted-list"><li style="list-style-type:disc">Health: Fills Burst faster at low pips—e.g., below 25% speeds gain (Health Pip)—linking Burst to survival stakes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8069-8a0c-d7f622ed108b" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8015-829d-d904be77429c" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds execution—e.g., rogues burst faster—enhancing evasion play (Mobility Skills).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b8-9266-e1cc54672093" class="bulleted-list"><li style="list-style-type:circle">Fortitude: Cuts recovery—e.g., tanks land quicker—boosting endurance (Health Pip).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8098-9b56-edc27e1e1611" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor extends radius; heavy boosts knockback—e.g., heavy gear amplifies Gold push (Controls).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8053-b9a4-c2f4e7eb4e3d" class="bulleted-list"><li style="list-style-type:disc">Combat: Breaks combos (Burst) or counters—e.g., Gold vs. a Special (Combat sections)—resetting fight dynamics.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8070-a690-c9468459a680"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c2-b15f-c7c08b74eb7e" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b8-b450-f5b191657a7c" class="">Variant Clarity: Blue vs. Gold might blur—e.g., both disrupt foes.</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8004-9827-fa05eea4a06b" class="bulleted-list"><li style="list-style-type:disc">Solution: Sharpen roles—e.g., Blue escape only (no damage), Gold adds Bonus—via UI/effects—e.g., blue flash vs. gold pulse.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-808a-8e4b-dbd3047404fa"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80db-ae0d-fe412d207231" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8092-9ff1-de0e44c0063a" class="">Arenas shape Burst—open spaces favor Gold’s radius, tight corners boost Blue’s reach—while skills tweak it—rogues speed it, warriors amplify knockback—per class diversity concepts. Energy reset (Energy Gauge) aids post-use recovery, Health thresholds (Health Pip) fuel its buildup, tying Burst to combat’s pulse.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-808e-8735-f8d003541d1a"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ea-98f3-eafc5592c647" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8045-af07-fc2b0a2c1903" class="">Burst in The Fighting Game surges as a clutch lifeline, consuming a full Burst Gauge to unleash a shockwave that breaks combos or resets the fight. With Blue escaping pressure and Gold seizing control—each shaped by build traits—it offers 2-3 pivotal uses per fight, blending desperation and strategy. This mechanic pulses with the game’s rhythm, turning every Burst into a chance to defy fate or reclaim the battlefield.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Psych Burst</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-819e-b6ca-cc9ebbbe98e3" class="">The Psych Burst in The Fighting Game is a full-throttle surge of defiance, a Burst Gauge move that unleashes a shockwave to break free from combos or reset the battlefield in its high-fantasy, 3rd-person combat arena. Consuming the entire Burst Gauge, it offers players a dramatic escape or repositioning tool—accessible 1-2 times per fight when timed right—turning desperate moments into opportunities for comeback or control. With distinct Blue and Gold variants, Burst blends tactical depth with visceral impact, amplifying the game’s dynamic rhythm.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-81e7-a7d8-f07614400094"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8124-bc0e-e8b71cc0e317" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-818f-b9f6-e859ff97a736" class="">The Psych Burst system is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-816f-a32d-d3bfcb48855a" class="bulleted-list"><li style="list-style-type:disc">Enable Clutch Reversals: Break combo chains or escape perilous states, shifting momentum with a single, decisive action.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8177-ad57-ef8a5cba8319" class="bulleted-list"><li style="list-style-type:disc">Offer Tactical Flexibility: Provide Blue (reactive) and Gold (proactive) variants, supporting varied combat responses.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81a1-a782-da63006e861f" class="bulleted-list"><li style="list-style-type:disc">Reward Precision: Require full Burst Gauge use, balancing its power with strategic timing and resource management.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8101-b9cd-c37d47dd3ba8" class="bulleted-list"><li style="list-style-type:disc">Integrate with Builds: Adjust execution and effects via stats and gear, enhancing build-specific playstyles.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8100-9722-fa20a9f7941d"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-810c-a453-d8901c7f5d3f" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8195-8f29-dee7debd521e" class="">Psych Burst triggers a shockwave when the Burst Gauge is full (100%), costing the entire bar to execute one of two variants: Blue Burst (during blockstun or hitstun) or Gold Burst (in neutral or air). Starting full at match onset and carried over between rounds (Burst Gauge), it builds through damage taken and time—accelerated at low Health—offering 1-2 uses per fight. Some builds execute it faster, others leverage its durability—its glow signals readiness, a last-ditch lifeline or bold reset in the fray.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-81fb-8c86-f64be027865c"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81a3-bcf4-d79e881f3f97" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-811c-86e8-e5dc32910e99" class="">Blue Burst</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8150-992f-ebd752929c4f" class="">Blue Burst activates during blockstun or hitstun, a reactive escape:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81fc-b3d6-f7c0357dab4c" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Costs 100% Burst Gauge—executed from ground or air—possibly becoming airborne and hitting surrounding opponents causing strong hitstop. Shockwave partially refills the energy gauge. Fully vulnerable after recovery, with landing lag if airborne.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-81ea-a149-cde574a27393" class="bulleted-list"><li style="list-style-type:circle">Disabled: The use of Blue Burst should be disabled when being hit by a super (other combat states like wall stick, that could disable burst may need to be considered)</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81a1-89d3-d30e390ccee6" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Breaks combos, or disrupts pressure e.g., pushing back a foe mid-blockstring.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81f0-a0b4-cf014de52715" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Saves from combos—e.g., a corner trap—but risks baiting—e.g., a dodged Burst leaves you open—balanced by full-bar cost and vulnerability.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81d3-9eb4-d4e6047142fd" class="">Gold Burst</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81f4-a712-c4f314fb8df9" class="">Gold Burst activates in neutral or air, a proactive reset:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-817e-afae-dbe8870502a2" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Costs 100% Burst Gauge—usable grounded or airborne—with a slightly stronger hitstop than blue and (maybe) a form of invincibility until landing (if air). Only -2 on block, hittable during recovery. Shockwave spans a radius, granting a Bonus on hit and partially refills the energy Gauge.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8106-a0e0-f7b7881e59de" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Resets neutral—e.g., pushing foes back—or punishes wakeup—e.g., countering a rush—without combo potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-813f-a6ad-ec25aee5b31c" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Opens space—e.g., breaking a standoff—or sets up aggression—e.g., Positive Bonus buffs next move—balanced by its cost and blockable nature.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81b5-8a7b-d6af3837ebf8" class="">Burst Gauge Consumption &amp; Build Dynamics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8136-b5ad-dcabf38a6b54" class="">Psych Burst ties to the Burst Gauge’s full capacity:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-813e-9974-f7798cbce5ee" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8163-aaed-e67dd2e28efd" class="bulleted-list"><li style="list-style-type:circle">Cost: Drains 100%—e.g., a full bar from Burst Gauge—resetting Energy levels on use (per document), requiring rebuild via damage or time.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8110-89c4-fe194413208b" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Resets or disrupts—e.g., Blue breaks a combo, Gold repositions—costing all Burst for a single, high-stakes play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8192-b157-fc472e7e3942" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Offers clutch escapes—e.g., Blue at low Health—or bold resets—e.g., Gold mid-fight—balanced by Energy reset and next-use delay.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-819f-9415-c5f249c24361" class="">Shockwave Effects</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8164-ace7-de7b67211284" class="">The shockwave defines Burst’s impact:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81e9-8f29-c62588f5554d" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Blue spans a wide raduis, hitting foes via collision. Gold spans a smaller radius around, less reach but safer. Both refill some amount of Energy, Blue vulnerable post-use, Gold grants a form on invincibility until landing.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-81fe-b1ef-dd78e01d5089" class="bulleted-list"><li style="list-style-type:circle">Modified effects based on build</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81f0-bda3-e4de6e7c9fdd" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Blue clears combos—e.g., hitting a Super’s invuln frames—Gold repositions—e.g., spacing a foe—each with distinct recovery risks.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-810a-8ce1-df70bb0c6269" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Blue escapes—e.g., breaking a kill chain—Gold controls—e.g., forcing distance—balanced by situational triggers and cost.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-81fb-a180-f8715e3ef93b"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81db-a5d1-e084014647bf" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81fd-a1d1-d246c3401c21" class="">Psych Burst weaves into core mechanics:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8134-bd8b-f4c0011ca235" class="bulleted-list"><li style="list-style-type:disc">Energy: Resets Energy on use—e.g., a full Burst refills Energy (Energy Gauge)—tying it to resource pacing, aiding recovery post-escape.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81ee-8b0d-f88534ed556f" class="bulleted-list"><li style="list-style-type:disc">Health: Fills Burst faster at low pips—e.g., below 25% speeds gain (Health Pip)—linking Burst to survival stakes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81b8-8839-d6bdd652f69b" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-81fa-bf0f-d9ad6cdfb118" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds execution—e.g., rogues burst faster—enhancing evasion play (Mobility Skills).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-819d-bdc5-c2bc8aaab70e" class="bulleted-list"><li style="list-style-type:circle">Fortitude: Cuts recovery—e.g., tanks land quicker—boosting endurance (Health Pip).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8101-af28-f8d3b4d524a4" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor extends radius; heavy boosts knockback—e.g., heavy gear amplifies Gold push (Controls).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8166-839c-ee93ac59eeec" class="bulleted-list"><li style="list-style-type:disc">Combat: Breaks combos (Burst) or counters—e.g., Gold vs. a Special (Combat sections)—resetting fight dynamics.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8170-bccb-da47b92f994f"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81d1-a033-f952e9a2cab2" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81d4-9abd-c36033ee6818" class="">Variant Clarity: Blue vs. Gold might blur—e.g., both disrupt foes.</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-81f2-bca1-e6f0274f9bde" class="bulleted-list"><li style="list-style-type:disc">Solution: Sharpen roles—e.g., Blue escape only (no damage), Gold adds Bonus—via UI/effects—e.g., blue flash vs. gold pulse.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-81ae-a7a8-fc551d1ad280"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8127-b9ba-c6744958f43f" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-812b-aa82-cfca6c058393" class="">Arenas shape Psych Burst—open spaces favor Gold’s radius, tight corners boost Blue’s reach—while skills tweak it—rogues speed it, warriors amplify knockback—per class diversity concepts. Energy reset (Energy Gauge) aids post-use recovery, Health thresholds (Health Pip) fuel its buildup, tying Burst to combat’s pulse.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8135-b6fe-d990389c37f5"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-81d2-a091-f9481fff5966" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8167-a6ec-e95079a308bb" class="">Psych Burst in The Fighting Game surges as a clutch lifeline, consuming a full Burst Gauge to unleash a shockwave that breaks combos or resets the fight. With Blue escaping pressure and Gold seizing control—each shaped by build traits—it offers 2-3 pivotal uses per fight, blending desperation and strategy. This mechanic pulses with the game’s rhythm, turning every Psych Burst into a chance to defy fate or reclaim the battlefield.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Wild Assault</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="319951eb-e05c-8048-aeff-e2cb44b6cb2d" class="">Wild Assault in The Fighting Game is a Burst-charged offensive strike, a high-risk surge from the Impact state that disrupts foes and drains their Burst Gauge in its high-fantasy, 3rd-person combat arena. Consuming 50% of the Burst Gauge, it delivers a charging blow—effective against blockers or stunned foes—reducing the opponent’s Burst by a small amount that varies on on block or hit. This aggressive move blends power and strategy, rewarding bold timing with build-specific tweaks for tactical punch.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8021-8af8-fc9f43666bde"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807e-85bc-d9909a1ea4b4" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-807d-8595-d16497a56885" class="">The Wild Assault system strives to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803f-b509-fe3f1ba6773d" class="bulleted-list"><li style="list-style-type:disc">Disrupt Foes: Break enemy guards or pressure with a forceful strike, shifting fight momentum.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-801c-825b-fe47751d8e7d" class="bulleted-list"><li style="list-style-type:disc">Drain Burst: Sap the opponent’s Burst Gauge, curbing their clutch options like Psych Burst.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cb-afca-e1c3009d22de" class="bulleted-list"><li style="list-style-type:disc">Leverage Impact State: Tie to the Impact state for a situational, high-reward attack, pacing its use within 1-3 times per fight.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8038-a658-f0a82869a4d7" class="bulleted-list"><li style="list-style-type:disc">Enhance Build Play: Adjust speed, damage, and drain via stats, gear, and skills, reflecting diverse styles.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80be-ae67-d66039abe005"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-809b-b44a-d849d5f3e81d" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80bf-b77c-cbbcf8a9b857" class="">Activated from the Impact state—a post-stun or combo window—with Forward + B (Dash), Wild Assault consumes 50% of the Burst Gauge to unleash a charging strike that disrupts foes and drains 7a portion of their Burst Gauge on block or hit. Distinct from Psych Burst (RB + LB + LT) or Deflect Shield (LB + RT hold), it’s a special move from Impact, not a Burst chord, offering aggression over escape or defense. It can be charged to be used to launch the opponent into the air (and can be followed by canceling into a jump afterwards which will automatically follow the opponent). Agile builds speed its charge, tanks boost its force—each use a bold bid to seize control and deny foe reprisals.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80df-90ab-cb8691c6f409"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8078-8c79-e82f46066ce9" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-809f-a47b-d3c98ac51f23" class="">Activation and Cost</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80be-bda5-d44d69466c9b" class="">Wild Assault triggers a swift charge:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803b-88a3-d16c6d5cd143" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8078-9202-f91f9e9ec4c9" class="bulleted-list"><li style="list-style-type:circle">Input: Forward + B (Dash) (long-press maybe)—from Impact state—e.g., post-combo stun—agility speeds startup, strength boosts damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8062-8ca0-f747a8275ffa" class="bulleted-list"><li style="list-style-type:circle">Charge: fully to add a launch</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8053-9d32-e09cdbd8d5a7" class="bulleted-list"><li style="list-style-type:circle">Follow up: With a Jump immediately after (as a cancel) to leap to match the knocked-up opponent in the air.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d3-b3e8-c4243f2d4b56" class="bulleted-list"><li style="list-style-type:circle">Cost: Drains 50% Burst Gauge—e.g., half a bar—limiting use to 2-4 times per fight with regen (Burst Gauge).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808c-a2fb-c4c6087dc323" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Disrupts foes ability to Psych Burst temporarily and provides a potent option to initiate aggression.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8008-a751-ff803a5d907c" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Shifts momentum—e.g., charging through a guard—balanced by cost and foe counterplay (e.g., dodge).</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8008-b8d0-d3bf9e841a29" class="">Strike and Burst Drain</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8069-8b16-dfde1d6e0a0e" class="">The strike lands with draining force:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8052-8f38-da9c8cd004b3" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80c4-82fc-c8dc59fe7128" class="bulleted-list"><li style="list-style-type:circle">Strike: A charging blow—e.g., a lunging smash—deals moderate damage with knockback—stronger on hit than block.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d5-9368-c0328a51da2a" class="bulleted-list"><li style="list-style-type:circle">Burst Drain: Reduces foe’s Burst by a small amount on block/hit e.g., shaving their Psych Burst chance.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805d-aaad-c06e17e974b2" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Punishes foes—e.g., draining Burst mid-block—or pressures—e.g., forcing a reaction—offering a tactical edge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8078-8a85-c942c8c25f54" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Denies foe counters—e.g., sapping Psych Burst—or overwhelms—e.g., knocking back a blocker—offset by Burst cost and foe evasion.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80ae-a5fd-c13fdce9efb9" class="">Build and Combat Dynamics</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8060-a91a-c582c992b51e" class="">Builds shape Wild Assault’s impact:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8061-aa44-c2abd22835d2" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8074-b935-cf577472c66f" class="bulleted-list"><li style="list-style-type:circle">Stats: modify charge speeds—e.g., rogues strike faster—favoring evasion play post-hit (Mobility Skills). While Tanks could carry more momentum into the hit perhaps disrupting more of the opponents gauge.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80b1-823b-c8be8427c3b3" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor speeds startup; heavy boosts knockback—e.g., pushing foes farther.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80cd-8901-ea0c214951f4" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Disrupts with force—e.g., breaking a Guard (Guard &amp; Guard State)—or punishes—e.g., hitting a Special end (Combat sections)—Energy costs tie to its use (Energy Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804b-ac6a-cb2d16e66d34" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Agile builds blitz—e.g., Wild Assault into Dash—tanks dominate—e.g., draining more Burst from the opponent—balanced by limits.</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8022-811e-e48cdc34cb69"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8012-a520-dde212eae964" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c6-8439-fd9db76f6596" class="">Wild Assault syncs with mechanics:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8059-8395-da917ea67a6a" class="bulleted-list"><li style="list-style-type:disc">Burst Gauge: Drains 50%—e.g., half a bar post-buildup—tying to adversity—e.g., low Health speeds fill—enhancing clutch play (Burst Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-808c-bf44-e655e064c5f2" class="bulleted-list"><li style="list-style-type:disc">Energy: Fuels the special—e.g., Forward + B sips Energy—while Burst cost adds heft—e.g., a charged strike (Energy Gauge).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807a-907d-fc29e980b10a" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8022-b362-c652bf147afd" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds timing—e.g., rogues charge mid-Dash (Mobility Skills)—boosting evasion.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8064-964c-d26c928557c2" class="bulleted-list"><li style="list-style-type:circle">Fortitude: Ties to Health—e.g., tanks strike at low pips (Health Pip)—rewarding resilience.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8049-b080-c3b49f352fd5" class="bulleted-list"><li style="list-style-type:circle">Gear: Light armor aids speed; heavy boosts drain—e.g., cutting more Burst (Controls).</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8064-9d87-c5ff800a7b61" class="bulleted-list"><li style="list-style-type:disc">Combat: Disrupts guards—e.g., breaking a Block—or punishes—e.g., hitting a combo end—deepening aggression (Combat sections).</li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-8019-bc3c-d2589b3055d5"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801b-8bd3-c73547c11adf" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803f-80f2-f16e724d970c" class="">Wild Assault poses hurdles:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a9-9af5-f76f446e8204" class="bulleted-list"><li style="list-style-type:disc">Overuse Risk: Early 50% use might spam—e.g., Impact state opener—yet starts full for depth.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a9-88e7-f965eda13261" class="bulleted-list"><li style="list-style-type:circle">Solution: Retain full start—foe dodges mitigate—e.g., wasted Assault aids foe Burst regen—balancing risk/reward.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8075-83cd-dfa02492dd68" class="bulleted-list"><li style="list-style-type:disc">Drain Clarity: 7.14% drain might feel vague—e.g., how much Burst lost?<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80f0-8f71-eadca9934df9" class="bulleted-list"><li style="list-style-type:circle">Solution: Cue visually—e.g., foe bar flashes on hit—or scale by hit—e.g., block drains less—enhancing readability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ec-8f76-d0eaedcb327b" class="bulleted-list"><li style="list-style-type:disc">Impact State Entry: Vague Impact trigger might confuse—e.g., when’s it active?<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8001-9584-d8e9fb939b12" class="bulleted-list"><li style="list-style-type:circle">Solution: Define entry—e.g., post-stun or combo drop—or widen window—e.g., brief buffer—clarifying use.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-80b9-bfd7-fba545b67fbe"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80d8-b941-f546648ba3b7" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8019-9547-ffbfc8ba7ca9" class="">Arenas shape Wild Assault—open spaces favor its charge, tight corners limit it—while skills tweak it—rogues speed it, tanks boost drain—reflecting build variety. Energy costs and Health states tie it to pacing, amplifying its role as a Burst-draining disruptor in prolonged fights or clutch moments.</p></div><div style="display:contents" dir="auto"><hr id="319951eb-e05c-802f-931a-c73513654920"/></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8057-bca5-fda6af4f86f2" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80fd-8657-f9dbf2d9fba0" class="">Wild Assault in The Fighting Game charges as a Burst-fueled strike, consuming 50% of the gauge to surge from Impact state—disrupting foes and draining their Burst with every hit or block. Agile builds wield it with swift precision, tanks turn it into a draining rebuke—each assault a tactical hammer that shifts the fight’s tide or denies foe reprisals. This mechanic deepens combat’s rhythm, rewarding aggression with a blow that cuts both flesh and foe resolve.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Deflect Shield</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8041-978d-fdcf21c0d373" class="">Deflect Shield in The Fighting Game is a Burst-powered parry, a clutch counter to incoming strikes and projectiles in its high-fantasy, 3rd-person combat arena. Activated from block or blockstun with a 50% Burst Gauge cost, it deflects all attacks within its window—pushing foes back based on proximity—offering players a deft tool to disrupt aggression and seize control. Its tight timing rewards precision, balanced by resource use and tuned by build customization for tactical flair.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-80f0-a91e-f48faade43a3"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8067-9854-fbc777840a46" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8035-8ef8-f5b34839d68b" class="">The Deflect Shield system strives to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80cf-8d23-fcfc2bef813e" class="bulleted-list"><li style="list-style-type:disc">Counter Threats: Neutralize multiple incoming attacks—melee or ranged—broadening defense beyond evasion or static guards.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802b-93b0-d403780b2312" class="bulleted-list"><li style="list-style-type:disc">Demand Precision: Require exact timing from block states, aligning with the game’s skill-driven combat focus.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a9-925d-d80d13f65601" class="bulleted-list"><li style="list-style-type:disc">Leverage Burst: Draw from the Burst Gauge for a potent counter, pacing its use within 2-3 fight instances.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8068-b8dc-decd979947bf" class="bulleted-list"><li style="list-style-type:disc">Enhance Build Play: Adjust timing, pushback, and resilience via stats, gear, and skills, reflecting player style.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-80e0-8a36-cf73956a9981"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8078-b660-cb72bc50528c" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8060-8b9e-da0b1ec8bd5d" class="">Triggered by Block + Heavy Attack (held briefly/longpress) in block or blockstun states, Deflect Shield consumes 50% of the Burst Gauge to parry all attacks within a narrow window—neutralizing them with a pushback that scales by foe proximity. Similar to Wild Assault (an Impact state special), it uses the Guard state as a base for its Guard state Heavy attack special (short charge) chorded input, carving a defensive niche from block contexts.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-802b-ba27-cc1cfa5265a3"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80df-8489-e4cda7763701" class="">Core Mechanics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-8f73-d8a161ac5b5e" class="">Activation and Cost</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-804c-ab63-d54fb5bdd71d" class="">Deflect Shield demands sharp timing:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800c-9ea6-cdcbc293b0f0" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8098-ac52-f2bbbb9635aa" class="bulleted-list"><li style="list-style-type:circle">Input: Block + Heavy Attack (held/longpress)—e.g., LB + RT hold—from block or blockstun—e.g., post-Block of a Medium Attack.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807e-9454-e06c9579ceb9" class="bulleted-list"><li style="list-style-type:circle">Cost: Drains 50% Burst Gauge—e.g., half a bar—limiting use to 2-4 times per fight with regen.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8093-be65-cdd78d4be432" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Counters all attacks in its window—e.g., deflecting a flurry of strikes or projectiles—disrupting multi-foe pressure.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8078-a7af-ea03c9e4a849" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Turns aggression into risk—e.g., deflecting a combo with pushback—balanced by cost and precision.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807c-8a74-f4c52491ecfb" class="">Deflection and Pushback</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80df-8400-c40610a7012a" class="">The shield deflects with proximity-based force:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b0-9bf1-dbd55df02ab9" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-808a-b58e-cf2e463875e5" class="bulleted-list"><li style="list-style-type:circle">Deflection: Negates all incoming attacks—e.g., melee strikes or spells—if timed right, akin to a multi-hit parry.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8091-b631-f87898414033" class="bulleted-list"><li style="list-style-type:circle">Pushback: Scales with foe closeness—e.g., close melee foes shoved far, distant ranged are pushed somewhat less—tuned by gear, skills, and build.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-805a-b97d-d2cd56306c9e" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Stops damage—e.g., nullifying a ranged Special—or disrupts—e.g., pushing close foes out of range—offering a counter window.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800a-9a5a-f0ab8af5835b" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Punishes tight aggression—e.g., deflecting a multi-foe rush—or stalls—e.g., nudging a distant caster—offset by Burst cost and timing.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d0-9892-f22b6d1c9eea" class="">Build and Combat Dynamics</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-806d-83c4-d64ef377a3b7" class="">Builds and customization shape Deflect Shield:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8090-b350-d4bd442eaf7c" class="bulleted-list"><li style="list-style-type:disc">Mechanics:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b8-8175-d63a560b4e5c" class="bulleted-list"><li style="list-style-type:circle">Agility: Speeds activation—e.g., rogues deflect in tighter windows—favoring evasion play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8097-8e16-fef87764ec99" class="bulleted-list"><li style="list-style-type:circle">Gear/Skills: Adjust pushback—e.g., heavy gear boosts knockback, skills shorten it—tailoring range to preference.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8085-b8df-e87fa11744f7" class="bulleted-list"><li style="list-style-type:circle">Build: Agility aids timing, strength cuts recovery—e.g., tanks recover faster post-deflect—enhancing resilience.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801d-b58a-c0a96fc238c0" class="bulleted-list"><li style="list-style-type:disc">Combat Role: Counters strikes—e.g., deflecting a Heavy Attack—or projectiles—e.g., a spell barrage—Energy costs tie to its use.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8064-8e2c-ffa904160415" class="bulleted-list"><li style="list-style-type:disc">Tactical Use: Agile builds chain into counters—e.g., deflect to Dash—tanks disrupt—e.g., pushing foes back—balanced by gauge limits.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-80f8-b28a-ea0efa5ad3b2"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8031-9a2f-d1f4e65fe0d9" class="">Integration with Game Systems</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-805b-b31b-e4a757c7fd7d" class="">Deflect Shield weaves into core mechanics:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8045-a1bf-e1dbe34b1ec2" class="bulleted-list"><li style="list-style-type:disc">Burst Gauge: Drains 50%—e.g., half a bar after buildup—tying to adversity—e.g., low Health speeds fill—enhancing clutch play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8087-b0cf-fdcfe88693ae" class="bulleted-list"><li style="list-style-type:disc">Energy: Complements Energy-fueled blocks—e.g., Block sips Energy—while Deflect Shield costs Burst—e.g., a heftier counter.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8083-bfad-c31c1767bd6c" class="bulleted-list"><li style="list-style-type:disc">Movement: Standing, Crouched, Prone and In air states would all be affected differently by pushback with airborne being impacted most and prone least.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8064-a026-ebbfe77bcf6d" class="bulleted-list"><li style="list-style-type:disc">Builds:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8070-9f22-c0495ad52572" class="bulleted-list"><li style="list-style-type:circle">Gear/Skills: Light armor could affect timing; heavy or skills tweak pushback—e.g., customizing foe distance post-deflect.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8001-a9dd-cb13bb0671c2" class="bulleted-list"><li style="list-style-type:disc">Combat: Counters projectiles or strikes—e.g., deflecting a Special—or sets up—e.g., pushback opens a gap—deepening options.</li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-80ba-b654-f689e97283e2"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a8-8fcc-e169fddbb06a" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b6-bad3-d7f7dfe634a1" class="">Deflect Shield poses hurdles:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8031-becd-fb85f69388f9" class="bulleted-list"><li style="list-style-type:disc">Timing Precision: Narrow window might frustrate—e.g., missing a deflect feels punishing.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8057-94a9-cdfaf63eab00" class="bulleted-list"><li style="list-style-type:circle">Solution: Widen slightly—e.g., a forgiving frame buffer—or scale with agility—e.g., rogues get more leeway—balancing skill and access.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80cc-9006-c2862e2fe8fc" class="bulleted-list"><li style="list-style-type:disc">Pushback Clarity: Proximity-based pushback might confuse—e.g., why less push on ranged foes?<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d4-8b88-d3dab99ff26b" class="bulleted-list"><li style="list-style-type:circle">Solution: Cue visually—e.g., glow scales with distance—or clarify—e.g., melee focus in UI—enhancing readability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8014-97f9-e6e44ae00cb2" class="bulleted-list"><li style="list-style-type:disc">Burst Cost vs. Utility: 50% cost might underwhelm—e.g., Psych Burst’s reset overshadows.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-91df-c27573b2fae0" class="bulleted-list"><li style="list-style-type:circle">Solution: Add minor perk—e.g., multi-deflect staggers briefly—or tweak cost—e.g., 40%—balancing with Psych’s full-bar reset.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8050-b40b-ee33e4b4b3ba"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cb-b4a5-e05080563d67" class="">Additional Context</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f6-a070-eefcc1f38b0e" class="">Arenas shape Deflect Shield—ranged zones amplify projectile use, tight spaces boost melee pushback—while customization tweaks it—rogues might speed it, tanks maximize knockback—reflecting diverse builds. Energy costs and Health states tie it to pacing, amplifying its clutch role against multi-foe or ranged threats.</p></div><div style="display:contents" dir="auto"><hr id="320951eb-e05c-8075-9117-f73910fe18e2"/></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8068-bf5a-ccf3360496e6" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c1-820e-c26470034b8d" class="">Deflect Shield in The Fighting Game stands as a Burst-fueled parry, consuming 50% of the gauge to deflect all attacks in its window—pushing foes back with force that scales by proximity. Agile builds wield it with swift precision, tanks turn it into a tailored rebuke—each deflect a tactical reset that shifts the fight’s tide. Customized by gear and skills, it deepens combat’s rhythm, rewarding timing with a shield of reprisal that turns enemy aggression into fleeting triumph.</p></div></div></details></div><div style="display:contents" dir="auto"><p id="31a951eb-e05c-8097-8342-d56d55943a37" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

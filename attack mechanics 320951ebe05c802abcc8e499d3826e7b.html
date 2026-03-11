@@ -1,0 +1,713 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>attack mechanics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="320951eb-e05c-802a-bcc8-e499d3826e7b" class="page sans"><header><h1 class="page-title" dir="auto">attack mechanics</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Meaty</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8023-8e3a-d7d3de70c75e" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8064-84fa-e41aab741ec1" class="">The Meaty mechanic is designed to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8067-b894-fef475c53658" class="bulleted-list"><li style="list-style-type:disc">Reward Precision Timing: Grant frame advantage by hitting opponents during their wakeup frames, encouraging skillful execution.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a2-84d6-f97b2d798f1e" class="bulleted-list"><li style="list-style-type:disc">Enhance Tactical Depth: Provide pressure options following a knockdown.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80bb-b64f-c94b8721d52e" class="bulleted-list"><li style="list-style-type:disc">Support Readability: Deliver clear feedback through the heads-up display and subtle visual reactions.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808a-9130-d968c18a5b4b" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b0-9839-ceb0d2cb8bc0" class="">Meaty attacks, sometimes called &quot;late hits&quot; in casual terms or used as nouns (e.g., &quot;meaty hit&quot;), are strikes timed to connect with an opponent during their wakeup frames after a knockdown. By hitting later in an attack’s active frames, meaty attacks maximize frame advantage, pressuring recovering foes and turning a successful knockdown into a strategic opportunity. This mechanic, a staple of fighting game design, applies in The Fighting Game to any wakeup scenario—whether from a soft knockdown’s automatic recovery or a hard knockdown’s prone state recovery, as detailed in &quot;Knockdown to Prone.&quot; Opponents can counter meaty attacks spatially through recovery options like rolling to crouch. In group combat, meaty attacks can hit multiple foes, though only those struck during wakeup frames qualify as &quot;meaty.&quot; Success is signaled by a &quot;MEATY&quot; notification on the heads-up display and a subtle visual reaction from the opponent, ensuring clarity amidst the high-fantasy combat chaos.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cc-827c-d6e4c66e598a" class="">Key Features</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a1-953d-f701dc833f7d" class="bulleted-list"><li style="list-style-type:disc">Wakeup Pressure: Meaty attacks target opponents during wakeup from soft knockdowns (quick auto-recovery) or prone recoveries (variable back or front orientations), with frame advantage scaling based on how late the attack’s active frames connect—later hits yield greater advantage.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c9-8d40-c9ebf9afb4b1" class="bulleted-list"><li style="list-style-type:disc">Construction Variability: Dependent on the custom skill system, meaty potential varies by attack design—e.g., a directional-state strike with extended active frames suits close-range pressure, while an aimed-state projectile with delayed impact excels at spacing.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8021-9ae0-edf62865f5bf" class="bulleted-list"><li style="list-style-type:disc">Multi-Foe Impact: In group combat, attacks strike all foes within range, but only those hit during wakeup frames are considered &quot;meaty,&quot; maintaining the mechanic’s situational focus.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8047-96fe-ce8b124bc212" class="bulleted-list"><li style="list-style-type:disc">Feedback Signals: A &quot;MEATY&quot; notification appears on the heads-up display upon successful timing, paired with a subtle visual reaction from the opponent (e.g., an extended hit reaction), enhancing readability without overt effects.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ff-b873-efcba939ecd5" class="">Meaty Attack Spectrum</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ca-a349-f9c7e383acc8" class="bulleted-list"><li style="list-style-type:disc">First Frame Meaty Attacks: These hit immediately as the opponent becomes vulnerable on wakeup, often blending with pressure tactics like jump-ins, though distinct from traditional safe jumps to prioritize player commitment over option selects.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ac-8a97-f3a9e750caec" class="bulleted-list"><li style="list-style-type:disc">Degrees of Meatiness: Meaty exists on a spectrum—attacks hitting earlier in their active frames are &quot;slightly meaty,&quot; while those landing on the latest frames are &quot;very meaty,&quot; with no formal tiers; players use these informal descriptors for precision discussions.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809c-99e6-d4f3f69bdc0b" class="">Sliding Hitbox Meaty</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8081-ad8c-c6f90cc577ec" class="bulleted-list"><li style="list-style-type:disc">Some meaty attacks exploit sliding hitboxes—forward-moving strikes or momentum from sprinting—to delay impact, aligning active frames with wakeup. This leverages the opponent’s brief invincibility during wakeup animations, ensuring the hit connects as vulnerability resumes.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a5-8a30-c0bff04bb0bf" class="">Meaty Attack Timeline</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8048-bcb7-c50c2e48bf37" class="bulleted-list"><li style="list-style-type:disc">Compared to a normal attack, a meaty attack hits later despite starting simultaneously, extending the defender’s recovery relative to the attacker. Blockstun duration remains identical, but the delayed hit can shift an attack from negative on block (e.g., -2 frames) to positive (e.g., +3 frames), sometimes allowing the attacker to recover in time to block reversals.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802e-82f9-d0def55115ed" class="">Moves to Use or Avoid</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c9-95d8-fff47ee69638" class="bulleted-list"><li style="list-style-type:disc">Optimal meaty attacks feature high blockstun and low recovery frames to maximize frame advantage, yet must activate quickly enough to catch the opponent as they become vulnerable. Slow-startup moves risk missing the wakeup window, while fast, low-stun attacks may not capitalize on the advantage fully.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8089-837f-cbc8c2ec9e5c" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d0-928d-c708258371f1" class="bulleted-list"><li style="list-style-type:disc">Prone Recovery Evasion: Recovery options from prone (e.g., rolling to crouch) may position the opponent outside meaty range, reducing reliability.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8073-b265-f337df4a1564" class="bulleted-list"><li style="list-style-type:circle">Solution: Emphasize spatial counterplay—successful meaty attacks require predicting recovery movement, leveraging strafing or dashing from the &quot;Movement&quot; system to cover escape paths.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807b-9652-c10733bcaba2" class="bulleted-list"><li style="list-style-type:disc">Reversal Tension: Meaty frame advantage might overlap with reversal invincibility windows (per &quot;Reversal&quot;), limiting defender options if recovery is too safe.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c1-9ed5-d5dc52a8471f" class="bulleted-list"><li style="list-style-type:circle">Solution: Balance via prototyping—ensure meaty recovery frames allow reversals to punish overextensions (e.g., a +4 meaty loses to a 3-frame invincible Special), preserving the counter-system dynamic.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-aa07-ff201b73c69c" class="bulleted-list"><li style="list-style-type:disc">3D Readability: Precise active-frame timing may be less intuitive in 3D animations compared to 2D sprite-based fighters.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f1-9d82-f5cb886125dc" class="bulleted-list"><li style="list-style-type:circle">Solution: Use the heads-up display &quot;MEATY&quot; notification and extended hit reaction visuals (e.g., a prolonged hit pose) for clarity; test animation readability in prototyping to avoid reliance on overt effects like slow motion, aligning with cinematic goals.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8020-8662-d339d4e97a9a" class="">Suggestions for Prototyping</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fd-b1c8-e7ea50c9b080" class="bulleted-list"><li style="list-style-type:disc">RPG Integration: Test tying meaty success to resource systems—e.g., restoring 5% Energy or adding a portion of a Poise block per hit—to enhance tactical rewards, assessing impact on resource balance.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b2-b619-e035bcdd5ea0" class="bulleted-list"><li style="list-style-type:disc">Defender Option Selects: Explore recovery moves that counter meaty attacks (e.g., a roll beating strikes but losing to grabs), favoring defenders to offset offensive pressure; evaluate how this affects the commitment-focused design.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809a-b904-d021d0d8bac6" class="">Conclusion</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a8-92ed-cd82a353f4e9" class="">Meaty attacks blend fighting game precision with The Fighting Game’s high-fantasy combat, delivering frame advantage through expertly timed wakeup pressure. Applicable across soft and hard knockdowns, they adapt to custom-crafted skill designs, offering variety via construction while naturally scaling to hit multiple foes in group scenarios. With heads-up display feedback and subtle visual reactions ensuring clarity, meaty attacks enrich the &quot;Core Loop&quot;’s prediction and advantage phases, rewarding skill without overshadowing reversal counterplay. Prototyping will refine balance, readability, and potential RPG ties, solidifying meaty as a cornerstone of strategic depth.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Jump In</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f3-81d2-fe03bc1aa3d1" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8067-9c23-ed5ae18d929f" class="">The jump-in system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c2-b392-e26e8614c4c7" class="bulleted-list"><li style="list-style-type:disc">Initiate Aerial Offense: Enable air attacks to start or restart combat pressure against grounded foes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804f-b39f-f7f2ed9c948d" class="bulleted-list"><li style="list-style-type:disc">Maximize Frame Advantage: Leverage landing recovery cancellation for offensive momentum based on attack timing.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8046-8b7c-f05fdc975c07" class="bulleted-list"><li style="list-style-type:disc">Expand Mixup Potential: Condition opponents for varied aerial strategies across states.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ae-8102-c29d5ce805ab" class="bulleted-list"><li style="list-style-type:disc">Integrate with Core Mechanics: Align with attack and movement systems for tactical depth.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8018-b1fb-f0cbc6de55ba" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807a-bb0e-cc1c99f5aa0d" class="">Jump-in attacks in The Fighting Game involve jumping toward a grounded opponent while executing an air attack, serving as a primary method to initiate or sustain offensive pressure from the air. By canceling most of an air attack’s recovery upon landing, Jump-ins generate frame advantage that depends on the timing of the hit—attacks landing just before touchdown maximize advantage, while earlier strikes offer less, opening mixup opportunities like Empty Jumps. Applicable in scenarios such as okizeme, blockstring transitions, or with assist cover, these attacks adapt combat mechanics across all states to the aerial context, balancing precision with strategic versatility in both 1v1 and group combat scenarios.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8029-b848-f15e00567657" class="">Core Jump In System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b6-8342-d33deaf27477" class="">Jump-in attacks operate as follows:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806f-9ffd-e6ac9dc79d00" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Executed by pressing an attack button or combining it with a directional input while jumping toward a grounded opponent, Jump-ins utilize distinct air movesets from all states—Base, Focus, Impact, and Guard—as defined in &quot;Normal Attacks&quot;; landing cancels recovery frames, granting frame advantage based on attack timing—Deep Jump-ins occur when the attack connects just before landing, maximizing advantage by reducing recoverable frames, while Delayed Jump-ins stall momentum with an air dash, varying hit timing to enhance mixup potential against defensive responses like Guard Switch; earlier hits provide less advantage, giving opponents more time to counter.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8040-9156-df779f0cdc8a" class="bulleted-list"><li style="list-style-type:disc">States: Available across all states in the air—Base state offers standard normals and command normals with thumbstick directional alignment, while Aimed states (Focus, Impact, Guard) leverage Held State inputs facilitated by a jump arc slowdown; forward-facing Jump-ins in any state can extend to long-range distances based on the character’s effective range, while side or back directions limit range to close-to-mid distances with pushback effects to counter Projectiles when timed correctly—unspecified command normal slots default to weapon-aligned attacks (e.g., longsword Slash) in Base or state normals (e.g., Light attack) in Aimed states.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d0-8911-f34a4e8da2df" class="bulleted-list"><li style="list-style-type:disc">Types: Encompass all attack types per state’s air moveset—Strikes (light/heavy normals or command normals across states, e.g., a Base Light Strike), Projectiles (e.g., a Focus Forward + Light), Grabs (via Grab button in Base state, e.g., an aerial grapple), and Control Skills (via Grab button in Impact state, e.g., an aerial crowd control effect); attack type flexibility allows light or heavy inputs to be Strikes or Projectiles, with Grabs and Control Skills2 tied to their respective buttons in applicable states.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e6-9f64-c6d9bdd7c3b3" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800a-b4c9-c2d7ad8d043d" class="">Jump-in attacks integrate with other combat systems to enhance gameplay:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8054-9104-ce85fe498aca" class="bulleted-list"><li style="list-style-type:disc">Attack Types: Light and heavy Jump-ins can align with Strikes or Projectiles depending on the air moveset (e.g., a Base Heavy Strike or Guard Forward + Light Projectile), while Grab attacks via the Grab button in Base state initiate an aerial grapple and Control Skills via the Grab button in Impact state deliver crowd control effects—command normals expand options across states, such as an Impact Forward + Heavy Strike, aligning with &quot;Attack Types&quot; versatility.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8097-864e-cb757e921cc5" class="bulleted-list"><li style="list-style-type:disc">Controls: Jump-ins utilize thumbstick directional inputs in Base state for attacks like a Forward + Light Projectile, while Aimed states (Focus, Impact, Guard) leverage Held State inputs mid-air—Impact state, entered by holding the Heavy attack button with jump arc slowdown, repurposes the Light button for Impact Heavy attacks and the Grab button for Control Skills; Delayed Jump-ins incorporate air dashing to vary hit timing, enhancing mixup potential across all states.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e6-bbcd-c1f6922e7f8e" class="bulleted-list"><li style="list-style-type:disc">Attack Properties: Jump-ins reflect weapon-specific properties, such as Slash for longswords or Pierce for spears, with skills potentially enhancing them—for instance, adding a Bleed effect to a Base state Heavy Strike Jump-in or a Cold effect to an Impact Control Skill Jump-in, applicable across all ranges without altering hitstun expectations.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801b-8cda-df9c59ec227e" class="bulleted-list"><li style="list-style-type:disc">Attack Levels: Light Jump-ins feature lower attack levels with faster execution, while heavy, Grab, and Control Skill Jump-ins boast higher levels with greater impact—landing recovery cancellation enhances frame advantage on hit or block, with Deep Jump-ins hitting just before landing for maximum advantage and Delayed Jump-ins varying timing, balanced through prototyping against hitstun and blockstun values from &quot;Attack Levels.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-803e-8c44-c116affed33c" class="bulleted-list"><li style="list-style-type:disc">Attack and damage Priority: Jump-ins take priority per their type—Strikes and Projectiles compete with grounded Strikes, Grabs beat Block but are counterable during startup, and Control Skills override lesser hits unless interrupted; Guard state blocks Jump-ins within a blockstun chain unless countered, while Throw Invulnerability prevents air Grab loops post-jump for 5 frames—pushback from side/back Jump-ins counters Projectiles when timed, supporting multi-opponent defense alongside friendly fire risks amplified by assists.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a0-8ec3-cd872d1a26c6" class="bulleted-list"><li style="list-style-type:disc">Normal Attacks: Jump-ins extend state-specific air movesets—Base state offers Strikes, Projectiles, and Grabs, while Impact state adds Heavy and Control Skill options—landing integrates with blockstring cancels or okizeme to restart offense, leveraging each state’s air mechanics for pressure or mixups varying high, mid, or low hit timing.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b7-8295-efb15e25127d" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Jump-ins probe Neutral by starting offense with aerial pressure or assist-covered approaches, secure Advantage through frame advantage on late-hit Deep Jump-ins, and shift Prediction by conditioning blocks for Empty Jumps or Delayed Jump-ins altering high, mid, or low hit timing—group combat benefits from assists pinning foes, enhancing versatility against multiple opponents with diverse attack types.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e5-95d7-e8920f7de747" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8009-8c6f-f459930d5ab2" class="bulleted-list"><li style="list-style-type:disc">Attack Type Clarity: Including Grabs and Control Skill in air Jump-ins requires distinct air movesets across states, potentially misaligning with prior &quot;Normal Attacks&quot; grounding unless clarified.<div style="display:contents" dir="auto"><p id="320951eb-e05c-808e-acdb-fb0811e52064" class="">Solution: Define Jump-ins as using each state’s air moveset—Base includes Grabs via Grab button, Impact includes Control Skill via Grab button—prototyping across states will confirm clarity and balance, with potential refinement to &quot;Normal Attacks&quot; and &quot;Attack Types&quot; to ensure air moveset consistency if discrepancies arise.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-803c-8ebe-f59cfbe06ae9" class="bulleted-list"><li style="list-style-type:disc">Frame Advantage Specificity: Deep Jump-ins (late hit just before landing) and Delayed Jump-ins (air dash timing) offer variable frame advantage, but lack precise values against &quot;Attack Levels&quot; hitstun/blockstun, risking unpredictability for players.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-b24e-c799061b155d" class="">Solution: Maintain Deep Jump-ins as late-hit attacks maximizing advantage and Delayed Jump-ins as timing variations via air dash—prototyping will refine frame advantage ranges to ensure offensive pressure aligns with grounded counters, focusing on timing relative to landing rather than landing itself.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8053-8421-cd161094f2cb" class="bulleted-list"><li style="list-style-type:disc">State Complexity: Extending Jump-ins to Aimed states (Focus, Impact, Guard) with jump arc slowdown may overlap with Base state roles or complicate air combat inputs from &quot;Controls.&quot;<div style="display:contents" dir="auto"><p id="320951eb-e05c-80eb-be8c-fc1174d76083" class="">Solution: Retain all states with slowdown facilitating Aimed inputs—prototyping will test if this adds tactical depth without redundancy, adjusting slowdown duration if overlap occurs across Base and Impact Jump-ins.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8023-8144-fe2d5e9eba7c" class="bulleted-list"><li style="list-style-type:disc">Mixup Balance: Deep Jump-ins risk anti-air counters with earlier timing, while Delayed Jump-ins vary high, mid, or low hits against Guard Switch or Absolute Guard from &quot;Attack and damage Priority,&quot; potentially limiting mixup impact if blocked in blockstun.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80c9-b791-f31ca79f0605" class="">Solution: Balance Deep Jump-ins for okizeme safety and Delayed Jump-ins for high/mid/low timing variation—prototyping will assess mixup strength against Guard Switch (assumed high/low counter) and Absolute Guard’s blockstun chain blocking, refining timing to maintain offensive pressure.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809d-a31c-c35d775b5080" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f7-ba36-e3ff6e2996c5" class="">Jump-in attacks extend combat into the air, leveraging state-specific air movesets—Base for Strikes, Projectiles, and Grabs, and Aimed states like Impact for Heavy and Control Skill options—to initiate or restart offense with frame advantage from landing recovery cancels against grounded opponents. With long-range forward options and close-to-mid side/back pushback countering Projectiles, they enhance tactical variety through Deep Jump-ins maximizing late-hit advantage and Delayed Jump-ins varying high, mid, or low hit timing across all states, integrating seamlessly with &quot;Attack Types,&quot; &quot;Control Skills,&quot; &quot;Attack Properties,&quot; &quot;Attack Levels,&quot; and &quot;Attack and damage Priority.&quot; Scaling effectively for group combat with assist cover and friendly fire dynamics, Jump-ins support the core loop’s strategic flow—prototyping will refine their frame advantage, state balance, and mixup potential for both okizeme precision and multi-opponent pressure.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Punish</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fb-a293-cb80bf5a7f50" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80df-a64d-de9878cc8b46" class="">The punish system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e5-9282-e459aa3f164d" class="bulleted-list"><li style="list-style-type:disc">Reward Defensive Timing: Enable attacks that exploit opponent vulnerabilities for guaranteed retaliation.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804b-b1ef-e62289bb17e3" class="bulleted-list"><li style="list-style-type:disc">Enhance Frame Awareness: Leverage frame disadvantage for strategic punishing on block.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8031-9681-d99fae4c6831" class="bulleted-list"><li style="list-style-type:disc">Support Learning: Provide HUD feedback to clarify punish success.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804a-a052-cfdc6c96a24a" class="bulleted-list"><li style="list-style-type:disc">Integrate with Combat Dynamics: Align with attack and blocking mechanics for tactical depth.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800b-a07b-e3a80f82072c" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8013-a85d-c3f27ce293c5" class="">Punish in The Fighting Game refers to striking an opponent during specific vulnerable phases—startup or recovery for Grabs and Control skills, recovery only for attacks like normals, command normals, and specials—securing a guaranteed hit when the defender capitalizes on sufficient time after blocking or evading. Less severe than Counter Hits, Punish educates players on timing successes or errors; on block, an attack with frame disadvantage (e.g., -11) allows a punish with an 11-frame or faster startup, enhanced by Instant Blocks and Parries that reduce block recovery time for easier execution. A HUD indicator distinguishes Punish from Counter Hits, aiding mid-match learning, with mechanics spanning all states and scaling to group combat, refined through prototyping.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-803c-beab-e538b99be043" class="">Core Punish System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8058-8475-f1580c5965e6" class="">Punish operates as follows:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e7-9020-cecaeec0b7d7" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Triggered by hitting an opponent during vulnerable frames—startup or recovery for Grabs and Control skills, recovery only for normals, command normals, and specials—Punish occurs when the defender’s attack lands before the opponent recovers; on block, an action is punishable if its frame disadvantage (recovery frames minus blockstun, e.g., -11) permits a defender’s attack with equal or lesser startup frames (e.g., ≤11f) to connect—success relies on timing and range, requiring the punishing attack to reach the opponent; Instant Blocks and Parries reduce block recovery time, keeping the defender closer and improving punish feasibility—HUD displays PUNISH for these hits, overridden by COUNTER if the hit qualifies as a Counter Hit (e.g., pre-recovery or vulnerable recovery states for attacks).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ba-b898-e06d8610e7fe" class="bulleted-list"><li style="list-style-type:disc">States: Available across all states (Base, Focus, Impact, Guard) on ground or in air—actions in vulnerable phases from any state can be Punished, leveraging state-specific movesets; for example, a Base state Heavy Strike in recovery or an Impact Control skill in startup becomes hittable.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8010-a41c-d955e02c1141" class="bulleted-list"><li style="list-style-type:disc">Types: Applies variably by type—normals, command normals, and specials (Strikes and Projectiles) are punishable on block during recovery based on their disadvantage; Grabs (Base Grab button) and Control skills (Impact Grab button), as grab-category actions in the RPS dynamic per &quot;Core Loop,&quot; are punishable during startup or recovery if hittable, registering as PUNISH on the HUD—all are potentially punishable if timing allows, with specifics varying by construction and deferred to prototyping.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8082-9bcd-ee59be30921c" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807f-8344-fe0904a057b6" class="">Punish integrates with key combat systems to enhance gameplay:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8034-ba56-d14547ed79dc" class="bulleted-list"><li style="list-style-type:disc">Attack Levels: Frame disadvantage derives from recovery frames minus blockstun (e.g., -11) for attacks, or startup/recovery exposure for Grabs/Control skills—Attack Levels define blockstun, while punish windows rely on action-specific timing; Instant Blocks and Parries reduce blockstun, increasing disadvantage, with exact values to be prototyped starting from examples like -11.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8052-9da2-c38a90bc688d" class="bulleted-list"><li style="list-style-type:disc">Attack and damage Priority: Guard state blocks enable Punish on recovery (or startup for Grabs/Control)—Instant Blocks and Parries shorten blockstun for faster punishes; Throw Invulnerability (+5f post-blockstun) delays defender action, potentially narrowing windows—group combat leverages range, with friendly fire risks if punish attacks hit allies.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c6-9673-e72f673586e9" class="bulleted-list"><li style="list-style-type:disc">Counter Attack: Punish targets startup/recovery for Grabs/Control skills and recovery for attacks—Counter Hit exceptions (pre-recovery or vulnerable states like whiffed Grabs, exclusive to Strikes/Projectiles) override with COUNTER on HUD, ensuring clarity; Punish applies post-block or on whiffed startup/recovery if not Counter Hittable, with prototyping refining the distinction.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ef-a32a-c24829442a1d" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8019-b83c-e4789c60a4a9" class="bulleted-list"><li style="list-style-type:disc">Punish vs. Counter Hit Clarity: Punish (startup/recovery for Grabs/Control, recovery for attacks) vs. Counter Hit (pre-recovery/vulnerable states for attacks) risks overlap—e.g., whiffed Grabs may trigger COUNTER pre-recovery but PUNISH in startup/recovery, confusing HUD feedback.<div style="display:contents" dir="auto"><p id="320951eb-e05c-800c-91c3-d3e2ff9d1166" class="">Solution: Define Punish as startup/recovery for Grabs/Control skills and recovery-only for attacks, Counter Hit as overriding exceptions for attacks—prototyping will test scenarios (e.g., whiffed Grab at -11 recovery Punish vs. Counter Hit pre-recovery), ensuring HUD prioritizes COUNTER when applicable, refining logic for clarity.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b1-a4e3-e389615f34fc" class="bulleted-list"><li style="list-style-type:disc">Frame Data Precision: Punish relies on startup/recovery minus blockstun (e.g., -11)—specific action structures remain undefined beyond examples, with Instant Block/Parry boosts varying disadvantage until tested.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80b0-a126-c6d15caabefc" class="">Solution: Start with defined examples (e.g., -11 = ≤11f startup)—prototyping will determine full structures (e.g., 24f recovery - 13f blockstun) and Instant Block/Parry effects (e.g., +2f disadvantage), ensuring consistent punishability as animations develop.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80ec-9f22-c4e767168f1b" class="bulleted-list"><li style="list-style-type:disc">Range and Positioning: Speed (e.g., ≤11f startup) doesn’t guarantee punish—range limits may misalign HUD PUNISH with hits, confusing learners if attacks miss despite timing.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8039-bf28-f118279ced40" class="">Solution: Require punish attacks to connect within range for HUD PUNISH—prototyping will test spacing (e.g., Instant Block vs. max-range block), adjusting HUD to omit PUNISH for range failures, enhancing learning accuracy as moves are animated.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8001-89c1-d94e4ba29973" class="bulleted-list"><li style="list-style-type:disc">Group Combat Application: Punish focuses on single-target vulnerabilities—multi-opponent scaling lacks clarity, with &quot;Attack and damage Priority&quot; friendly fire risking ally hits during punish attempts as actions expand.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80ae-9b3a-c63643fa468f" class="">Solution: Leverage assists to isolate punishable moments—prototyping will test group scenarios, balancing punish range (e.g., ~2m Strike) to minimize ally hits, refining assist coordination to maintain efficacy without friendly fire disruption, tweaking as new moves and skills are introduced.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800e-b71a-c48e9003421b" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8075-b5af-cf375af1322f" class="">Punish enhances defensive precision by rewarding hits during opponent vulnerabilities—startup or recovery for Grabs and Control skills, recovery for attacks—utilizing frame disadvantage to secure guaranteed retaliation post-block across all states. With HUD feedback distinguishing Punish from Counter Hits—amplified by Instant Blocks and Parries reducing blockstun—it integrates with &quot;Attack Levels,&quot; &quot;Attack and damage Priority,&quot; and &quot;Counter Attack,&quot; reflecting the RPS dynamic where only attacks Counter each other, while Grabs/Control skills are punishable outside that scope. Scaling for group combat through assist-driven targeting, Punish supports strategic depth—prototyping will refine frame windows, HUD clarity, range balance, and group dynamics as action structures and animations evolve, ensuring accessible, educational counterplay.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Counter Attack</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8021-8451-e8a4aac6ba4f" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8066-97d1-de577bd7247b" class="">The counter attack system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8014-9b32-fde1f4d6d184" class="bulleted-list"><li style="list-style-type:disc">Reward Precision Timing: Enhance attacks that interrupt opponent actions for greater impact.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804d-8b35-f4570288a3c0" class="bulleted-list"><li style="list-style-type:disc">Facilitate Reaction Windows: Provide hitstop and slowdown for strategic response opportunities.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801b-a666-f6454197cfe2" class="bulleted-list"><li style="list-style-type:disc">Amplify Visual Feedback: Deliver clear, dramatic cues for successful counters across types.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-808a-9ecd-fbce0901c610" class="bulleted-list"><li style="list-style-type:disc">Integrate with Combat Flow: Balance counter hit effects within existing attack mechanics.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8048-a421-c8f2e5f2b537" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a8-852e-f3d1d319f3d3" class="">Counter Attack in The Fighting Game designates a Counter Hit as an attack that strikes an opponent before their attack’s recovery phase ends or during specific vulnerable recovery states, boosting damage and applying type-specific hitstop and slowdown effects to enhance readability and follow-up potential. With four Counter Hit types—Very Small, Small, Mid, and Large—this system escalates from subtle boosts to cinematic pauses, affecting both players and a surrounding radius, while Mid and Large types clear the input register for a tactical reset. Excluding Grabs and Control Skills as Punishes and Supers as immune, Counter Hits refine combat precision in both 1v1 duels and group scenarios, integrating seamlessly with the game’s mechanics.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a9-b2fc-d0e457c6395f" class="">Core Counter Attack System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8083-873f-d70a9c086556" class="">Counter Attacks operate as follows:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8047-aec5-ee5ef90845c0" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Triggered by hitting an opponent during their attack’s active frames before recovery begins or during vulnerable recovery states—such as whiffed Grabs, Projectiles, non-attacking Specials, or DPs (dragon punches)—a Counter Hit increases the attack’s damage and applies type-specific effects; hitstop pauses both players (and potentially a radius) for reaction time, followed by local slowdown doubling the receiver’s frame duration in a rapid ramp that slows then accelerates back to normal—Mid and Large Counter Hits clear the input register, resetting queued actions for combo or defensive shifts.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fc-af52-deecc22dc58d" class="bulleted-list"><li style="list-style-type:disc">Types: Every Strike and Projectile attack has a Counter Hit type—Very Small, Small, Mid, and Large—determining properties:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a1-9d1f-d177a60b2c26" class="bulleted-list"><li style="list-style-type:circle">Very Small: Base hitstop (attack-specific), no slowdown, no additional advantage—common for Projectiles and follow-up Specials.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8025-9011-f5d0f60f5d16" class="bulleted-list"><li style="list-style-type:circle">Small: Base hitstop, 11 frames of immediate local slowdown, +6 frame advantage—rarely used.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e4-9076-f27b2854d644" class="bulleted-list"><li style="list-style-type:circle">Mid: 21 frames of hitstop overriding base values, 25 frames of local slowdown post-hitstop, +13 frame advantage, clears input register—typical for Strikes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8066-b1e7-c92f3d66ca50" class="bulleted-list"><li style="list-style-type:circle">Large: 31 frames of hitstop overriding base values, 35 frames of local slowdown post-hitstop, +18 frame advantage, clears input register, camera zoom-in—strong Strikes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fd-b879-f768cb7994ae" class="bulleted-list"><li style="list-style-type:circle">Grabs (Base state) and Control Skills (Impact state) cannot Counter Hit, registering as Punishes instead; Supers are immune to Counter Hits, even in startup—visual and audio cues escalate with type, from subtle to dramatic.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-807c-a3d4-f5b982294d15" class="bulleted-list"><li style="list-style-type:disc">States: Available across all states (Base, Focus, Impact, Guard) on ground or in air via Jump-ins—only Strikes and Projectiles trigger Counter Hits, with defaults to weapon-aligned attacks (e.g., longsword Slash) in Base or state normals (e.g., Light attack) in Aimed states when unspecified; local slowdown affects the opponent and a surrounding radius, enhancing group combat readability.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80dc-9154-e7d846dab828" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808d-8c4a-eefcf755e935" class="">Counter Attacks integrate with other combat systems to enhance gameplay:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8018-b130-f1bf83303a2b" class="bulleted-list"><li style="list-style-type:disc">Attack Types: Strikes (light/heavy) and Projectiles (e.g., Base Forward + Light) across states trigger Counter Hits with type-specific effects—Grabs (Base Grab button) and Control Skills (Impact Grab button) register as Punishes, not Counter Hits, while Supers remain immune, aligning with &quot;Attack Types&quot; definitions; command normals like a Focus Forward + Heavy Strike can Counter Hit based on their type.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809f-8e30-e9c68608b36d" class="bulleted-list"><li style="list-style-type:disc">Controls: Counter Hits utilize state-specific inputs—Base thumbstick for directional Strikes, Focus/Impact/Guard via Held State inputs (e.g., Impact Light button for Heavy Strikes)—air Counter Hits extend to Jump-ins, leveraging timing across all states’ air movesets without Grab or Control Skill eligibility.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8015-aa3c-c3a677b3138a" class="bulleted-list"><li style="list-style-type:disc">Attack Properties: Counter Hits boost damage without altering base properties like Cold or Bleed—e.g., a Base Heavy Strike Counter Hit increases damage output, with skills enhancing effects like Poison independently, maintaining clarity across &quot;Attack Properties.&quot;</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-805b-9a7a-fef15d676d6c" class="bulleted-list"><li style="list-style-type:disc">Attack Levels: Counter Hits amplify damage atop hitstun (e.g., Lv.2 = 16f)—hitstop pauses both players (e.g., Mid 21f), followed by slowdown (25f) and additional frame advantage (+13f) for the attacker, balanced via prototyping against &quot;Attack Levels&quot; startup speeds; hitstun applies post-hitstop to the receiver only, distinct from the universal pause.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8072-ab04-e57afdbb6a91" class="bulleted-list"><li style="list-style-type:disc">Attack and damage Priority: Strikes and Projectiles as Counter Hits compete with opponent Strikes—Grabs and Control Skills punish without Counter Hit status, while Supers resist interruption; local slowdown radius aids multi-opponent control, with friendly fire risks potentially slowing allies or assists, reinforcing spacing dynamics.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8065-9cbb-c279ec26c8de" class="bulleted-list"><li style="list-style-type:disc">Normal Attacks: Counter Hits extend across air and ground movesets—e.g., a Base Light Strike or Focus Forward + Light Projectile can Counter Hit, with Mid/Large clearing inputs for resets—vulnerable recovery states (e.g., whiffed Projectiles) align with state mechanics.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-803b-a806-ca25b9a833fb" class="bulleted-list"><li style="list-style-type:disc">Jump In: Counter Hits enhance Deep Jump-ins—e.g., a late-hit Base Strike Counter Hit on wakeup boosts damage and frame advantage, amplifying okizeme pressure across states without Grab or Control Skill involvement.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8035-adb8-db95263ac64d" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Counter Hits probe Neutral by punishing active or whiffed attacks, secure Advantage with amplified damage and frame advantage for follow-ups, and shift Prediction by resetting inputs—group combat scales via slowdown radius, impacting multiple foes with potential ally effects.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8088-a92a-df481a8b183e" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80f5-bd5c-e0100db12d76" class="bulleted-list"><li style="list-style-type:disc">Counter Hit Eligibility: Excluding Control Skills as Punishes alongside Grabs requires clarity against &quot;Attack Types&quot; Control priority or &quot;Normal Attacks&quot; Impact mechanics, risking ambiguity.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80e2-ad39-c1947f0973d8" class="">Solution: Confirm Control Skills (Impact Grab button) as Punishes, not Counter Hits—prototyping will test Strikes and Projectiles against Control Skill recovery (e.g., Impact Control Skill whiff), refining &quot;Normal Attacks&quot; and &quot;Attack Types&quot; if Control Skill Counter Hit exclusion needs adjustment for consistency.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8028-8173-ceedbe73881a" class="bulleted-list"><li style="list-style-type:disc">Frame Integration: Separating hitstop (e.g., Mid 21f pause for both) from hitstun (e.g., 16f receiver-only) and slowdown (25f) with additional frame advantage (+13f) may disrupt pacing—hitstop length needs smoothing.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8011-866d-d0e2844370d0" class="">Solution: Define hitstop as a universal pause, followed by hitstun and slowdown for the receiver—prototyping will test hitstop duration (e.g., reducing Mid from 21f to 15f) to smooth gameplay feel, ensuring reaction windows remain effective without stalling flow.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8092-af31-dbd4ca7eef12" class="bulleted-list"><li style="list-style-type:disc">Slowdown Radius: Local slowdown as a rapid ramp (e.g., Mid 25f) affects opponent and radius—undefined range risks slowing allies or assists per &quot;Attack and damage Priority&quot; friendly fire, impacting group combat readability.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8045-a171-fb5b1a113587" class="">Solution: Set radius to opponent vicinity (e.g., ~2m)—prototyping will test slowdown’s multi-opponent utility and ally impact, adjusting range or excluding allies if friendly fire disrupts assist synergy, balancing readability with group dynamics.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d9-981c-da9e7bfbb32e" class="bulleted-list"><li style="list-style-type:disc">Group Combat Condition: Counter Hits require the opponent’s attack to target the player in group scenarios—multi-opponent complexity may misassign counters otherwise.<div style="display:contents" dir="auto"><p id="320951eb-e05c-800f-ab4c-e3453c7b3045" class="">Solution: Implement a check ensuring the countered attack would hit the player—prototyping will validate this in group combat, refining detection to prevent false Counter Hits from stray attacks, aligning with &quot;Attack and damage Priority&quot; intent.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8012-a716-e978f4620e4e" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807c-aee6-e62e7cf00374" class="">Counter Attacks enhance combat precision by rewarding strikes and projectiles that interrupt opponent actions—before recovery or during vulnerable states like whiffed Grabs—with increased damage and escalating effects from Very Small to Large types, including hitstop pauses, rapid local slowdown ramps, and frame advantage across all states. Integrating seamlessly with &quot;Attack Types,&quot; &quot;Control Skills,&quot; &quot;Attack Properties,&quot; &quot;Attack Levels,&quot; &quot;Attack and damage Priority,&quot; &quot;Normal Attacks,&quot; and &quot;Jump In,&quot; they exclude Grabs and Control Skill as Punishes and Supers as immune, scaling effectively for group combat through slowdown radius while managing friendly fire risks. Prototyping will refine eligibility, frame balance, radius impact, and group combat conditions, ensuring Counter Hits amplify the core loop’s strategic flow with clear, rewarding precision.</p></div><div style="display:contents" dir="ltr"><table id="320951eb-e05c-8088-8075-d334449d0315" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-80ee-a94e-f3815fed64b3"><td id="@u;w" class=""></td><td id="mszq" class=""></td><td id="=Ouv" class=""></td><td id="pPrC" class="">Counter Hit Values</td></tr></div><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-8052-aab6-e060f8b74250"><td id="@u;w" class=""><strong>Type</strong></td><td id="mszq" class=""><strong>Hitstop</strong></td><td id="=Ouv" class=""><strong>Slowdown</strong></td><td id="pPrC" class=""><strong>Additional Frame Advantage</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-8077-a803-e803498a2895"><td id="@u;w" class=""><strong>Very Small</strong></td><td id="mszq" class="">Base Value</td><td id="=Ouv" class="">None</td><td id="pPrC" class="">None</td></tr></div><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-804c-a2c8-fb664e1b2167"><td id="@u;w" class=""><strong>Small</strong></td><td id="mszq" class="">Base Value</td><td id="=Ouv" class="">11F</td><td id="pPrC" class="">+6</td></tr></div><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-80af-ba44-ddde7f9aa299"><td id="@u;w" class=""><strong>Mid</strong></td><td id="mszq" class="">21</td><td id="=Ouv" class="">25F</td><td id="pPrC" class="">+13</td></tr></div><div style="display:contents" dir="ltr"><tr id="320951eb-e05c-8027-ba22-f7dc245331cc"><td id="@u;w" class=""><strong>Large</strong></td><td id="mszq" class="">31</td><td id="=Ouv" class="">35F</td><td id="pPrC" class="">+18</td></tr></div></tbody></table></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Reversal</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c4-9eb5-f39d7591d09f" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80eb-bc98-d6b0fe364fc1" class="">The Reversal system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80e8-9c9f-f6168b30967d" class="bulleted-list"><li style="list-style-type:disc">Reward Precise Timing: Enable frame-perfect counters post-recovery to shift momentum.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8084-adfd-e6295f0ff949" class="bulleted-list"><li style="list-style-type:disc">Enhance Tactical Depth: Offer invincible or high-priority moves to challenge pressure.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80cb-aa87-ede54210dc19" class="bulleted-list"><li style="list-style-type:disc">Support Feedback: Use HUD cues to confirm successful execution for learning.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802c-8288-c0bd607849b8" class="bulleted-list"><li style="list-style-type:disc">Integrate with Resources: Balance availability through Energy and Poise costs.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8006-948a-f8276dd394cf" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8067-ba3f-dfc3f3d45c2b" class="">Reversal in The Fighting Game refers to actions executed on the first actionable frame after recovery from blockstun, hitstun, or knockdown, often using Special Attacks (10-20% Energy) or Super Attacks (3-5 Poise blocks) to counter opponent pressure with invincibility or priority. The HUD flashes &quot;REVERSAL&quot; when a Special or Super lands on this frame, signaling perfect timing. These moves—commonly invincible on startup—excel at flipping disadvantage into opportunity, with options varying by character build and state (e.g., Impact State knockups).</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8025-a54b-fad722ab033c" class="">Core Reversal System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b1-8067-d4a5c41c99a7" class="">Reversal operates as follows:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80dc-b9f5-c3a4d0d8bb7e" class="bulleted-list"><li style="list-style-type:disc">Mechanics: Triggers on the first frame post-recovery—blockstun, hitstun, or knockdown—using Specials (10-20% Energy) or Supers (3-5 Poise blocks); Specials offer quick, targeted counters (e.g., Impact knockups), while Supers deliver high-damage, invincible reversals (e.g., super freeze); invincibility varies—some Specials have hitbox protection, Supers often power through; HUD shows &quot;REVERSAL&quot; on success, aiding timing mastery; prototyping will refine invincibility duration (e.g., 5-10 frames).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-9e32-c6b65efec617" class="bulleted-list"><li style="list-style-type:disc">States: Usable in Base (directional Specials), Impact (aimed knockups/control), or Guard (defensive setup); air reversals possible post-jump recovery—e.g., an air Special counters aerial pressure.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a5-acc5-ce382f9bdbad" class="bulleted-list"><li style="list-style-type:disc">Types: Specials (e.g., Wild Assault, Control Skills) for low-cost counters; Supers for high-impact turnarounds—character builds dictate options (e.g., agile builds favor Specials, tanks lean on Supers).</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a5-9470-faa5d8d02e21" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8032-8fa2-eb4c4e5b8e9a" class="">Reversal ties into key systems:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8028-a190-e8d2ddc68efd" class="bulleted-list"><li style="list-style-type:disc">Poise Gauge: Supers drain 3-5 Poise blocks, regenerating toward 2.5 via hits, blocks, or parries—Poise Break at zero risks overuse, cracking defenses.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8057-928f-d7c0f51b540a" class="bulleted-list"><li style="list-style-type:disc">Energy: Specials sap 10-20% Energy (shield layer per &quot;Gauges&quot;), balancing frequency with health exposure.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8066-b8ab-c78f9b94346f" class="bulleted-list"><li style="list-style-type:disc">Impact State: Enhances reversals with aimed knockups or control skills, amplifying options post-recovery.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8038-b5ea-ed1a69f1a963" class="bulleted-list"><li style="list-style-type:disc">Counter Attack: Reversals landing pre-recovery may register as Counter Hits (overriding &quot;REVERSAL&quot; with &quot;COUNTER&quot;), boosting damage.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8080-a4fb-c0f933272ed6" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8041-a8e8-e09727ad2495" class="bulleted-list"><li style="list-style-type:disc">Timing Precision: Frame-perfect execution may frustrate novices.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8079-af9e-c5cee705b7a3" class="">Solution: Widen input buffer (e.g., 3-5 frames) for &quot;REVERSAL&quot; HUD, easing learning—prototyping will test accessibility vs. skill ceiling.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8018-89c3-e004e851bab1" class="bulleted-list"><li style="list-style-type:disc">Overuse Risk: Frequent invincible reversals could stall pacing.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8041-b558-c777e6fe8c87" class="">Solution: Tie Supers to 3-5 Poise blocks, Specials to Energy—Poise Break adds vulnerability, balanced via prototyping (e.g., 2-3 uses per exchange).</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8042-9aa2-e66af29eb729" class="bulleted-list"><li style="list-style-type:disc">State Clarity: Impact vs. Base reversals might blur roles.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80fd-a1b8-e05766674a57" class="">Solution: Limit invincibility to Supers, Specials use hitbox protection—prototyping will clarify state distinctions.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802d-a683-f3534690c517" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f5-b7a3-d60c702194ed" class="">Reversal empowers players to seize control on recovery’s first frame, blending Specials (10-20% Energy) and Supers (3-5 Poise blocks) with invincibility or priority to counter pressure. Integrated with &quot;Poise Gauge,&quot; &quot;Energy,&quot; &quot;Impact State,&quot; and &quot;Counter Attack,&quot; it rewards timing and resource management, scaling to group combat via build-specific options. Prototyping will fine-tune invincibility, buffers, and costs, ensuring Reversals enhance the core loop’s strategic flow with thrilling turnarounds.</p></div></div></details></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

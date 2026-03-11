@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Attacks</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="319951eb-e05c-80e9-817a-c2fd0abe35c7" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Attacks</strong></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Attack Types</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="319951eb-e05c-8022-a101-f8e278f4039b" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-803a-ab09-e2578f030fa7" class="">The attack types system aims to:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80d2-9157-e16fa1407bed" class="bulleted-list"><li style="list-style-type:disc">Define Combat Roles: Establish five distinct categories to shape attack interactions, enhancing tactical variety.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8086-825a-c089308e8b38" class="bulleted-list"><li style="list-style-type:disc">Support Core Loop: Reinforce rock-paper-scissors dynamics with clear counters and synergies, fluid in 1v1 and group play.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80a0-a4b1-e935ce061578" class="bulleted-list"><li style="list-style-type:disc">Enable Scalability: Ensure categories adapt to multi-target scenarios, supporting summons and future MMORPG modes.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-800c-aaea-cb0df75bb754" class="bulleted-list"><li style="list-style-type:disc">Blend Genres: Merge fighting game precision with RPG depth, integrating with states, weapons, and gauges.</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-80c2-b4a1-f0a8f7fd7235" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8050-a97c-c519d2516b40" class="">Attack Types in The Fighting Game categorize all combat actions into five core types—Strike, Projectile, Beam, Grab, control skill—each governing how attacks interact in a 3rd-person over-the-shoulder perspective. Strikes deliver standard blows, Projectiles fire independent entities, Beams channel continuous effects, Grabs seize foes up close, and control skills disrupt at range. Built for basic weapons (e.g., longsword Strikes, spear Throws), these types support skill-based hybrids (e.g., Beam as a physical stream or magical blast), keeping gear simple for prototyping. Inherent AoE with friendly fire drives group tactics, while secondary traits (DoTs, Channeled) deepen strategy. Detailed clash mechanics—Strikes nullifying Strikes, Projectiles clashing by properties, Beams wagering Poise—add tactical layers, tied to states and gauges to power the core loop’s Prediction and Advantage, scaling from duels to chaotic arenas.</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8031-822d-edd330bc604a" class="">Core Attack Types System</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-806e-808e-ea3c5c143c42" class="">Five categories define attack interactions, with detailed clash mechanics where applicable:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8085-b22b-d82927b29ded" class="bulleted-list"><li style="list-style-type:disc">Strike: Standard attacks (e.g., punches, sword slashes), mid-to-long-range (non-projectile). Clash with Strikes, lose to Grabs, interruptible by control skills. Aim locked post-startup, turn-restricted.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ad-8517-ec05cefab21c" class="bulleted-list"><li style="list-style-type:circle">Strike Clash: Occurs when disjointed hitboxes overlap (only clashing players affected, others hit normally). Nullifies the hit, 17-frame hitstop, 10% Poise gain, cancels into: any attack; jump (if jump-cancelable); forward run (ground) or forward air dash (air, if air option available). No air jump/dash cancel if prior air option used. Enables Faultless Defense baiting or retaliation.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-803f-a53d-c0055d7ce405" class="bulleted-list"><li style="list-style-type:disc">Projectile: Independent entities (e.g., arrows, magical orb, magical fireball ), clash by level/property (solid/energy), shorter hitstun, aim tunable in startup, rare redirection mid-flight. Beat blocks, lose to control skills or deflecting Strikes; could lose to Beams (pending testing).<div style="display:contents" dir="auto"><ul id="319951eb-e05c-8060-a2db-c41f500c7884" class="bulleted-list"><li style="list-style-type:circle">Projectile Clash: Determined by attack level (e.g., Lv.1 vs. Lv.3) and property (solid vs. energy)—higher level or specific counters (e.g., solid beats energy) win, nullifying weaker Projectile. Some Strikes nullify or deflect Projectiles instead.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-805b-8f4f-e2882db8d76c" class="bulleted-list"><li style="list-style-type:disc">Beam: Channeled attacks (e.g., sustained streams, physical or magical), continuous damage with hitstun buildup (triggers after delay, decays off-beam), blockable (deflects nearby, Faultless Defense extends range), no initial hitstun, blockstun builds slower. Focus/Impact-only, redirectable with character orientation turn limits; could overpower Projectiles (pending testing). Destroys some Projectiles.<div style="display:contents" dir="auto"><ul id="319951eb-e05c-80ae-9054-e206c5aac435" class="bulleted-list"><li style="list-style-type:circle">Beam Clash: Occurs when beams intersect. Full clash if hurtbox/hitbox overlap both players; deflection if not aimed at opponent’s hitbox. Light vs. Heavy: Heavy pushes Light back (travel time allows reaction). Equal clash: Tap combo key to bid 1 Poise block per press (max 5 blocks), highest bid wins, loser takes stored damage from clash phase, both lose bid Poise. Opt-out by releasing beam enters recovery, risking opponent’s stored damage hit.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8063-802b-c371892ea7e6" class="bulleted-list"><li style="list-style-type:disc">Grab: Proximity-based, unblockable if no invuln and in range, shifts foes to a controlled state. Beats guards, loses to Strikes/control skills, directional (Base) or aimed (Impact). No clash mechanic defined.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80db-bd55-c2c364c97a91" class="bulleted-list"><li style="list-style-type:disc">control skill: Long-range crowd control skill (e.g., disarm knocks weapon 5-10m), high Energy/Poise cost (varies—quick cast blockable, long startup unblockable, AoE dodgeable), interruptible by Strikes/Grabs. Beats Projectiles, counters blocks with disabling effects (e.g., 1-3s stun). No clash mechanic defined.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8099-9bd4-d6e852a55e21" class="bulleted-list"><li style="list-style-type:disc">Secondary Traits: Optional across types—AoE (all attacks, explicit like conical spikes), DoTs (stacking, boosts hitstun, e.g., bleeding Slash), Channeled (redirectable, charged, e.g., Beam or Projectile streams).</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8013-bfc8-c1aa366c021c" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-802d-8df4-fadafc3615e1" class="">Attack types weave into the combat ecosystem:</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-807a-a1ca-e8424b2cec84" class="bulleted-list"><li style="list-style-type:disc">States: Strikes favor Base (directional), Grabs/control skills use Impact (disruption), Projectiles/Beams suit Focus (precision), Guard counters via blocks. Disarmed defaults to weak Strikes unless custom fists slotted.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80e3-9539-cea7d219ffb3" class="bulleted-list"><li style="list-style-type:disc">Gauges: Energy scales by type (e.g., control skills 20%, Beams 15%), Poise fuels Beam clashes (1 block/tap, max 5) and controls effects (e.g., 1-2 blocks). Higher costs balance power.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-804d-b573-c9c45128cfa3" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Strikes test Neutral (clash baiting), Grabs exploit Prediction, control skills shift Advantage (CC), Beams pressure Disadvantage (buildup), Projectiles probe spacing. AoE/friendly fire heightens group play.</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-80fb-b113-e4df30af0249" class="bulleted-list"><li style="list-style-type:disc">Weapons: Longswords boost Strikes, shortbows fire Projectiles—fists default to Strikes if disarmed. Skills allow hybrids (e.g., Strike + Projectile dagger toss).</li></ul></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-802d-b2bc-d472ac147cd9" class="bulleted-list"><li style="list-style-type:disc">Scalability: control skills/Beams hit multiple foes, Projectiles pierce lines, Strikes sweep arcs—clashes scale to summons or 2v2 (e.g., Strike clash nullifies one foe’s hit).</li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-801e-ae55-eff0934a0d99" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="319951eb-e05c-8080-aaf2-f9cf9a17e293" class="bulleted-list"><li style="list-style-type:disc">Clash Complexity: Beam’s Poise bidding risks overcomplication.<div style="display:contents" dir="auto"><p id="319951eb-e05c-802a-888b-f1451dd43bb7" class="">Solution: 1 block per tap (max 5, instant resolve) simplifies execution, retaining wagering; deeper mechanics (e.g., timing) testable later.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8092-a383-c649b7cc4575" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="319951eb-e05c-8088-9393-ed5e79489626" class="">The attack types system delivers a robust framework—Strike, Projectile, Beam, Grab, control skill—blending fighting game precision with RPG depth. Detailed clashes (e.g., Strike’s 17-frame nullification, Beam’s Poise bid) and secondary traits (e.g., DoTs, AoE) enhance strategy, integrating with states, weapons, and gauges. Built for prototyping with basic weapons (e.g., spear Grabs) and skill-based hybrids (e.g., Beam as physical or magical), it scales to group combat with short, fun CC (1-3s), preserving original mechanics while supporting the core loop’s dynamic flow and future complexity.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8022-8b62-f9b3e11a7ef5" class="">
+</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Attack Properties</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8015-b395-db83baf9a886" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8099-96b5-d27810aaf7b4" class="">The attack properties system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804c-b6b3-dc4c825267b0" class="bulleted-list"><li style="list-style-type:disc">Enhance Tactical Depth: Define damage types to enrich attack variety and suggest logical effects.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80cd-8ff2-d786634772a0" class="bulleted-list"><li style="list-style-type:disc">Support Combat Flow: Enable complementary and clashing interactions within the core loop.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8047-bb99-c4313c7f7d21" class="bulleted-list"><li style="list-style-type:disc">Scale with Environment: Leverage player and arena effects for group combat and MMORPG potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8079-9b00-ee8b3e8af3dd" class="bulleted-list"><li style="list-style-type:disc">Integrate Seamlessly: Blend with attack types and weapons, balancing complexity.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cc-9009-fbcd2464723d" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d8-8014-d8729a2cc4c7" class="">Attack Properties in The Fighting Game assign damage types to attacks, shaping their impact in a 3rd-person over-the-shoulder perspective. Split into Magic (e.g., Fire, Cold) and Physical (e.g., Pierce, Slash), properties suggest effects—Slash may bleed, Cold may slow—and enable interactions like Fire + Cold creating steam. Non-magical weapons (e.g., longsword) combine with skill-based Magic (e.g., Fire burst) for hybrid attacks, keeping gear simple for prototyping. Player effects (e.g., Bleeding) and arena hazards (e.g., steam clouds) emerge from attacks or interactions, tied to &quot;Attack Types&quot; (e.g., Control potency), scaling from 1v1 duels to multi-foe chaos with all 21 types listed, starting small (Fire, Cold, Pierce, Slash).</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80be-88f5-f767258f65dd" class="">Core Attack Properties System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8059-bfe0-fe111a2a700b" class="">Properties define damage types and interactions:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80db-93b3-e4e586161ad0" class="bulleted-list"><li style="list-style-type:disc">Magic:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a9-8ced-eeab15952266" class="bulleted-list"><li style="list-style-type:circle">Elemental: Fire, Cold, Lightning.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800d-8d0c-fcd60fc5feb1" class="bulleted-list"><li style="list-style-type:circle">Nature: Plant, Earth, Wind, Water, Thunder.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804f-8fa6-d799cc75ae28" class="bulleted-list"><li style="list-style-type:circle">Divine: Divine, Radiant, Darkness, Life, Death.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8033-995e-c4753451238b" class="bulleted-list"><li style="list-style-type:circle">Other: Force, Psychic, Sonic, Arcane, Time, Space.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c2-aaac-f7f974856f43" class="bulleted-list"><li style="list-style-type:circle">Prototyping Core: Fire, Cold.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8059-b3f0-e29728900b45" class="bulleted-list"><li style="list-style-type:disc">Physical: Pierce, Slash, Bludgeon, Bleeding, Poison, Acid.<div style="display:contents" dir="auto"><ul id="320951eb-e05c-801a-9eb5-fb30e6c99dc2" class="bulleted-list"><li style="list-style-type:circle">Prototyping Core: Pierce, Slash.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8045-bee5-fb91676195d8" class="bulleted-list"><li style="list-style-type:disc">Interactions: Logical type-based effects, refined via prototyping:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-8ab8-c6698b8de0e7" class="bulleted-list"><li style="list-style-type:circle">Fire + Cold: Steam cloud (arena hazard, blind chance on players).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c7-a4c9-c8d9a24e2663" class="bulleted-list"><li style="list-style-type:circle">Fire + Wind: Wider, moving AoE (fire spreads).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80dd-8ed1-c91db9f4bc01" class="bulleted-list"><li style="list-style-type:circle">Fire vs. Cold: Nullify.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802d-822f-e74b54c31112" class="bulleted-list"><li style="list-style-type:circle">Cold + Pierce: builds up slow or freeze.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8027-bfaa-e50a9fdde588" class="bulleted-list"><li style="list-style-type:circle">Cold + Slash: Slow energy regen.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8031-b3c3-ec608ac57281" class="bulleted-list"><li style="list-style-type:circle">Slash + poison: DoT Poison damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80da-98dd-e78e6a9f1354" class="bulleted-list"><li style="list-style-type:circle">Complementary boosts (e.g., increased damage/AoE), clashing reduces (e.g., partial nullification)—exact values via skills, stats, gear.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b0-8665-c43402a82884" class="bulleted-list"><li style="list-style-type:disc">Effects: Suggest logical outcomes—Slash/Pierce may bleed, Cold may slow, Fire may burn. Player effects (short duration) and arena effects (longer duration) applied via attacks or interactions, specifics (e.g., duration, stacking) determined by skill crafting, skill tree, stats, and gear.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8077-a43e-ea43ae809e33" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808e-9c9a-e1447b98261c" class="">Properties enhance the ecosystem via attacks:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c5-b071-e05c499613b3" class="bulleted-list"><li style="list-style-type:disc">Attack Types: Strikes carry Slash, Projectiles fire Cold, Control attacks apply Fear, Beams channel Fire—skills blend (e.g., Pierce + Cold builds up slow).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8032-8a18-ecd0e8eb9a0e" class="bulleted-list"><li style="list-style-type:disc">Weapons: Spears deal Pierce, longswords Slash—attack skills can be or can add Magic (e.g., Fire burst via spear). Disarmed reverts to Physical Strikes.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806b-9312-e194fe40fe4c" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Fire tests Neutral (spacing), Slash exploits Prediction, Controls shift Advantage (CC), Cold pressures Disadvantage. Arena effects scale group play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802c-8e9e-f21a71e1c860" class="bulleted-list"><li style="list-style-type:disc">Scalability: Multi-foe hazards (e.g., Fire + Water = steam zone) suit summons/2v2.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8069-997a-e0be9abb0981" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8057-b2f6-fe376d858fb6" class="bulleted-list"><li style="list-style-type:disc">Complexity: 21 types risk overwhelming prototyping.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80af-9231-ea021983364b" class="">Solution: Start with Fire, Cold, Pierce, Slash; expand via skills, all listed for future.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8076-8565-c4deb2cc45fa" class="bulleted-list"><li style="list-style-type:disc">Balance: Fire + Wind might overpower Cold.<div style="display:contents" dir="auto"><p id="320951eb-e05c-807c-9db0-e85f647da0c6" class="">Solution: Cap boosts (e.g., moderate increase), tune reductions (e.g., balanced nullification), limit stacking via skill design.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d1-b68a-c7ddc17047df" class="bulleted-list"><li style="list-style-type:disc">Effect Clarity: Suggested vs. mandated effects could confuse.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80ea-b810-cf1583283883" class="">Solution: Skills define effects (e.g., Slash skill = Bleeding), properties suggest (e.g., Slash → Bleeding chance).</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8062-80a4-db1393498b91" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ea-86f7-edd3d8f7dff8" class="">Attack Properties enrich combat with Magic (Elemental, Nature, Divine, etc.) and Physical types, suggesting effects (e.g., Slash → Bleeding) and blending logical interactions (e.g., Fire + Cold = steam) into the core loop. Prototyping-ready with non-magical weapons (e.g., spear Pierce) and skill-based hybrids (e.g., Cold slow), it scales via arena hazards, integrating with &quot;Attack Types&quot; while keeping gear simple and fun intact, with all 21 types poised for expansion.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Attack Levels</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-800f-804a-edea53e44bd6" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8058-abb2-d7bc3cfbd81d" class="">The attack levels system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801c-83c3-e820809f02b1" class="bulleted-list"><li style="list-style-type:disc">Standardize Hit Effects: Define tiers for hitstun, blockstun, and hitstop, ensuring consistent combat pacing.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8090-a385-f9ad5e1fbefa" class="bulleted-list"><li style="list-style-type:disc">Support Customization: Allow build overrides for tactical variety.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b1-96a6-ed60f8ee3e7e" class="bulleted-list"><li style="list-style-type:disc">Scale with Combat: Enable flexibility from 1v1 to group scenarios with unbounded hits.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8043-bba4-dcc1744f55c9" class="bulleted-list"><li style="list-style-type:disc">Integrate Fluidly: Tie to attack types and defensive mechanics.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fe-96cd-d3ebf740e4b8" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8079-a12c-feebab62beb5" class="">Attack Levels in The Fighting Game assign each attack a tier (Lv.0-Lv.4) to standardize hit effects—such as hitstun, blockstun, hitstop, or control duration—in a 3rd-person over-the-shoulder perspective. These levels provide a baseline for combat pacing across all attack types, with values customizable via stats, gear, skills, and trees, ensuring predictable yet adaptable interactions within the core loop.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8047-a0c7-fefcb831a4ce" class="">Core Attack Levels System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-804c-a83f-f5034f07dd61" class="">Levels define hit effects per attack type, overrideable by builds:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b1-ba44-f0180ecb8e18" class="bulleted-list"><li style="list-style-type:disc">Strikes: Direct hits, standard stun.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8009-854f-d7d56fc4dd31" class="">Level</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d5-861c-c086178a5e2e" class="">Hitstop</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808c-acdc-df5f7b50d702" class="">Standing Hitstun</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807f-92e6-ed2f3c87608c" class="">Crouching Hitstun</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8028-99cd-ed4b39bc0b1a" class="">Ground Blockstun</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ef-b297-e9c763585114" class="">Air Block/FD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800a-9c46-c91aedd98f1f" class="">Air IFD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807b-996d-df7b3c42d772" class="">Lv.0</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808e-9350-c9a402a3fadb" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809b-b216-e4e41f025463" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8002-ae59-f0519267c3cf" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8064-bcf9-d6f25a9a2659" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ab-8ce0-dca19a74ae4b" class="">UL+19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c9-8fbf-debb62c99ba3" class="">UL+5</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802c-ad13-c12259e1018d" class="">Lv.1</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8012-b1c2-c2f42e8ea09f" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8054-9c91-c7f217ddf8c8" class="">14</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8037-ad13-f952358462df" class="">15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8078-9438-e0b4edb3117d" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802c-b543-fd24408f45fc" class="">UL+19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ff-b87a-e8c06c0c6698" class="">UL+5</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-91f7-ca1d922d714a" class="">Lv.2</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8079-a6c0-c831869c9986" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cd-85af-d6634f3c0f50" class="">16</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8036-bc8c-d657927e6918" class="">17</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a3-b906-ef2e7caeb97a" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8091-a406-d484f9d68c4c" class="">UL+19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8062-9e9b-de8e46836ebd" class="">UL+5</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8016-9f02-d5ffe290283d" class="">Lv.3</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-804d-a4e0-ec0296162160" class="">14</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a0-943e-dde710a15db8" class="">19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801c-9019-f61f4e095779" class="">20</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8006-8bf2-ed175db647be" class="">16</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8090-ab01-c13780ffa5e0" class="">UL+19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b7-bc6c-c9b8d632df25" class="">UL+5</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80da-afa7-c1c98899c4eb" class="">Lv.4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fa-b7d8-f9ee3d5d0fc8" class="">15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f9-8000-f798b3a9f1b6" class="">21</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fd-a777-c2e23bf01f56" class="">22</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800e-80eb-d4528a1cbcfe" class="">18</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-803b-9cb3-c36378adc04b" class="">UL+19</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8057-9e85-f010dbe23685" class="">UL+5</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-804a-8e72-e72a4fc3ab1c" class="bulleted-list"><li style="list-style-type:disc">Projectiles: Lower stun, range-balanced.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80df-b2aa-feaa48b14b21" class="">Level</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a7-b380-e3e90539c662" class="">Hitstop</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-b356-ee092280a3b4" class="">Standing Hitstun</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8051-98ac-d7231736f387" class="">Crouching Hitstun</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802e-93b0-c6cca908a61c" class="">Ground Block</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e8-910c-caa2accf91f9" class="">Air Block/FD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80df-b7b1-dd47b4687e8a" class="">Air IFD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8040-b33d-d4c6f34c65e6" class="">Lv.0</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8058-87e5-f304f2d438e7" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ed-89f5-c796b0c3ac89" class="">8</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ba-940b-feee7f580b7b" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e4-900b-fa0cd79a1024" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-805b-97e7-c6559ded0eca" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8013-a50c-fa7c09231b83" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8064-9aea-fc572a31f4be" class="">Lv.1</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8046-bb9b-e91d23e5d9fb" class="">10</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8005-b009-c843a86816a4" class="">10</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ec-8b82-d9171e468072" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ba-a602-dc52cda6fd22" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cf-a04e-ee0561bb6182" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8059-a92d-dc82c76e42c4" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a2-afb7-f7a2331f846b" class="">Lv.2</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8037-8022-e152ae13ae13" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8076-a213-e72f756ec406" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-805f-a4c8-e25c24002d96" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e0-9207-f6ebbeb552a4" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8062-b0e1-e6116fd5a930" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-804e-9b72-ee6457e6a611" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-806f-be51-cb3d0fd5241e" class="">Lv.3</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8059-8d17-c76a05a71320" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8088-85a5-cfae6aed1008" class="">14</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8093-9f10-fefcbe3267d7" class="">15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800e-89a5-d59070c677ba" class="">16</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8049-a3b5-d34835d80d78" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f2-be8e-f32487b4c464" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8001-9945-e7c2c642b741" class="">Lv.4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8031-bbc4-cb3f40cece6d" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b7-97a3-d5bb50c4d2c0" class="">16</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8033-9f0e-eb27f11c4db9" class="">17</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a3-8271-f884b69495c9" class="">18</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8087-a4ce-d0cc95438380" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8069-9a6f-fb0675b06a45" class="">UL+4</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fb-83aa-e38f23d1a93f" class="bulleted-list"><li style="list-style-type:disc">Beams: Buildup-based, no initial stun.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80f0-86d2-cca8082d4661" class="">Level</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-800f-9c7f-cb0824b50d00" class="">Hitstop</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8047-be6b-c6a00393dda2" class="">Hitstun Buildup</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8032-a963-e34ecdc0b76c" class="">Blockstun Buildup</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8076-ab5e-e1ff5a2b3ca4" class="">Ground Block</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8001-9f54-caef82189a77" class="">Air Block/FD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ae-a550-e6e9db3b2a3d" class="">Air IFD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f5-a1b7-e5514134054a" class="">Lv.0</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8095-a06e-ff5ea8bcd45e" class="">8</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b5-bdd9-c51df74cb5ea" class="">6 (post-delay)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801c-a145-fcc9571e9110" class="">4 (slow build)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8023-b94c-f81556ce5c1b" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8049-b9fd-e1d1981143ae" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f6-a847-dff1270a4a0c" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ac-9091-d2035c16f577" class="">Lv.1</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c4-a073-d826221fc100" class="">9</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807c-bde1-c0fdb60bb9ce" class="">8 (post-delay)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e0-86bd-d0386b97d504" class="">5 (slow build)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80eb-808c-ed03793a4e54" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8099-bff8-f3700c5a0dec" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801e-a901-d1cdb82b23c6" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8001-a969-eb2564b9dca0" class="">Lv.2</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8013-ab86-f0367aca7a40" class="">10</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-806a-9ae7-c6c600ca7fff" class="">10 (post-delay)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e0-90a8-e7e8bd55eec4" class="">6 (slow build)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8038-b975-f492272d9896" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8066-be80-cf9477eb0553" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8078-987e-f6bab0c9e398" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8002-be08-cf2821b15adb" class="">Lv.3</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ae-bf8b-ff999787fec8" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8046-a053-fb4a2773f9e8" class="">12 (post-delay)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8028-bdcb-cadc1d54271e" class="">7 (slow build)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-803d-9555-ebe501ea1399" class="">16</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80dd-a2c2-d7df47a080fe" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ce-ad0d-c0f982c4a083" class="">UL+4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801a-950e-eda9bf4500a4" class="">Lv.4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8042-9c4e-fe0b91278a4f" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8085-8c82-dc2f80b659c7" class="">14 (post-delay)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8082-b712-cfe8061e2660" class="">8 (slow build)</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8039-9251-da8336f39afb" class="">18</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8082-9076-fa78aa8659a4" class="">UL+15</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-808d-806d-eedaa23857b7" class="">UL+4</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8083-9e27-fb011edd3411" class="bulleted-list"><li style="list-style-type:disc">Grabs: Control state, no stun.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8015-881d-e11ece337ab0" class="">Level</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8010-86bf-f4d5ec423196" class="">Hitstop</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8054-af73-d56ffe34b3ee" class="">Control Duration</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8017-a936-ed1c89da5d2a" class="">Ground Block</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8015-b4c4-c883080349e4" class="">Air Block/FD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-803d-b8e7-fb152a9530a0" class="">Air IFD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8052-934a-fdc39e10cf01" class="">Lv.0</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80da-9824-fd84e4e135fb" class="">10</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d2-9608-fb9a449efa8d" class="">0.5s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b1-bba5-c8d8839abfbe" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8012-9cf7-d31cbcee746b" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8046-a8be-ec5e2db3f038" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8085-b38b-ca6d4627603b" class="">Lv.1</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8030-8f20-dd6ef346be8f" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80aa-9a35-c732ade973c7" class="">1s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c2-a10b-de958ba91b8a" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801e-9b50-c7127c999c65" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a6-bbd6-c0c452578742" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e2-a92a-ee5daef1e5db" class="">Lv.2</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8073-8264-edeb04962218" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8021-94ac-cbf777c29d13" class="">1.5s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807e-a0fd-e3b1b9a92401" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8060-9fcd-c968a60584db" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8007-8180-c3414e866d55" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f3-a98d-ffdcaabf80c6" class="">Lv.3</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fd-b28f-cb87a1f9c149" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e1-a45a-f7ce567b92f5" class="">2s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8079-b7b7-e3521bf1d085" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801a-9dc4-d52ace3dce3b" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-803e-ad56-fdf4453f93ee" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8097-8f51-f111e90e3e81" class="">Lv.4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ad-8173-ee90a4f3ba12" class="">14</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8091-9282-ea098992473f" class="">2.5s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e6-af46-c8378f7c8ae6" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a2-a5fa-dcdb86ce9231" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8085-819f-c7fb22ee1505" class="">N/A</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8070-8673-e23429d66d66" class="bulleted-list"><li style="list-style-type:disc">Controls: CC duration, no stun.<div style="display:contents" dir="auto"><p id="320951eb-e05c-806e-8260-c790a98b2309" class="">Level</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8093-9f85-d12caf4dcbe2" class="">Hitstop</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f8-985f-c803e878ed73" class="">CC Duration</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f8-9820-fe5ccf9fd61f" class="">Ground Block</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8040-9164-d921e2efea50" class="">Air Block/FD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8059-96c5-f9340a6b83bc" class="">Air IFD</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b3-87b4-f2fbf94cb0d2" class="">Lv.0</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f6-9688-fbf85ca0a3fa" class="">10</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e9-b5f6-fe207152034a" class="">0.5s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8099-b270-f66d734fefcf" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e0-8da9-f73cc88fd109" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fc-a992-efa99fac4505" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8035-a4b9-c5ac646592c8" class="">Lv.1</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8018-a486-d150fa114918" class="">11</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807f-b8be-dc0235e02ce0" class="">1s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8087-9d4c-d315158d12ba" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8007-96b9-cbaae451d07c" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8091-bed5-fad92e399865" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-801d-b376-f1c5dd9ebcfd" class="">Lv.2</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ab-9cdc-d457153a4443" class="">12</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8025-adf1-d2396e2865db" class="">1.5s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8004-8305-fa256408fd1b" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8094-8c08-fe8b6066362a" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80a1-a16d-d374e7efd809" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-805c-a2c8-e3e5102a0d72" class="">Lv.3</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8039-a546-fb2a2744aff8" class="">13</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f4-922e-d7b2d2d1e238" class="">2s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8073-b4ca-e9772b06326c" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8094-98de-e441cde6d544" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-802c-86ec-eef1eea2ace1" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80dd-8ce5-dfe8091f894e" class="">Lv.4</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80e3-bc23-ce1c19a70f6d" class="">14</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80de-ad9a-f095731c892e" class="">3s</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f3-9f46-d270414fa549" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80bf-8944-c67645f95879" class="">N/A</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-806c-b065-f04b78a55e26" class="">N/A</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80a2-91c2-cb024d2d905c" class="bulleted-list"><li style="list-style-type:disc">Notes: UL = Until Landing. Air block restores one air action (jump/dash). Values are baselines for a Shoto-style prototyping character (e.g., balanced archetype), adjustable via prototyping.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8081-9366-c24c1b9a05c7" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80f3-b748-c2a0b7d2fc5c" class="">Levels tie into the ecosystem:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-800e-ac82-c35c39dcda71" class="bulleted-list"><li style="list-style-type:disc">Attack Types: Strikes use full table, Projectiles lower stun, Beams buildup-based, Grabs/Controls apply CC (e.g., Lv.3 Control = 2s Fear). Priority via levels (e.g., Projectile Clash).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80bd-9491-fbc20f3a17ea" class="bulleted-list"><li style="list-style-type:disc">Weapons: Longswords (Slash) at Lv.2 = 16f hitstun—skills tweak via &quot;Attack Properties&quot; (e.g., Fire Lv.3).</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8056-ba7b-c4d036955494" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Lv.0 tests Neutral (quick recovery), Lv.4 locks Advantage (long control)—air action restore aids Disadvantage escape. Hits unbounded for group play.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8032-83d1-cf96d1fbe539" class="bulleted-list"><li style="list-style-type:disc">Guard: FD/IFD values from Guilty Gear Strive—prototyping to refine air penalties.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d3-8b7a-d2450003a1e0" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8026-9fe2-d0f96ee13aec" class="bulleted-list"><li style="list-style-type:disc">Customization Balance: Overrides risk imbalance (e.g., excessive stun).<div style="display:contents" dir="auto"><p id="320951eb-e05c-80a7-a9dd-f81b24845799" class="">Solution: Moderate range via skill tree, test in prototyping.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8024-aa05-c956f09a4202" class="bulleted-list"><li style="list-style-type:disc">Air Block Penalty: &quot;Until Landing+19&quot; harsh vs. ground 18f.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8036-a628-d2b6884dd258" class="">Solution: Retain as Strive-inspired trade-off, adjustable post-testing.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8031-bf24-dfd4ddd602a0" class="bulleted-list"><li style="list-style-type:disc">Type Variation: Diverse tables need balance.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8067-a259-d3f6343f4dc2" class="">Solution: Prototype Shoto moveset (e.g., Lv.2 fireball) to tune.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8051-ae29-f5a391d9a54a" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ea-9ee8-ded501fa5336" class="">Attack Levels standardize combat pacing with Lv.0-Lv.4 tiers across all attack types, balancing consistency with build flexibility for a Shoto-style prototype (e.g., balanced archetype). Full tables for Strikes, Projectiles, Beams, Grabs, and Controls—unbounded for group hits—integrate with &quot;Attack Types&quot; and &quot;Guard,&quot; scaling via friendly fire deterrence while supporting the core loop’s dynamic flow.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0"><strong>Attack and damage Priority</strong></summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c4-ab63-e6c8967cd6c4" class="">Goals</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8042-98a4-f010b54d83e8" class="">The attack and damage priority system aims to:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d7-9d82-c133537b509a" class="bulleted-list"><li style="list-style-type:disc">Encourage Strategic Spacing: Discourage mobbing by enforcing friendly fire and rewarding spatial awareness.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801f-ad1c-cf918959d61b" class="bulleted-list"><li style="list-style-type:disc">Favor Defenders: Prioritize defensive actions for players under multi-opponent assault.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d7-93fa-f3c83c624bf8" class="bulleted-list"><li style="list-style-type:disc">Balance Group Combat: Manage simultaneous hits effectively, supporting puppet and minion archetypes while scaling to MMORPG potential.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80c2-b737-d0549497bde4" class="bulleted-list"><li style="list-style-type:disc">Integrate Seamlessly: Enhance attack type interactions and maintain smooth pacing within the core gameplay loop.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8025-a490-dc7f39c7a1b6" class="">Overview</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80cb-90cc-fd320f348d6c" class="">Attack and damage Priority in The Fighting Game determines how simultaneous attacks resolve and how damage is distributed across players in a 3rd-person over-the-shoulder perspective, designed with group combat and puppet or minion archetypes as a core focus. Friendly fire remains always active, compelling players to consider their positioning relative to both allies and enemies. A rock-paper-scissors priority order, such as Grab prevailing over Block, and robust defender mechanics, like Absolute Guard with Throw Invulnerability, provide advantages to those under heavy attack. A damage buffer collaborates with damage decay to mitigate mobbing by spreading and reducing multi-opponent damage, ensuring tactical depth persists whether in 1v1 duels or chaotic multi-foe engagements.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8084-b802-e5db5c23cca7" class="">Core Attack and damage Priority System</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8003-afed-eb3d9c9b693a" class="">Priority and damage mechanics operate as follows:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8079-9432-e38e0b56ab36" class="bulleted-list"><li style="list-style-type:disc">Friendly Fire: Every attack, possessing an area of effect (applicable to almost all attacks), can strike friends, foes, and minions alike, encouraging careful spacing among players.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80fc-a748-ec0e4e401081" class="bulleted-list"><li style="list-style-type:disc">Attack Priority Order: A rock-paper-scissors system resolves overlapping attacks:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8099-9e1b-f234643eb7e2" class="bulleted-list"><li style="list-style-type:circle">Grab: Prevails over Block if the target is within range, though Strikes can counter it during the Grab’s startup by hitting the Grabber with their attack’s area of effect; once locked, Grabs enable allied follow-up attacks through Combo Specials.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80d5-b0f8-fc5adf8dc4ed" class="bulleted-list"><li style="list-style-type:circle">Control: Overrides other attacks unless interrupted during its startup or blocked if lockable—specific blockability details vary and are defined in the &quot;control skills&quot; section.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-809d-90ee-d3d1a3dd62c1" class="bulleted-list"><li style="list-style-type:circle">Beam: Overcomes Projectile and Strike attacks by delaying their impact with its buildup, but control skills or Grabs can interrupt it before completion.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8080-9083-eb154e17ba69" class="bulleted-list"><li style="list-style-type:circle">Projectile: Can outrange Strike attacks, though timing determines what hits first—attacks with invincible elements may bypass Projectiles in some cases.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8020-87a1-c31d8c311e4f" class="bulleted-list"><li style="list-style-type:circle">Strike: Interrupts Grab by striking the Grabber with its area of effect during startup, but other attack types generally supersede it unless two Strikes clash, resulting in mutual nullification with a 17-frame hitstop.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80b1-9918-e85a393e52e2" class="bulleted-list"><li style="list-style-type:disc">Defender Priority:<div style="display:contents" dir="auto"><ul id="320951eb-e05c-8082-a51b-fad1c8a8da27" class="bulleted-list"><li style="list-style-type:circle">Defensive actions—including Instant Blocks, Parries, Deflects, Reflects, Combo Breaks, and Shoves—become easier to execute against multiple simultaneous hits, offering area-of-effect responses such as a Shove pushing opponents back 2 meters; exact boosts will be refined through prototyping.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8000-b1b7-e5ece5369a45" class="bulleted-list"><li style="list-style-type:circle">Absolute Guard: Allows a defender to block all High, Low, and Mid simultaneous attacks within a blockstun chain, provided the first attack is successfully blocked.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-801a-88b0-c717cb7969c1" class="bulleted-list"><li style="list-style-type:circle">Throw Invulnerability: Prevents characters from being thrown in specific situations to avoid infinite disadvantage states, including during prejump, blockstun plus 5 frames after, hitstun plus 5 frames after, knockdown plus 5 frames after, or when a move grants throw invulnerability or other relevant invulnerability.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-806f-a57c-c5ab94e0cdf0" class="bulleted-list"><li style="list-style-type:disc">Damage Buffer: Captures additional hits from multiple opponents within a 3-4 frame window and distributes the damage over 0.5 to 1 second, working in tandem with &quot;Damage Decay&quot; to reduce both damage and hitstun based on attack succession and type variety.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d0-ac93-e95b4261f263" class="">Integration with Combat</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-807b-acee-cd01c02f1ca0" class="">This system integrates with other combat elements to enhance gameplay:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8050-9ffa-f4bbaa8b7a1f" class="bulleted-list"><li style="list-style-type:disc">Attack Types: The priority order—Grab over Control Skill, Control Skill over Beam, Beam over Projectile, and Projectile over Strike—ensures consistent resolution across interactions; for instance, a Grab overcomes a Block, while a Strike can counter the Grab by hitting its initiator with area of effect, and Beam clashes using Poise bids remain secondary to this order.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80de-a927-e4562b1b4d4f" class="bulleted-list"><li style="list-style-type:disc">Attack Properties: Effects like Slash combined with Poison have their damage over time buffered and reduced through decay, preventing immediate stacking and spreading the impact over the distribution period.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8069-80e6-e756ae9ad057" class="bulleted-list"><li style="list-style-type:disc">Weapons: Longswords deliver Strike attacks and spears deliver Pierce attacks, both adhering to the priority order—skills can modify these interactions, for example, by adding a Fire burst to enhance their effect beyond basic damage.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-802d-8454-e5e1188182e9" class="bulleted-list"><li style="list-style-type:disc">Core Loop: Friendly fire challenges players to maintain advantageous spacing during Neutral, priority aids in anticipating outcomes during Prediction (e.g., a Grab defeating a Block), and the buffer paired with decay supports recovery in Disadvantage; 2v1 scenarios involving Grab and blockstun are flagged for prototyping to ensure balance and breakout opportunities.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-808a-838c-efb9d0d81b06" class="bulleted-list"><li style="list-style-type:disc">Guard: Absolute Guard blocks multiple attack angles within a blockstun chain but does not stop Grabs, while defender boosts enhance mechanics like Instant Blocks, making them more effective against several simultaneous hits—Throw Invulnerability further protects against Grab loops.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80dc-be7b-e8db1daab706" class="bulleted-list"><li style="list-style-type:disc">Damage Decay: The buffer collaborates with damage decay, reducing the damage and hitstun of successive hits from multiple opponents over the distribution period, such as lessening the impact of three rapid Strikes to encourage varied attack strategies.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80b7-b947-dc55af939cb9" class="">Challenges and Solutions</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8024-b375-e75ee7c95e76" class="bulleted-list"><li style="list-style-type:disc">Grab Priority: The unblockable nature of Grabs from &quot;Attack Types&quot; contrasts with their counterability in &quot;Normal Attacks.&quot;<div style="display:contents" dir="auto"><p id="320951eb-e05c-808f-bf7c-ce2206da5670" class="">Solution: Grabs take priority over Block but can be countered by a Strike’s area of effect during the Grab’s startup—prototyping with a Shoto character’s Grab versus Strike will validate this balance and ensure counterplay remains viable.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-80bb-86b6-e0b0a1536ab9" class="bulleted-list"><li style="list-style-type:disc">Buffer and Decay Balance: The combined effect of the buffer and decay might overly weaken multi-opponent damage scenarios.<div style="display:contents" dir="auto"><p id="320951eb-e05c-8013-babb-eb19dc3837d4" class="">Solution: Prototype a Shoto character facing three simultaneous Strikes to assess the buffer and decay interaction, adjusting the decay rate if the reduction proves too strong, particularly when diverse attack types are involved.</p></div></li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-805d-b8aa-c5fc319f6ce5" class="bulleted-list"><li style="list-style-type:disc">control skill Integration: Blockability details for control skills remain unspecified in this section to avoid overlap.<div style="display:contents" dir="auto"><p id="320951eb-e05c-80f4-b676-dc4541e6e4f9" class="">Solution: Defer these specifics to the &quot;control skills&quot; section, noting only Control’s place in the priority order here, with prototyping to confirm its balance against a Shoto control skill.</p></div></li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-857b-f27ada516681" class="">Conclusions</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80ae-9f17-e5db7f7b0c1a" class="">Attack and damage Priority fosters tactical spacing through persistent friendly fire, prioritizes defenders with a rock-paper-scissors order (e.g., Grab overcomes Block, Strike counters Grab during startup), and balances group combat with a buffer and damage decay to reduce multi-opponent impact. Prototyping-ready for a Shoto character, such as testing a Strike against a Grab, it resolves priority conflicts, integrates smoothly with &quot;Attack Types,&quot; &quot;Attack Properties,&quot; &quot;Guard,&quot; and &quot;Damage Decay,&quot; and scales effectively while addressing 2v1 lock concerns through buffer, decay, Throw Invulnerability, and area-of-effect counters, enhancing the core loop’s strategic depth.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Charged Attacks</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-809a-935f-f60437dd7684" class="">Charged attacks are attacks that require an attack key be held to Charge the attack up before release. This usually produces an attack that can scale in damage based on the duration the attack is held for. Additional scaling occurs when used as part of a combo.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8054-823f-dae1394359ef" class="">Charged attacks could be considered more powerful than specials. Due to the way specials are set up charges may necessarily replace a set of specials but that would depend on if it feels better to lock in the charge or have it just be part of the structure of specials.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Channeled attacks and skills</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-80fe-9367-e25f8c1e3e39" class="">Channeled attacks would be a sub set of Charged attacks with the difference being the attack comes out continuously until the button is released.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Special Attacks</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-807a-94e1-d23243ee7420" class="">Attack button + Motion input</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809b-ad0c-d45e51a21a22" class="">Special attacks are fancier attacks that have special properties such as invincibility or unique movement. Specials can only by done with negative edge so the attack button must be held while the motion input is applied.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8095-a5e2-ded1aacb8bbb" class="">There are two main categories of special move inputs:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8051-b156-f251a5352c02" class="bulleted-list"><li style="list-style-type:disc">Radial: Requires the player to input directions in a quarter or half circle motion, then input a specific attack button.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8003-b86b-d9a8b8e2cdd5" class="bulleted-list"><li style="list-style-type:disc">Zig-Zag inputs: Requires the player to input one direction, then input the opposite direction plus a specific attack button.</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-809f-a7f6-ea9bcc61d920" class="">There are a few common qualities that special moves share:</p></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8020-890e-d354cf311498" class="bulleted-list"><li style="list-style-type:disc">They do 5% of their base damage as chip damage on block unless the defender uses Faultless Defense or Instant Block.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8001-b155-dc4ce3ea671e" class="bulleted-list"><li style="list-style-type:disc">They build a little bit of Poise immediately when inputted.</li></ul></div><div style="display:contents" dir="auto"><ul id="320951eb-e05c-8025-b365-ca27e5731c23" class="bulleted-list"><li style="list-style-type:disc">They can be kara canceled into Supers during the being of their startup animation</li></ul></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8081-b9ec-f2ccedc6c1df" class="">Because specials require negative edge the attack button is assumed to be held at least for a brief duration. Potentially longer duration presses would transition to charged attacks. If this feels bad, it may be preferable to specify some attack states as charges or specials only (slash state vs base state for example)</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Super Attacks</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8008-a01b-c1812fcb869f" class="">Motion input + attack button. Costs 50% (or 100%) Poise.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80d8-8c90-d67e5a9cf05e" class="">Supers are attacks that are even more powerful than special attacks.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8011-9ec8-f1c88c0412a8" class="">Some Supers are useful as reversals, while others power up the character. On start-up, Supers freeze the game. This is commonly referred to as &quot;super flash&quot; or &quot;super freeze&quot;. Super freeze also has a special input buffer making these attacks not a good &quot;surpise&quot; attack since they easily reactable during neutral.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Combo Special</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-803f-8134-e7c78e91a27d" class="">There are currently two Combo keys defined by the 2 otherwise unused face buttons on the gamepad (x and y) The idea with these is to work exclusively as situational attacks that are only available under certain circumstances or when certain requirements are met. This could be a way to apply Crowd control after other skills prime it. or follow up certain attacks with a thematic supporting attack. This is directional so targets that meet the conditions would be indicated and could be hit with these attacks quickly.</p></div></div></details></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Combo Break</summary><div class="indented"><div style="display:contents" dir="auto"><p id="320951eb-e05c-8080-9e0c-f108c041038a" class="">While in hitstun a combo break is performed by holding block and pressing either light or heavy attack. You must match the light or heavy type of the incoming attack. If the player selects a non-matching attack type they end up in an extended hitstun and cannot attempt to perform a combo break again for some amount of time either related to the hitstun.</p></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-8024-bf99-e1ca2f167f2d" class="">As this is a form of counter-attack this could possibly also be used to break a grab or control attack during a combo but in these cases matching with the grab button is not needed as attacks beat grabs already. This may be unnecessary clarification as attacks don’t normally link or combo into grabs or control but if edge cases exist this covers it.</p></div></div></details></div><div style="display:contents" dir="auto"><p id="320951eb-e05c-80c4-93a0-e886fc83ff75" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
